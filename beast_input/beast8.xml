@@ -1,0 +1,373 @@
+<?xml version="1.0" standalone="yes"?>
+<beast version="1.10.4">
+	<taxa id="taxa">
+		<taxon id="T3">
+			<date value="2.173512555764666" direction="forwards" units="years"/>
+			<attr name="X">
+				-2.7964025198217266
+			</attr>
+			<attr name="X">
+				-2.7964025198217266
+			</attr>
+		</taxon>
+		<taxon id="T8">
+			<date value="4.404673626324489" direction="forwards" units="years"/>
+			<attr name="X">
+				-0.97555256957857
+			</attr>
+			<attr name="X">
+				-0.97555256957857
+			</attr>
+		</taxon>
+		<taxon id="T10">
+			<date value="3.770167220351988" direction="forwards" units="years"/>
+			<attr name="X">
+				-2.416442293252065
+			</attr>
+			<attr name="X">
+				-2.416442293252065
+			</attr>
+		</taxon>
+		<taxon id="T13">
+			<date value="4.075143843984926" direction="forwards" units="years"/>
+			<attr name="X">
+				-2.7227221226540776
+			</attr>
+			<attr name="X">
+				-2.7227221226540776
+			</attr>
+		</taxon>
+		<taxon id="T24">
+			<date value="5.055379498620052" direction="forwards" units="years"/>
+			<attr name="X">
+				-1.9633954235763733
+			</attr>
+			<attr name="X">
+				-1.9633954235763733
+			</attr>
+		</taxon>
+		<taxon id="T26">
+			<date value="3.946242888393054" direction="forwards" units="years"/>
+			<attr name="X">
+				-1.7989346664392016
+			</attr>
+			<attr name="X">
+				-1.7989346664392016
+			</attr>
+		</taxon>
+		<taxon id="T35">
+			<date value="4.493972460361288" direction="forwards" units="years"/>
+			<attr name="X">
+				-3.3895157300923
+			</attr>
+			<attr name="X">
+				-3.3895157300923
+			</attr>
+		</taxon>
+		<taxon id="T39">
+			<date value="1.8797210579468246" direction="forwards" units="years"/>
+			<attr name="X">
+				-1.3849645085567892
+			</attr>
+			<attr name="X">
+				-1.3849645085567892
+			</attr>
+		</taxon>
+		<taxon id="T45">
+			<date value="4.931302642741899" direction="forwards" units="years"/>
+			<attr name="X">
+				-3.064977974794133
+			</attr>
+			<attr name="X">
+				-3.064977974794133
+			</attr>
+		</taxon>
+		<taxon id="T52">
+			<date value="4.4605179738104965" direction="forwards" units="years"/>
+			<attr name="X">
+				-2.8268787100078274
+			</attr>
+			<attr name="X">
+				-2.8268787100078274
+			</attr>
+		</taxon>
+		<taxon id="T53">
+			<date value="4.21877815573431" direction="forwards" units="years"/>
+			<attr name="X">
+				-3.3132303614581256
+			</attr>
+			<attr name="X">
+				-3.3132303614581256
+			</attr>
+		</taxon>
+		<taxon id="T56">
+			<date value="4.219421067893338" direction="forwards" units="years"/>
+			<attr name="X">
+				-1.1494568796539446
+			</attr>
+			<attr name="X">
+				-1.1494568796539446
+			</attr>
+		</taxon>
+		<taxon id="T57">
+			<date value="3.6729275036272098" direction="forwards" units="years"/>
+			<attr name="X">
+				-1.169981781044525
+			</attr>
+			<attr name="X">
+				-1.169981781044525
+			</attr>
+		</taxon>
+		<taxon id="T59">
+			<date value="2.7156067306626626" direction="forwards" units="years"/>
+			<attr name="X">
+				-1.425237054613518
+			</attr>
+			<attr name="X">
+				-1.425237054613518
+			</attr>
+		</taxon>
+		<taxon id="T73">
+			<date value="4.488287734169505" direction="forwards" units="years"/>
+			<attr name="X">
+				-0.6311372214940839
+			</attr>
+			<attr name="X">
+				-0.6311372214940839
+			</attr>
+		</taxon>
+		<taxon id="T74">
+			<date value="4.437230817054031" direction="forwards" units="years"/>
+			<attr name="X">
+				-0.15650825574879512
+			</attr>
+			<attr name="X">
+				-0.15650825574879512
+			</attr>
+		</taxon>
+		<taxon id="T80">
+			<date value="3.772491070498626" direction="forwards" units="years"/>
+			<attr name="X">
+				0.3823336658315284
+			</attr>
+			<attr name="X">
+				0.3823336658315284
+			</attr>
+		</taxon>
+		<taxon id="T81">
+			<date value="3.7782624958672493" direction="forwards" units="years"/>
+			<attr name="X">
+				-0.4160292283998298
+			</attr>
+			<attr name="X">
+				-0.4160292283998298
+			</attr>
+		</taxon>
+		<taxon id="T82">
+			<date value="4.18917673785834" direction="forwards" units="years"/>
+			<attr name="X">
+				1.7459818376796492
+			</attr>
+			<attr name="X">
+				1.7459818376796492
+			</attr>
+		</taxon>
+		<taxon id="T83">
+			<date value="1.2264548870595566" direction="forwards" units="years"/>
+			<attr name="X">
+				-0.9054296162580399
+			</attr>
+			<attr name="X">
+				-0.9054296162580399
+			</attr>
+		</taxon>
+	</taxa>
+	<newick id="startingTree">
+		((T3:1.5638459008360686,((((T8:1.3855258771605177,(T10:0.37878585760987055,T13:0.6837624812428085)T9:0.37223361357814594)T7:0.7936145645871627,((T24:1.2800393862989288,T26:0.17090277607193066)T22:0.059182369117272156,T35:0.7778147171574364)T20:1.4906245586270421)T6:0.5006880400982422,T39:0.1548759134682577)T5:0.12256221114130789,((T45:1.3419427271897548,(T52:0.7882116241634085,T53:0.5464718060872225)T51:0.08294643409494312)T41:1.774032354280464,((T56:1.104033679375372,T57:0.5575401151092441)T55:1.256633738535987,(T59:0.3418778195579015,((((T73:0.2885453944052685,T74:0.2374884772897939)T72:0.6287800634716034,T80:0.20152879420599268)T62:0.04192308126565682,T81:0.24922330084027303)T61:0.16033238667640454,T82:0.8204699295077686)T60:0.9949778972458105)T58:0.5149752611227829)T54:0.0434260887102982)T40:0.2130446279344212)T4:0.9926162784086614)T2:0.6096666549285976,T83:1.2264548870595566)T1:0.4225548106023524;
+
+	</newick>
+	<treeModel id="treeModel">
+		<coalescentTree idref="startingTree"/>
+		<rootHeight>
+			<parameter id="treeModel.rootHeight"/>
+		</rootHeight>
+		<nodeHeights internalNodes="true">
+			<parameter id="treeModel.internalNodeHeights"/>
+		</nodeHeights>
+		<nodeHeights internalNodes="true" rootNode="true">
+			<parameter id="treeModel.allInternalNodeHeights"/>
+		</nodeHeights>
+	</treeModel>
+	<!-- Statistic for sum of the branch lengths of the tree (tree length)       -->
+	<treeLengthStatistic id="treeLength">
+		<treeModel idref="treeModel"/>
+	</treeLengthStatistic>
+
+	<!-- Statistic for time of most recent common ancestor of tree               -->
+	<tmrcaStatistic id="age(root)" absolute="true">
+		<treeModel idref="treeModel"/>
+	</tmrcaStatistic>
+
+<!-- START Multivariate diffusion model                                      -->
+
+	<multivariateDiffusionModel id="X.diffusionModel">
+		<precisionMatrix>
+			<matrixParameter id="X.precision">
+				<parameter id="X.precision.col1" value="0.05"/>
+			</matrixParameter>
+		</precisionMatrix>
+	</multivariateDiffusionModel>
+
+	<multivariateWishartPrior id="X.precisionPrior" df="1">
+		<scaleMatrix>
+			<matrixParameter>
+				<parameter value="1.0"/>
+			</matrixParameter>
+		</scaleMatrix>
+		<data>
+			<parameter idref="X.precision"/>
+		</data>
+	</multivariateWishartPrior>
+
+	<!-- END Multivariate diffusion model                                        -->
+
+	
+
+	<!-- START Multivariate diffusion model                                      -->
+
+	<multivariateTraitLikelihood id="X.traitLikelihood" traitName="X" useTreeLength="true" scaleByTime="true" reportAsMultivariate="true" reciprocalRates="true" integrateInternalTraits="true">
+		<multivariateDiffusionModel idref="X.diffusionModel"/>
+		<treeModel idref="treeModel"/>
+		<traitParameter>
+			<parameter id="leaf.X"/>
+		</traitParameter>
+		<conjugateRootPrior>
+			<meanParameter>
+				<parameter value="0.0"/>
+			</meanParameter>
+			<priorSampleSize>
+				<parameter value="0.000001"/>
+			</priorSampleSize>
+		</conjugateRootPrior>
+	</multivariateTraitLikelihood>
+	<matrixInverse id="X.varCovar">
+		<matrixParameter idref="X.precision"/>
+	</matrixInverse>
+	<continuousDiffusionStatistic id="X.diffusionRate">
+		<multivariateTraitLikelihood idref="X.traitLikelihood"/>
+	</continuousDiffusionStatistic>
+
+
+	<!-- END Multivariate diffusion model                                        -->
+
+
+	<!-- Define operators                                                        -->
+	<operators id="operators" optimizationSchedule="log">
+
+		<!-- START Multivariate diffusion model                                      -->
+		<precisionGibbsOperator weight="1">
+			<multivariateTraitLikelihood idref="X.traitLikelihood"/>
+			<multivariateWishartPrior idref="X.precisionPrior"/>
+		</precisionGibbsOperator>
+
+		<!-- END Multivariate diffusion model                                        -->
+
+	</operators>
+	
+
+	<!-- Define MCMC                                                             -->
+	<mcmc id="mcmc" chainLength="50000" autoOptimize="true" operatorAnalysis="beast_output\beast8.ops.txt">
+		<joint id="joint">
+			<prior id="prior">
+				
+
+				<!-- START Multivariate diffusion model                                      -->
+				<multivariateWishartPrior idref="X.precisionPrior"/>
+
+				<!-- END Multivariate diffusion model                                        -->
+
+			</prior>
+			<likelihood id="likelihood">
+				
+
+				<!-- START Multivariate diffusion model                                      -->
+				<multivariateTraitLikelihood idref="X.traitLikelihood"/>
+
+				<!-- END Multivariate diffusion model                                        -->
+
+			</likelihood>
+		</joint>
+		<operators idref="operators"/>
+
+		<!-- write log to screen                                                     -->
+		<log id="screenLog" logEvery="20">
+			<column label="Joint" dp="4" width="12">
+				<joint idref="joint"/>
+			</column>
+			<column label="Prior" dp="4" width="12">
+				<prior idref="prior"/>
+			</column>
+			<column label="Likelihood" dp="4" width="12">
+				<likelihood idref="likelihood"/>
+			</column>
+			<column label="age(root)" sf="6" width="12">
+				<tmrcaStatistic idref="age(root)"/>
+			</column>
+			
+		</log>
+
+		<!-- write log to file                                                       -->
+		<log id="fileLog" logEvery="20" fileName="beast_output\beast8.log.txt" overwrite="false">
+			<joint idref="joint"/>
+			<prior idref="prior"/>
+			<likelihood idref="likelihood"/>
+			<parameter idref="treeModel.rootHeight"/>
+			<tmrcaStatistic idref="age(root)"/>
+			<treeLengthStatistic idref="treeLength"/>
+			
+
+			<!-- START Multivariate diffusion model                                      -->
+			<matrixParameter idref="X.precision"/>
+			<matrixInverse idref="X.varCovar"/>
+			<continuousDiffusionStatistic idref="X.diffusionRate"/>
+
+			<!-- END Multivariate diffusion model                                        -->
+
+			<!-- START Multivariate diffusion model                                      -->
+			<multivariateTraitLikelihood idref="X.traitLikelihood"/>
+
+			<!-- END Multivariate diffusion model                                        -->
+
+			
+			
+		</log>
+        
+		<!-- write tree log to file                                                  -->
+		<logTree id="treeFileLog" logEvery="20" nexusFormat="true" fileName="beast_output\beast8.trees.txt" sortTranslationTable="true">
+			<treeModel idref="treeModel"/>
+			
+			<joint idref="joint"/>
+
+			<!-- START Ancestral state reconstruction                                    -->
+			<trait name="X" tag="X">
+				<multivariateTraitLikelihood idref="X.traitLikelihood"/>
+			</trait>
+
+			<!-- END Ancestral state reconstruction                                      -->
+
+
+			<!-- START Multivariate diffusion model                                      -->
+			<multivariateDiffusionModel idref="X.diffusionModel"/>
+			<multivariateTraitLikelihood idref="X.traitLikelihood"/>
+
+			<!-- END Multivariate diffusion model                                        -->
+
+		</logTree>
+	</mcmc>
+	
+	<report>
+		<property name="timer">
+			<mcmc idref="mcmc"/>
+		</property>
+	</report>
+</beast>

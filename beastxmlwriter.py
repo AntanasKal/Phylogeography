@@ -17,7 +17,7 @@ def write_BEAST_xml(t, d, i, dimension):
         
         
 def write_BEAST_xml_dim_2(t, d, i):
-    file = open("output8/beast"+str(i)+".xml","w")
+    file = open("beast_input/beast"+str(i)+".xml","w")
     file.write('<?xml version="1.0" standalone="yes"?>\n')
     file.write('<beast version="1.10.4">\n')
     file.write('\t<taxa id="taxa">\n')
@@ -183,7 +183,7 @@ def write_BEAST_xml_dim_2(t, d, i):
 	
 
 	<!-- Define MCMC                                                             -->
-	<mcmc id="mcmc" chainLength="50000" autoOptimize="true" operatorAnalysis=""" +'"beastfiles\\beast'+str(i)+'.ops.txt"'+""">
+	<mcmc id="mcmc" chainLength="50000" autoOptimize="true" operatorAnalysis=""" +'"beast_output\\beast'+str(i)+'.ops.txt"'+""">
 		<joint id="joint">
 			<prior id="prior">
 				
@@ -209,7 +209,7 @@ def write_BEAST_xml_dim_2(t, d, i):
 		<operators idref="operators"/>
 
 		<!-- write log to screen                                                     -->
-		<log id="screenLog" logEvery="50">
+		<log id="screenLog" logEvery="20">
 			<column label="Joint" dp="4" width="12">
 				<joint idref="joint"/>
 			</column>
@@ -226,7 +226,7 @@ def write_BEAST_xml_dim_2(t, d, i):
 		</log>
 
 		<!-- write log to file                                                       -->
-		<log id="fileLog" logEvery="50" fileName="""+'"beastfiles\\beast'+str(i)+'.log.txt"'+""" overwrite="false">
+		<log id="fileLog" logEvery="20" fileName="""+'"beast_output\\beast'+str(i)+'.log.txt"'+""" overwrite="false">
 			<joint idref="joint"/>
 			<prior idref="prior"/>
 			<likelihood idref="likelihood"/>
@@ -256,7 +256,7 @@ def write_BEAST_xml_dim_2(t, d, i):
 		</log>
 
 		<!-- write tree log to file                                                  -->
-		<logTree id="treeFileLog" logEvery="50" nexusFormat="true" fileName="""+'"beastfiles\\beast'+str(i)+'.trees.txt"'""" sortTranslationTable="true">
+		<logTree id="treeFileLog" logEvery="20" nexusFormat="true" fileName="""+'"beast_output\\beast'+str(i)+'.trees.txt"'""" sortTranslationTable="true">
 			<treeModel idref="treeModel"/>
 			
 			<joint idref="joint"/>
@@ -295,7 +295,7 @@ def write_BEAST_xml_dim_2(t, d, i):
     
     
 def write_BEAST_xml_dim_1(t, d, i):
-    file = open("output8/beast"+str(i)+".xml","w")
+    file = open("beast_input/beast"+str(i)+".xml","w")
     file.write('<?xml version="1.0" standalone="yes"?>\n')
     file.write('<beast version="1.10.4">\n')
     file.write('\t<taxa id="taxa">\n')
@@ -409,7 +409,7 @@ def write_BEAST_xml_dim_1(t, d, i):
 	
 
 	<!-- Define MCMC                                                             -->
-	<mcmc id="mcmc" chainLength="50000" autoOptimize="true" operatorAnalysis=""" +'"beastfiles\\beast'+str(i)+'.ops.txt"'+""">
+	<mcmc id="mcmc" chainLength="50000" autoOptimize="true" operatorAnalysis=""" +'"beast_output\\beast'+str(i)+'.ops.txt"'+""">
 		<joint id="joint">
 			<prior id="prior">
 				
@@ -433,7 +433,7 @@ def write_BEAST_xml_dim_1(t, d, i):
 		<operators idref="operators"/>
 
 		<!-- write log to screen                                                     -->
-		<log id="screenLog" logEvery="50">
+		<log id="screenLog" logEvery="20">
 			<column label="Joint" dp="4" width="12">
 				<joint idref="joint"/>
 			</column>
@@ -450,7 +450,7 @@ def write_BEAST_xml_dim_1(t, d, i):
 		</log>
 
 		<!-- write log to file                                                       -->
-		<log id="fileLog" logEvery="50" fileName="""+'"beastfiles\\beast'+str(i)+'.log.txt"'+""" overwrite="false">
+		<log id="fileLog" logEvery="20" fileName="""+'"beast_output\\beast'+str(i)+'.log.txt"'+""" overwrite="false">
 			<joint idref="joint"/>
 			<prior idref="prior"/>
 			<likelihood idref="likelihood"/>
@@ -476,7 +476,7 @@ def write_BEAST_xml_dim_1(t, d, i):
 		</log>
         
 		<!-- write tree log to file                                                  -->
-		<logTree id="treeFileLog" logEvery="50" nexusFormat="true" fileName="""+'"beastfiles\\beast'+str(i)+'.trees.txt"'""" sortTranslationTable="true">
+		<logTree id="treeFileLog" logEvery="20" nexusFormat="true" fileName="""+'"beast_output\\beast'+str(i)+'.trees.txt"'""" sortTranslationTable="true">
 			<treeModel idref="treeModel"/>
 			
 			<joint idref="joint"/>

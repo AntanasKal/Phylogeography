@@ -14,18 +14,6 @@ import dendropy
 import random
 from dendropy.simulate import treesim
 
-
-parser = argparse.ArgumentParser(description='Run a simulation')
-parser.add_argument('integers', metavar='N', type=int, nargs='+',
-                    help='an integer for the accumulator')
-parser.add_argument('--sum', dest='accumulate', action='store_const',
-                    const=sum, default=max,
-                    help='sum the integers (default: find the max)')
-
-args = parser.parse_args()
-print(args.accumulate(args.integers))
-
-
 #this function generates borwnian motion for a given tree
 def simulate_brownian(t, sigma, dimension):
     #t is the tree
@@ -40,6 +28,7 @@ def simulate_brownian(t, sigma, dimension):
                 node.displacementY = float(0)
         else:
             node.displacementX = random.gauss(0, sigma*math.sqrt(node.edge.length))
+#            node.displacementX = random.gauss(0, sigma*node.edge.length)
             node.X = node.parent_node.X+node.displacementX            
             if dimension==2:
                 node.displacementY = random.gauss(0, sigma*math.sqrt(node.edge.length))
@@ -52,8 +41,7 @@ def calculate_times(t):
         if node.parent_node is None:
             node.time = 0
         else:
-            node.time = node.parent_node.time+node.edge.length
-            
+            node.time = node.parent_node.time+node.edge.length            
     return t 
 
 
@@ -223,3 +211,40 @@ def generate_coalescent_nonultrametric_tree():
 #     print(tree.as_ascii_plot(show_internal_node_labels=True, plot_metric='length'))
     tree=calculate_times(tree)
     return tree
+    
+
+parser = argparse.ArgumentParser(description='Run simulations')
+parser.add_argument('-dims', dest='dimension', type=int, default=1, help='number of dimensions (1 or 2) for which the random walk is generated (default: 1)')
+parser.add_argument('-N', action="store", type=int, dest="num_trees", default=5, help='number of simulations (default 5)')
+parser.add_argument('-treetype', action="store", dest="tree_type", default='nuc', help='type of tree generated \n "nuc" - nonultrametric coalescent \n "uc" - ultrametric coalescent \n "bd" - birth-death tree')
+
+
+
+args = parser.parse_args()
+dimension = args.dimension
+num_trees = args.num_trees
+
+
+
+for i in range(num_trees):
+    t=dendropy.Tree()
+    if args.tree_type == "nuc":
+        t = generate_coalescent_nonultrametric_tree()
+    elif args.tree_type == "uc":
+        t = generate_ultrametric_coalescent_tree()
+    elif args.tree_type == "bd":
+        t = generate_birthdeath_tree(1, 0.5, 20)
+    else:
+        print(args.tree_type+" is invalid tree type")
+        break
+                
+        
+    t= simulate_brownian(t, 1, dimension)
+    
+    #simulate hky (currently not needed)
+    d=dendropy.model.discrete.hky85_chars(kappa=3, mutation_rate=0.01, seq_len=1000,tree_model=t, retain_sequences_on_tree=False)
+ #   d= dendropy.DnaCharacterMatrix()
+    beastxmlwriter.write_BEAST_xml(t, d, i, dimension)
+    
+    import os
+    os.system('cmd /c java -jar beast.jar -overwrite -seed 1234 "beast_input\\beast'+str(i)+'.xml"')
