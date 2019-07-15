@@ -5,46 +5,59 @@ Created on Fri Jul 12 15:37:34 2019
 @author: Antanas
 """
 
-import argparse
+#the code that wirtes BEAST xml files is in different file, "beastxmlwriter.py"
+import beastxmlwriter
 
-parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('integers', metavar='N', type=int, nargs='+', help='an integer for the accumulator')
-parser.add_argument('--sum', dest='accumulate', action='store_const', const=sum, default=max, help='sum the integers (default: find the max)')
+import math 
+import argparse
+import dendropy
+import random
+from dendropy.simulate import treesim
+
+
+parser = argparse.ArgumentParser(description='Run a simulation')
+parser.add_argument('integers', metavar='N', type=int, nargs='+',
+                    help='an integer for the accumulator')
+parser.add_argument('--sum', dest='accumulate', action='store_const',
+                    const=sum, default=max,
+                    help='sum the integers (default: find the max)')
 
 args = parser.parse_args()
 print(args.accumulate(args.integers))
 
 
-import dendropy
-import random
-from dendropy.simulate import treesim
-
-def simulate_brownian(t, var, dimension):
+#this function generates borwnian motion for a given tree
+def simulate_brownian(t, sigma, dimension):
+    #t is the tree
+    #sigma is the standard deviation of the brownian motion
+    #dimension is the number of dimensions in which we generate the random walk
     for node in t.preorder_node_iter():
         if node.parent_node is None:
             node.X = float(0)
-            node.displacementx = float(0)
+            node.displacementX = float(0)
             if dimension==2:
                 node.Y = float (0)
-                node.displacementy = float(0)
+                node.displacementY = float(0)
         else:
-            node.displacementx = random.gauss(0, var*node.edge.length)
-            node.X = node.parent_node.X+node.displacementx            
+            node.displacementX = random.gauss(0, sigma*math.sqrt(node.edge.length))
+            node.X = node.parent_node.X+node.displacementX            
             if dimension==2:
-                node.displacementy = random.gauss(0, var*node.edge.length)
-                node.Y = node.parent_node.Y+node.displacementy            
+                node.displacementY = random.gauss(0, sigma*math.sqrt(node.edge.length))
+                node.Y = node.parent_node.Y+node.displacementY            
     return t
 
-def cal_times(t):
+#this function calculates the time from the seed node to the present (seed node has time 0)
+def calculate_times(t):
     for node in t.preorder_node_iter():
         if node.parent_node is None:
             node.time = 0
         else:
-            node.time = node.parent_node.time+node.edge.length            
-    return t    
+            node.time = node.parent_node.time+node.edge.length
+            
+    return t 
 
 
-def generate_tree(br, dr, num_extinct):
+def generate_birthdeath_tree(br, dr, num_extinct):
     t = treesim.birth_death_tree(birth_rate=br, death_rate=dr, num_extinct_tips=num_extinct, is_retain_extinct_tips=True, is_add_extinct_attr=True)
     #t.print_plot()    
     
@@ -66,10 +79,12 @@ def generate_tree(br, dr, num_extinct):
     t =prune_nodes(t)
     
     #distance to root
-    t=cal_times(t)
+    t=calculate_times(t)
         
     return t
 
+#this function checks which of the nodes is an extinct leaf or an ancestor of an extinct leaf
+#and only leaves these nodes in the tree
 def prune_nodes(t):
     for leaf in t.leaf_node_iter():    
         if hasattr(leaf, 'is_extinct'):
@@ -87,36 +102,42 @@ def prune_nodes(t):
     labels = set([taxon.label for taxon in t.taxon_namespace
         if not t.find_node_for_taxon(taxon).extinct_ancestor])
     t1 = t.extract_tree_without_taxa_labels(labels=labels)
-
     return t1
 
 
-
-
-def generate_coalescent_tree():
-    num_tips = 20
+#function to generate coalescent trees (this is the ultrametric case)
+def generate_ultrametric_coalescent_tree(num_tips):
     names = []
+    lamb = 1
+    
+    #if there are N tips, there must be 2N-1 nodes
     for i in range(2*num_tips-1):
         names.append("T"+str(i))
-    
-#     print(names)
     
     taxon_namespace = dendropy.TaxonNamespace(names)
     tree = dendropy.Tree(taxon_namespace=taxon_namespace)
     time_from_present = 0
+    
+    #current_nodes is a list of nodes that are currently not merged
     current_nodes = []
     for i in range(num_tips):
         node = dendropy.Node(taxon=taxon_namespace.get_taxon("T"+str(i)))
         current_nodes.append(node)
-        node.age = 0
-        
+        node.age = 0 
     
     
+    #if there are N leaves, there must be N-1 merges
     for merges in range(num_tips-1):
-        time_to_coalescent=random.expovariate(len(current_nodes)*(len(current_nodes)-1)/2)
+        #calculating time to the next coalescent
+        time_to_coalescent=random.expovariate(lamb*len(current_nodes)*(len(current_nodes)-1)/2)
+        
         time_from_present=time_from_present+time_to_coalescent
+        
+        #choosing 2 indices of nodes that will be merged  randomly
         merging_branches = random.sample(range(len(current_nodes)),2)
         node = dendropy.Node(taxon=taxon_namespace.get_taxon("T"+str(merges+num_tips)))
+        
+        #if it is the last merge, instead of creting a new node, we set the node of the merge to be the seed node
         if merges == num_tips-2:
             node=tree.seed_node
             node.taxon=taxon_namespace.get_taxon("T"+str(merges+num_tips))
@@ -125,36 +146,44 @@ def generate_coalescent_tree():
         current_nodes[merging_branches[1]].edge.length=time_from_present-current_nodes[merging_branches[1]].age
         node.set_child_nodes([current_nodes[merging_branches[0]], current_nodes[merging_branches[1]]])
         
+        #deleting the nodes that have been merging from the list of nodes
         current_nodes.pop(max(merging_branches))
         current_nodes.pop(min(merging_branches))
         current_nodes.append(node)
-#     print(tree.as_string("newick"))
-#     print(tree.as_ascii_plot(show_internal_node_labels=True, plot_metric='length'))
-    tree=cal_times(tree)
+        
+    tree=calculate_times(tree)
     return tree
 
 
 
+
+#function to generate coalescent nonultrametric trees
 def generate_coalescent_nonultrametric_tree():
+    #a number num_tips_per_period is added every period_length of time units for num_periods times
     lamb=1
-    period_length=1.3
+    period_length=1
     num_tips_per_period = 5
-    num_periods = 4
+    num_periods = 3
     num_tips = num_tips_per_period*num_periods
     names = []
+    
+    #if there are N tips, there must be 2N-1 nodes
     for i in range(2*num_tips-1):
         names.append("T"+str(i))
-#     print(names)
 
-    
     taxon_namespace = dendropy.TaxonNamespace(names)
     tree = dendropy.Tree(taxon_namespace=taxon_namespace)
     time_from_present = 0
     current_nodes = []
+    
+    #index variable simply keeps track of the number of nodes added just to choose the right name
     index = 0
     
+    #simulating coalescent during every period
     for current_period in range(num_periods):
         time_from_present=current_period*period_length
+        
+        #adding new tips during this period
         for i in range(num_tips_per_period):
             node = dendropy.Node(taxon=taxon_namespace.get_taxon("T"+str(index)))
             current_nodes.append(node)
@@ -164,10 +193,13 @@ def generate_coalescent_nonultrametric_tree():
         
         current_num_tips = len(current_nodes)
         
+        #iterating over the merges (if currently there are N unmerged nodes, there can be at most N-1 merges)
         for merges in range(current_num_tips-1):
             time_to_coalescent=random.expovariate(lamb*len(current_nodes)*(len(current_nodes)-1)/2)
-            print(len(current_nodes))
             time_from_present=time_from_present+time_to_coalescent
+            
+            #if current time exceeds the end of current period, we stop the simulation of the period
+            #and start simulating the next period
             if current_period < num_periods-1 and time_from_present > (current_period+1)*period_length:
                 break
             else:
@@ -188,531 +220,6 @@ def generate_coalescent_nonultrametric_tree():
                 current_nodes.pop(max(merging_branches))
                 current_nodes.pop(min(merging_branches))
                 current_nodes.append(node)
-    print(tree.as_string("newick"))
-    print(tree.as_ascii_plot(show_internal_node_labels=True, plot_metric='length'))
-    tree=cal_times(tree)
+#     print(tree.as_ascii_plot(show_internal_node_labels=True, plot_metric='length'))
+    tree=calculate_times(tree)
     return tree
-
-tree=generate_coalescent_nonultrametric_tree()
-
-for node in tree.preorder_node_iter():
-    print("%s : %s : %s" % (node.taxon.label, node.time, node.age))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def write_BEAST_xml(t, d, i, dimension):
-    if dimension==2:
-        write_BEAST_xml_dim_2(t, d, i)
-    else:
-        write_BEAST_xml_dim_1(t, d, i)
-        
-def write_BEAST_xml_dim_2(t, d, i):
-    file = open("output8/beast"+str(i)+".xml","w")
-    file.write('<?xml version="1.0" standalone="yes"?>\n')
-    file.write('<beast version="1.10.4">\n')
-    file.write('\t<taxa id="taxa">\n')
-    for tax in d:
-        file.write('\t\t<taxon id="'+tax.label+'">\n')
-        file.write('\t\t\t<date value="'+str(t.find_node_for_taxon(tax).time)+'" direction="forwards" units="years"/>\n')
-        file.write('\t\t\t<attr name="X">\n')
-        file.write('\t\t\t\t'+str(t.find_node_for_taxon(tax).X)+'\n')
-        file.write('\t\t\t</attr>\n')
-        file.write('\t\t\t<attr name="Y">\n')
-        file.write('\t\t\t\t'+str(t.find_node_for_taxon(tax).Y)+'\n')
-        file.write('\t\t\t</attr>\n')
-        
-        ##perhaps not needed?
-        file.write('\t\t\t<attr name="X">\n')
-        file.write('\t\t\t\t'+str(t.find_node_for_taxon(tax).X)+'\n')
-        file.write('\t\t\t</attr>\n')
-        file.write('\t\t\t<attr name="Y">\n')
-        file.write('\t\t\t\t'+str(t.find_node_for_taxon(tax).Y)+'\n')
-        file.write('\t\t\t</attr>\n')
-
-        file.write('\t\t</taxon>\n')   
-    file.write('\t</taxa>\n')  
-    
-    file.write('\t<newick id="startingTree">\n')
-    file.write('\t\t'+t.as_string(schema="newick",suppress_rooting=True)+'\n')
-    
-    file.write('\t</newick>\n')
-    
-
-    
-    file.write("""	<treeModel id="treeModel">
-		<coalescentTree idref="startingTree"/>
-		<rootHeight>
-			<parameter id="treeModel.rootHeight"/>
-		</rootHeight>
-		<nodeHeights internalNodes="true">
-			<parameter id="treeModel.internalNodeHeights"/>
-		</nodeHeights>
-		<nodeHeights internalNodes="true" rootNode="true">
-			<parameter id="treeModel.allInternalNodeHeights"/>
-		</nodeHeights>
-	</treeModel>\n""")
-    
-    file.write("""	<!-- Statistic for sum of the branch lengths of the tree (tree length)       -->
-	<treeLengthStatistic id="treeLength">
-		<treeModel idref="treeModel"/>
-	</treeLengthStatistic>
-
-	<!-- Statistic for time of most recent common ancestor of tree               -->
-	<tmrcaStatistic id="age(root)" absolute="true">
-		<treeModel idref="treeModel"/>
-	</tmrcaStatistic>
-
-<!-- START Multivariate diffusion model                                      -->
-
-	<multivariateDiffusionModel id="X.diffusionModel">
-		<precisionMatrix>
-			<matrixParameter id="X.precision">
-				<parameter id="X.precision.col1" value="0.05"/>
-			</matrixParameter>
-		</precisionMatrix>
-	</multivariateDiffusionModel>
-
-	<multivariateWishartPrior id="X.precisionPrior" df="1">
-		<scaleMatrix>
-			<matrixParameter>
-				<parameter value="1.0"/>
-			</matrixParameter>
-		</scaleMatrix>
-		<data>
-			<parameter idref="X.precision"/>
-		</data>
-	</multivariateWishartPrior>
-
-	<multivariateDiffusionModel id="Y.diffusionModel">
-		<precisionMatrix>
-			<matrixParameter id="Y.precision">
-				<parameter id="Y.precision.col1" value="0.05"/>
-			</matrixParameter>
-		</precisionMatrix>
-	</multivariateDiffusionModel>
-
-	<multivariateWishartPrior id="Y.precisionPrior" df="1">
-		<scaleMatrix>
-			<matrixParameter>
-				<parameter value="1.0"/>
-			</matrixParameter>
-		</scaleMatrix>
-		<data>
-			<parameter idref="Y.precision"/>
-		</data>
-	</multivariateWishartPrior>
-
-	<!-- END Multivariate diffusion model                                        -->
-
-	
-
-	<!-- START Multivariate diffusion model                                      -->
-
-	<multivariateTraitLikelihood id="X.traitLikelihood" traitName="X" useTreeLength="true" scaleByTime="true" reportAsMultivariate="true" reciprocalRates="true" integrateInternalTraits="true">
-		<multivariateDiffusionModel idref="X.diffusionModel"/>
-		<treeModel idref="treeModel"/>
-		<traitParameter>
-			<parameter id="leaf.X"/>
-		</traitParameter>
-		<conjugateRootPrior>
-			<meanParameter>
-				<parameter value="0.0"/>
-			</meanParameter>
-			<priorSampleSize>
-				<parameter value="0.000001"/>
-			</priorSampleSize>
-		</conjugateRootPrior>
-	</multivariateTraitLikelihood>
-	<matrixInverse id="X.varCovar">
-		<matrixParameter idref="X.precision"/>
-	</matrixInverse>
-	<continuousDiffusionStatistic id="X.diffusionRate">
-		<multivariateTraitLikelihood idref="X.traitLikelihood"/>
-	</continuousDiffusionStatistic>
-
-
-	<multivariateTraitLikelihood id="Y.traitLikelihood" traitName="Y" useTreeLength="true" scaleByTime="true" reportAsMultivariate="true" reciprocalRates="true" integrateInternalTraits="true">
-		<multivariateDiffusionModel idref="Y.diffusionModel"/>
-		<treeModel idref="treeModel"/>
-		<traitParameter>
-			<parameter id="leaf.Y"/>
-		</traitParameter>
-		<conjugateRootPrior>
-			<meanParameter>
-				<parameter value="0.0"/>
-			</meanParameter>
-			<priorSampleSize>
-				<parameter value="0.000001"/>
-			</priorSampleSize>
-		</conjugateRootPrior>
-	</multivariateTraitLikelihood>
-	<matrixInverse id="Y.varCovar">
-		<matrixParameter idref="Y.precision"/>
-	</matrixInverse>
-	<continuousDiffusionStatistic id="Y.diffusionRate">
-		<multivariateTraitLikelihood idref="Y.traitLikelihood"/>
-	</continuousDiffusionStatistic>
-
-	<!-- END Multivariate diffusion model                                        -->
-
-
-	<!-- Define operators                                                        -->
-	<operators id="operators" optimizationSchedule="log">
-
-		<!-- START Multivariate diffusion model                                      -->
-		<precisionGibbsOperator weight="1">
-			<multivariateTraitLikelihood idref="X.traitLikelihood"/>
-			<multivariateWishartPrior idref="X.precisionPrior"/>
-		</precisionGibbsOperator>
-		<precisionGibbsOperator weight="1">
-			<multivariateTraitLikelihood idref="Y.traitLikelihood"/>
-			<multivariateWishartPrior idref="Y.precisionPrior"/>
-		</precisionGibbsOperator>
-
-		<!-- END Multivariate diffusion model                                        -->
-
-	</operators>
-	
-
-	<!-- Define MCMC                                                             -->
-	<mcmc id="mcmc" chainLength="1000000" autoOptimize="true" operatorAnalysis=""" +'"beast'+str(i)+'.ops.txt"'+""">
-		<joint id="joint">
-			<prior id="prior">
-				
-
-				<!-- START Multivariate diffusion model                                      -->
-				<multivariateWishartPrior idref="X.precisionPrior"/>
-				<multivariateWishartPrior idref="Y.precisionPrior"/>
-
-				<!-- END Multivariate diffusion model                                        -->
-
-			</prior>
-			<likelihood id="likelihood">
-				
-
-				<!-- START Multivariate diffusion model                                      -->
-				<multivariateTraitLikelihood idref="X.traitLikelihood"/>
-				<multivariateTraitLikelihood idref="Y.traitLikelihood"/>
-
-				<!-- END Multivariate diffusion model                                        -->
-
-			</likelihood>
-		</joint>
-		<operators idref="operators"/>
-
-		<!-- write log to screen                                                     -->
-		<log id="screenLog" logEvery="1000">
-			<column label="Joint" dp="4" width="12">
-				<joint idref="joint"/>
-			</column>
-			<column label="Prior" dp="4" width="12">
-				<prior idref="prior"/>
-			</column>
-			<column label="Likelihood" dp="4" width="12">
-				<likelihood idref="likelihood"/>
-			</column>
-			<column label="age(root)" sf="6" width="12">
-				<tmrcaStatistic idref="age(root)"/>
-			</column>
-			
-		</log>
-
-		<!-- write log to file                                                       -->
-		<log id="fileLog" logEvery="1000" fileName="""+'"beast'+str(i)+'.log.txt"'+""" overwrite="false">
-			<joint idref="joint"/>
-			<prior idref="prior"/>
-			<likelihood idref="likelihood"/>
-			<parameter idref="treeModel.rootHeight"/>
-			<tmrcaStatistic idref="age(root)"/>
-			<treeLengthStatistic idref="treeLength"/>
-			
-
-			<!-- START Multivariate diffusion model                                      -->
-			<matrixParameter idref="X.precision"/>
-			<matrixInverse idref="X.varCovar"/>
-			<continuousDiffusionStatistic idref="X.diffusionRate"/>
-			<matrixParameter idref="Y.precision"/>
-			<matrixInverse idref="Y.varCovar"/>
-			<continuousDiffusionStatistic idref="Y.diffusionRate"/>
-
-			<!-- END Multivariate diffusion model                                        -->
-
-			<!-- START Multivariate diffusion model                                      -->
-			<multivariateTraitLikelihood idref="X.traitLikelihood"/>
-			<multivariateTraitLikelihood idref="Y.traitLikelihood"/>
-
-			<!-- END Multivariate diffusion model                                        -->
-
-			
-			
-		</log>
-
-		<!-- write tree log to file                                                  -->
-		<logTree id="treeFileLog" logEvery="1000" nexusFormat="true" fileName="""+'"beast'+str(i)+'.trees.txt"'""" sortTranslationTable="true">
-			<treeModel idref="treeModel"/>
-			
-			<joint idref="joint"/>
-
-			<!-- START Ancestral state reconstruction                                    -->
-			<trait name="X" tag="X">
-				<multivariateTraitLikelihood idref="X.traitLikelihood"/>
-			</trait>
-			<trait name="Y" tag="Y">
-				<multivariateTraitLikelihood idref="Y.traitLikelihood"/>
-			</trait>
-
-			<!-- END Ancestral state reconstruction                                      -->
-
-
-			<!-- START Multivariate diffusion model                                      -->
-			<multivariateDiffusionModel idref="X.diffusionModel"/>
-			<multivariateTraitLikelihood idref="X.traitLikelihood"/>
-			<multivariateDiffusionModel idref="Y.diffusionModel"/>
-			<multivariateTraitLikelihood idref="Y.traitLikelihood"/>
-
-			<!-- END Multivariate diffusion model                                        -->
-
-		</logTree>
-	</mcmc>
-	
-	<report>
-		<property name="timer">
-			<mcmc idref="mcmc"/>
-		</property>
-	</report>\n""")    
-        
-    file.write('</beast>\n')
-        
-    file.close()
-    
-def write_BEAST_xml_dim_1(t, d, i):
-    file = open("output8/beast"+str(i)+".xml","w")
-    file.write('<?xml version="1.0" standalone="yes"?>\n')
-    file.write('<beast version="1.10.4">\n')
-    file.write('\t<taxa id="taxa">\n')
-    for tax in d:
-        file.write('\t\t<taxon id="'+tax.label+'">\n')
-        file.write('\t\t\t<date value="'+str(t.find_node_for_taxon(tax).time)+'" direction="forwards" units="years"/>\n')
-        file.write('\t\t\t<attr name="X">\n')
-        file.write('\t\t\t\t'+str(t.find_node_for_taxon(tax).X)+'\n')
-        file.write('\t\t\t</attr>\n')        
-        ##perhaps not needed?
-        file.write('\t\t\t<attr name="X">\n')
-        file.write('\t\t\t\t'+str(t.find_node_for_taxon(tax).X)+'\n')
-        file.write('\t\t\t</attr>\n')
-
-        file.write('\t\t</taxon>\n')   
-    file.write('\t</taxa>\n')  
-    
-    file.write('\t<newick id="startingTree">\n')
-    file.write('\t\t'+t.as_string(schema="newick",suppress_rooting=True)+'\n')
-    
-    file.write('\t</newick>\n')
-    
-    file.write("""	<treeModel id="treeModel">
-		<coalescentTree idref="startingTree"/>
-		<rootHeight>
-			<parameter id="treeModel.rootHeight"/>
-		</rootHeight>
-		<nodeHeights internalNodes="true">
-			<parameter id="treeModel.internalNodeHeights"/>
-		</nodeHeights>
-		<nodeHeights internalNodes="true" rootNode="true">
-			<parameter id="treeModel.allInternalNodeHeights"/>
-		</nodeHeights>
-	</treeModel>\n""")
-    
-    file.write("""	<!-- Statistic for sum of the branch lengths of the tree (tree length)       -->
-	<treeLengthStatistic id="treeLength">
-		<treeModel idref="treeModel"/>
-	</treeLengthStatistic>
-
-	<!-- Statistic for time of most recent common ancestor of tree               -->
-	<tmrcaStatistic id="age(root)" absolute="true">
-		<treeModel idref="treeModel"/>
-	</tmrcaStatistic>
-
-<!-- START Multivariate diffusion model                                      -->
-
-	<multivariateDiffusionModel id="X.diffusionModel">
-		<precisionMatrix>
-			<matrixParameter id="X.precision">
-				<parameter id="X.precision.col1" value="0.05"/>
-			</matrixParameter>
-		</precisionMatrix>
-	</multivariateDiffusionModel>
-
-	<multivariateWishartPrior id="X.precisionPrior" df="1">
-		<scaleMatrix>
-			<matrixParameter>
-				<parameter value="1.0"/>
-			</matrixParameter>
-		</scaleMatrix>
-		<data>
-			<parameter idref="X.precision"/>
-		</data>
-	</multivariateWishartPrior>
-
-	<!-- END Multivariate diffusion model                                        -->
-
-	
-
-	<!-- START Multivariate diffusion model                                      -->
-
-	<multivariateTraitLikelihood id="X.traitLikelihood" traitName="X" useTreeLength="true" scaleByTime="true" reportAsMultivariate="true" reciprocalRates="true" integrateInternalTraits="true">
-		<multivariateDiffusionModel idref="X.diffusionModel"/>
-		<treeModel idref="treeModel"/>
-		<traitParameter>
-			<parameter id="leaf.X"/>
-		</traitParameter>
-		<conjugateRootPrior>
-			<meanParameter>
-				<parameter value="0.0"/>
-			</meanParameter>
-			<priorSampleSize>
-				<parameter value="0.000001"/>
-			</priorSampleSize>
-		</conjugateRootPrior>
-	</multivariateTraitLikelihood>
-	<matrixInverse id="X.varCovar">
-		<matrixParameter idref="X.precision"/>
-	</matrixInverse>
-	<continuousDiffusionStatistic id="X.diffusionRate">
-		<multivariateTraitLikelihood idref="X.traitLikelihood"/>
-	</continuousDiffusionStatistic>
-
-
-	<!-- END Multivariate diffusion model                                        -->
-
-
-	<!-- Define operators                                                        -->
-	<operators id="operators" optimizationSchedule="log">
-
-		<!-- START Multivariate diffusion model                                      -->
-		<precisionGibbsOperator weight="1">
-			<multivariateTraitLikelihood idref="X.traitLikelihood"/>
-			<multivariateWishartPrior idref="X.precisionPrior"/>
-		</precisionGibbsOperator>
-
-		<!-- END Multivariate diffusion model                                        -->
-
-	</operators>
-	
-
-	<!-- Define MCMC                                                             -->
-	<mcmc id="mcmc" chainLength="1000000" autoOptimize="true" operatorAnalysis=""" +'"beastfiles\beast'+str(i)+'.ops.txt"'+""">
-		<joint id="joint">
-			<prior id="prior">
-				
-
-				<!-- START Multivariate diffusion model                                      -->
-				<multivariateWishartPrior idref="X.precisionPrior"/>
-				<multivariateWishartPrior idref="Y.precisionPrior"/>
-
-				<!-- END Multivariate diffusion model                                        -->
-
-			</prior>
-			<likelihood id="likelihood">
-				
-
-				<!-- START Multivariate diffusion model                                      -->
-				<multivariateTraitLikelihood idref="X.traitLikelihood"/>
-				<multivariateTraitLikelihood idref="Y.traitLikelihood"/>
-
-				<!-- END Multivariate diffusion model                                        -->
-
-			</likelihood>
-		</joint>
-		<operators idref="operators"/>
-
-		<!-- write log to screen                                                     -->
-		<log id="screenLog" logEvery="1000">
-			<column label="Joint" dp="4" width="12">
-				<joint idref="joint"/>
-			</column>
-			<column label="Prior" dp="4" width="12">
-				<prior idref="prior"/>
-			</column>
-			<column label="Likelihood" dp="4" width="12">
-				<likelihood idref="likelihood"/>
-			</column>
-			<column label="age(root)" sf="6" width="12">
-				<tmrcaStatistic idref="age(root)"/>
-			</column>
-			
-		</log>
-
-		<!-- write log to file                                                       -->
-		<log id="fileLog" logEvery="1000" fileName="""+'"beastfiles\beast'+str(i)+'.log.txt"'+""" overwrite="false">
-			<joint idref="joint"/>
-			<prior idref="prior"/>
-			<likelihood idref="likelihood"/>
-			<parameter idref="treeModel.rootHeight"/>
-			<tmrcaStatistic idref="age(root)"/>
-			<treeLengthStatistic idref="treeLength"/>
-			
-
-			<!-- START Multivariate diffusion model                                      -->
-			<matrixParameter idref="X.precision"/>
-			<matrixInverse idref="X.varCovar"/>
-			<continuousDiffusionStatistic idref="X.diffusionRate"/>
-
-			<!-- END Multivariate diffusion model                                        -->
-
-			<!-- START Multivariate diffusion model                                      -->
-			<multivariateTraitLikelihood idref="X.traitLikelihood"/>
-
-			<!-- END Multivariate diffusion model                                        -->
-
-			
-			
-		</log>
-        
-		<!-- write tree log to file                                                  -->
-		<logTree id="treeFileLog" logEvery="1000" nexusFormat="true" fileName="""+'"beastfiles\beast'+str(i)+'.trees.txt"'""" sortTranslationTable="true">
-			<treeModel idref="treeModel"/>
-			
-			<joint idref="joint"/>
-
-			<!-- START Ancestral state reconstruction                                    -->
-			<trait name="X" tag="X">
-				<multivariateTraitLikelihood idref="X.traitLikelihood"/>
-			</trait>
-
-			<!-- END Ancestral state reconstruction                                      -->
-
-
-			<!-- START Multivariate diffusion model                                      -->
-			<multivariateDiffusionModel idref="X.diffusionModel"/>
-			<multivariateTraitLikelihood idref="X.traitLikelihood"/>
-
-			<!-- END Multivariate diffusion model                                        -->
-
-		</logTree>
-	</mcmc>
-	
-	<report>
-		<property name="timer">
-			<mcmc idref="mcmc"/>
-		</property>
-	</report>\n""")    
-        
-    file.write('</beast>\n')
-        
-    file.close()
-    
