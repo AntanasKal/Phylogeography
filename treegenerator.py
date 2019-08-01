@@ -19,7 +19,7 @@ def calculate_times(t):
         if node.parent_node is None:
             node.time = 0
         else:
-            node.time = node.parent_node.time+node.edge.length            
+            node.time = node.parent_node.time+node.edge.length  
     return t 
 
 
@@ -75,9 +75,9 @@ def prune_nodes(t):
 
 
 #function to generate coalescent trees (this is the ultrametric case)
-def generate_ultrametric_coalescent_tree(num_tips):
+def generate_ultrametric_coalescent_tree(num_tips, lamb):
     names = []
-    lamb = 1
+    #lamb = 1
     
     #if there are N tips, there must be 2N-1 nodes
     for i in range(2*num_tips-1):
@@ -124,7 +124,68 @@ def generate_ultrametric_coalescent_tree(num_tips):
     return tree
 
 
-def generate_star_tree():
+def generate_birth_death_custom(br, dr, num_extinct):
+    names = []
+    #lamb = 1
+    
+    successful = False
+    while not successful:
+        #generation_done=False
+        alive_nodes=[]
+        tree = dendropy.Tree()
+        allive_nodes.append(tree.seed_node)
+        #while not generation_done:
+            
+    
+    
+    
+    #if there are N tips, there must be 2N-1 nodes
+    for i in range(2*num_tips-1):
+        names.append("T"+str(i))
+    
+    taxon_namespace = dendropy.TaxonNamespace(names)
+    tree = dendropy.Tree(taxon_namespace=taxon_namespace)
+    time_from_present = 0
+    
+    #current_nodes is a list of nodes that are currently not merged
+    current_nodes = []
+    for i in range(num_tips):
+        node = dendropy.Node(taxon=taxon_namespace.get_taxon("T"+str(i)))
+        current_nodes.append(node)
+        node.age = 0 
+    
+    
+    
+    #if there are N leaves, there must be N-1 merges
+    for merges in range(num_tips-1):
+        #calculating time to the next coalescent
+        time_to_coalescent=random.expovariate(lamb*len(current_nodes)*(len(current_nodes)-1)/2)
+        
+        time_from_present=time_from_present+time_to_coalescent
+        
+        #choosing 2 indices of nodes that will be merged  randomly
+        merging_branches = random.sample(range(len(current_nodes)),2)
+        node = dendropy.Node(taxon=taxon_namespace.get_taxon("T"+str(merges+num_tips)))
+        
+        #if it is the last merge, instead of creting a new node, we set the node of the merge to be the seed node
+        if merges == num_tips-2:
+            node=tree.seed_node
+            node.taxon=taxon_namespace.get_taxon("T"+str(merges+num_tips))
+        node.age = time_from_present
+        current_nodes[merging_branches[0]].edge.length=time_from_present-current_nodes[merging_branches[0]].age
+        current_nodes[merging_branches[1]].edge.length=time_from_present-current_nodes[merging_branches[1]].age
+        node.set_child_nodes([current_nodes[merging_branches[0]], current_nodes[merging_branches[1]]])
+        
+        #deleting the nodes that have been merging from the list of nodes
+        current_nodes.pop(max(merging_branches))
+        current_nodes.pop(min(merging_branches))
+        current_nodes.append(node)
+        
+    tree=calculate_times(tree)
+    return tree
+
+
+def generate_star_tree2():
     num_tips = 10
     branch_length = 1
     names = []
@@ -150,13 +211,12 @@ def generate_star_tree():
             tree.seed_node.add_child(node)
     return tree
 
-def generate_star_tree2():
-    num_tips = 1000
+def generate_star_tree():
+    num_tips = 100
     branch_length = 1
     fake_step = 0.000000001
     names = [] 
-    
-    
+      
     for i in range(num_tips):
         names.append("T"+str(i))   
         
@@ -200,18 +260,17 @@ def generate_star_tree2():
             current_seed2.add_child(current_seed)
             current_seed= current_seed2
             current_seed.X=0
+    for node in tree.internal_nodes():
+        node.taxon = taxon_namespace.get_taxon("T"+str(i))
+        i=i+1
     tree=calculate_times(tree)      
     return tree
 
 
 #function to generate coalescent nonultrametric trees
-def generate_coalescent_nonultrametric_tree():
+def generate_nonultrametric_coalescent_tree(num_tips_per_period, num_periods, period_length, lamb):
     
     #a number num_tips_per_period is added every period_length of time units for num_periods times
-    lamb=1
-    period_length=1
-    num_tips_per_period = 10
-    num_periods = 5
     num_tips = num_tips_per_period*num_periods
     names = []
     
