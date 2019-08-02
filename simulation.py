@@ -524,7 +524,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     
     run_tree_annotator = False
     run_analysis= False
-    linux = False
+    linux = True
     burnin=int(mcmc/10)
     if run_analysis:
         if linux:
