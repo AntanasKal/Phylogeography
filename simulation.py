@@ -397,7 +397,7 @@ if not os.path.exists("output"):
 if not os.path.exists("output/beast_input"):
     os.makedirs("output/beast_input")
 if not os.path.exists("output/beast_output"):
-    os.makedirs("output/beast_outpu")
+    os.makedirs("output/beast_output")
 if not os.path.exists("output/generated_trees"):
     os.makedirs("output/generated_tree")
 if not os.path.exists("output/annotated_trees"):
