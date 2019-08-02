@@ -6,7 +6,7 @@ Created on Mon Jul 15 09:32:25 2019
 """
 
 #writing BEAST xml file dependiing of the dimension
-def write_BEAST_xml(t, i, dimension, mcmc, log_every, beast_input_string="output/beast_input/beast", beast_output_string="output\\beast_output\\beast"):
+def write_BEAST_xml(t, i, dimension, mcmc, log_every, beast_input_string="output/beast_input/beast", beast_output_string="output/beast_output/beast"):
     #t is the tree
     #d is the DNA character matrix (currently not needed)
     #i is the index of the file

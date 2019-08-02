@@ -451,7 +451,7 @@ for i in range(num_trees):
         output_index = 1
         sampled_t=sampling.sample_unbiased(t, dimension, sample_ratio=0.05)
         sampled_t=calculate_time_to_tips(sampled_t)
-        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output\sampled_beast_input"+str(output_index)+"\sampled_beast", beast_output_string="output\sampled_beast_output"+str(output_index)+"\\sampled_beast")
+        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/sampled_beast_input"+str(output_index)+"/sampled_beast", beast_output_string="output/sampled_beast_output"+str(output_index)+"/sampled_beast")
         for node in sampled_t.preorder_node_iter():
             node.annotations.add_bound_attribute("time")
             node.annotations.add_bound_attribute("X")
@@ -466,7 +466,7 @@ for i in range(num_trees):
         output_index = 2
         sampled_t=sampling.sample_biased_vertical(t, dimension, sample_ratio=0.05)
         sampled_t=calculate_time_to_tips(sampled_t)
-        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output\sampled_beast_input"+str(output_index)+"\sampled_beast", beast_output_string="output\sampled_beast_output"+str(output_index)+"\\sampled_beast")
+        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/sampled_beast_input"+str(output_index)+"/sampled_beast", beast_output_string="output/sampled_beast_output"+str(output_index)+"/sampled_beast")
         for node in sampled_t.preorder_node_iter():
             node.annotations.add_bound_attribute("time")
             node.annotations.add_bound_attribute("X")
@@ -480,7 +480,7 @@ for i in range(num_trees):
         output_index = 3
         sampled_t=sampling.sample_biased_most_central(t, dimension, sample_ratio=0.05)
         sampled_t=calculate_time_to_tips(sampled_t)
-        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output\sampled_beast_input"+str(output_index)+"\sampled_beast", beast_output_string="output\sampled_beast_output"+str(output_index)+"\\sampled_beast")
+        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/sampled_beast_input"+str(output_index)+"/sampled_beast", beast_output_string="output/sampled_beast_output"+str(output_index)+"/sampled_beast")
         for node in sampled_t.preorder_node_iter():
             node.annotations.add_bound_attribute("time")
             node.annotations.add_bound_attribute("X")
@@ -492,7 +492,7 @@ for i in range(num_trees):
         output_index = 4
         sampled_t=sampling.sample_biased_extreme(t, dimension, sample_ratio=0.05)
         sampled_t=calculate_time_to_tips(sampled_t)
-        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output\sampled_beast_input"+str(output_index)+"\sampled_beast", beast_output_string="output\sampled_beast_output"+str(output_index)+"\\sampled_beast")
+        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/sampled_beast_input"+str(output_index)+"/sampled_beast", beast_output_string="output/sampled_beast_output"+str(output_index)+"/sampled_beast")
         for node in sampled_t.preorder_node_iter():
             node.annotations.add_bound_attribute("time")
             node.annotations.add_bound_attribute("X")
@@ -527,7 +527,7 @@ for i in range(num_trees):
     burnin=int(mcmc/10)
     if run_analysis:
         if linux:
-            os.system('java -jar beast.jar -overwrite -seed 123456795 "output\\beast_input\\beast'+str(i)+'.xml"')
+            os.system('java -jar beast.jar -overwrite -seed 123456795 "output/beast_input/beast'+str(i)+'.xml"')
         else:
             os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output/beast_input/beast'+str(i)+'.xml"')
         if run_tree_annotator:
