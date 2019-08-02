@@ -377,6 +377,7 @@ parser.add_argument('-nps', action="store", type=int, dest="num_periods", defaul
 parser.add_argument('-lambda', action="store", type=float, dest="lamb", default=1, help='rate of coalescent for coalescent trees (default 1)')
 parser.add_argument('-pl', action="store", type=float, dest="period_length", default=1, help='period length for nonultrametric coalescent tree (default 1)')
 parser.add_argument('-sigma', action="store", type=float, dest="sigma", default=1, help='standart deviation for brownian diffusion simulation for a branch of length 1 (default 1)')
+parser.add_argument('-jobi', action="store", type=int, dest="job_index", default=0, help='job index')
 
 
 args = parser.parse_args()
@@ -390,7 +391,7 @@ num_tips_per_period = args.num_tips_per_period
 num_periods=args.num_periods
 lamb=args.lamb
 period_length=args.period_length
-
+job_index = args.job_index
 #import os
 if not os.path.exists("output"):
     os.makedirs("output")
@@ -416,7 +417,7 @@ for i in range(1, 5):
 
 
 
-for i in range(num_trees):
+for i in range(num_trees*(job_index-1), num_trees*job_index):
     #random.seed = 1357+i
     
     print("Hello")
@@ -523,7 +524,7 @@ for i in range(num_trees):
     
     run_tree_annotator = False
     run_analysis= False
-    linux = True
+    linux = False
     burnin=int(mcmc/10)
     if run_analysis:
         if linux:
