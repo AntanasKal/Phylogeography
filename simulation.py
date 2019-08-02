@@ -523,33 +523,49 @@ for i in range(num_trees):
     
     run_tree_annotator = False
     run_analysis= False
+    linux = True
     burnin=int(mcmc/10)
     if run_analysis:
-        os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\beast_input\\beast'+str(i)+'.xml"')
+        if linux:
+            os.system('java -jar beast.jar -overwrite -seed 123456795 "output\\beast_input\\beast'+str(i)+'.xml"')
+        else:
+            os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\beast_input\\beast'+str(i)+'.xml"')
         if run_tree_annotator:
             os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\beast_output\\beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\annotated_trees\\beast'+str(i)+'.tree.txt""')
         
         
     if run_sample_analysis:
         output_index = 1
-        os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
+        if linux:
+            os.system('java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
+        else:
+            os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
         if run_tree_annotator:
             os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\sampled_beast_output'+str(output_index)+'\\sampled_beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\annotated_sampled_trees'+str(output_index)+'\\sampled_beast'+str(i)+'.tree.txt""')
        
 #        
 #        #####DOUBLE SAMPLING
         output_index = 2
-        os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
+        if linux:
+            os.system('java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
+        else:
+            os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
         if run_tree_annotator:
             os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\sampled_beast_output'+str(output_index)+'\\sampled_beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\annotated_sampled_trees'+str(output_index)+'\\sampled_beast'+str(i)+'.tree.txt""')
 
         output_index = 3
-        os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
+        if linux:
+            os.system('java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
+        else:
+            os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
         if run_tree_annotator:
             os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\sampled_beast_output'+str(output_index)+'\\sampled_beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\annotated_sampled_trees'+str(output_index)+'\\sampled_beast'+str(i)+'.tree.txt""')
 
         output_index = 4
-        os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
+        if linux:
+            os.system('java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
+        else:
+            os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
         if run_tree_annotator:
             os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\sampled_beast_output'+str(output_index)+'\\sampled_beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\annotated_sampled_trees'+str(output_index)+'\\sampled_beast'+str(i)+'.tree.txt""')
 
