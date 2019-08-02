@@ -11,9 +11,9 @@ import argparse
 import dendropy
 import random
 import numpy as np
+
+
 import sampling
-
-
 import beastxmlwriter
 import treegenerator
 
@@ -397,10 +397,10 @@ if not os.path.exists("output"):
 if not os.path.exists("output/beast_input"):
     os.makedirs("output/beast_input")
 if not os.path.exists("output/beast_output"):
-    os.makedirs("output/generated_trees")
+    os.makedirs("output/beast_outpu")
 if not os.path.exists("output/generated_trees"):
-    os.makedirs("output/annotated_trees")
-if not os.path.exists("output/generated_trees"):
+    os.makedirs("output/generated_tree")
+if not os.path.exists("output/annotated_trees"):
     os.makedirs("output/annotated_trees")
 
 
