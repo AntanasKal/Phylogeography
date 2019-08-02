@@ -527,7 +527,7 @@ for i in range(num_trees):
     burnin=int(mcmc/10)
     if run_analysis:
         if linux:
-            os.system('java -jar beast.jar -overwrite -seed 123456795 "output/beast_input/beast'+str(i)+'.xml"')
+            os.system('beast -overwrite -seed 123456795 "output/beast_input/beast'+str(i)+'.xml"')
         else:
             os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output/beast_input/beast'+str(i)+'.xml"')
         if run_tree_annotator:
@@ -537,7 +537,7 @@ for i in range(num_trees):
     if run_sample_analysis:
         output_index = 1
         if linux:
-            os.system('java -jar beast.jar -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
+            os.system('beast -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
         else:
             os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
         if run_tree_annotator:
@@ -547,7 +547,7 @@ for i in range(num_trees):
 #        #####DOUBLE SAMPLING
         output_index = 2
         if linux:
-            os.system('java -jar beast.jar -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
+            os.system('beast -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
         else:
             os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
         if run_tree_annotator:
@@ -555,7 +555,7 @@ for i in range(num_trees):
 
         output_index = 3
         if linux:
-            os.system('java -jar beast.jar -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
+            os.system('beast -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
         else:
             os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
         if run_tree_annotator:
@@ -563,7 +563,7 @@ for i in range(num_trees):
 
         output_index = 4
         if linux:
-            os.system('java -jar beast.jar -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
+            os.system('beast -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
         else:
             os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
         if run_tree_annotator:
