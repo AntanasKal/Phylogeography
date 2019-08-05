@@ -69,7 +69,7 @@ def write_xml(tree, i):
   </partitionelem>
   """)
     
-    file.write('  <coordinates id="coordinates" file.name="output/phyrex_input/phyrex_coord'+str(i)+'.txt"/>')
+    file.write('  <coordinates id="coordinates" file.name="output/phyrex_input/phyrex_coord'+str(i)+'.txt"/>\n')
     index = 1
     for leaf in tree.leaf_node_iter():
         file.write('\t<clade id="clad'+str(index)+'">\n')
@@ -79,7 +79,7 @@ def write_xml(tree, i):
     
     index = 1
     for leaf in tree.leaf_node_iter():
-        file.write('\t<calibration id="clad'+str(index)+'">\n')
+        file.write('\t<calibration id="cal'+str(index)+'">\n')
         file.write('\t\t<lower>0</lower>\n')        
         file.write('\t\t<upper>0</upper>\n')
         file.write('\t\t<appliesto clade.id="clad'+str(index)+'"/>\n')
