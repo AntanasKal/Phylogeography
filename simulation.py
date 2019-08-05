@@ -15,6 +15,7 @@ import numpy as np
 
 import sampling
 import beastxmlwriter
+import phyrexxmlwriter
 import treegenerator
 
 import os
@@ -407,6 +408,10 @@ if not os.path.exists("output/generated_trees"):
     os.makedirs("output/generated_tree")
 if not os.path.exists("output/annotated_trees"):
     os.makedirs("output/annotated_trees")
+if not os.path.exists("output/phyrex_input"):
+    os.makedirs("output/phyrex_input")
+if not os.path.exists("output/phyrex_output"):
+    os.makedirs("output/phyrex_output")
 
 num_sampling = 4
 
@@ -442,8 +447,8 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     t=calculate_time_to_tips(t)
      
     beastxmlwriter.write_BEAST_xml(t, i, dimension, mcmc, log_every)   
-    
-    run_sample_analysis=True
+    phyrexxmlwriter.write_phyrex_input(t, i)     
+    run_sample_analysis=False
     
     if run_sample_analysis:    
         
@@ -476,7 +481,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
             node.annotations.add_bound_attribute("Y")
     t.write(path="output/generated_trees/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
     
-    run_analysis= False
+    run_analysis= True
 
     burnin=int(mcmc/10)
     if run_analysis:
