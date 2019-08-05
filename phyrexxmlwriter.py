@@ -111,7 +111,8 @@ def write_phyrex_nexus(tree, i):
     file.write('BEGIN DATA:\n')
     file.write('\tDIMENSIONS NTAX='+str(num_leaves)+' NCHAR='+str(12)+';\n')
     file.write(""" FORMAT DATATYPE=DNA INTERLEAVE;
-MATRIX""")
+MATRIX
+""")
     for leaf in tree.leaf_node_iter():
         file.write(leaf.taxon.label+" CCAAAAGATAAT\n")
         
