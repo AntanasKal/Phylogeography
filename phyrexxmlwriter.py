@@ -23,7 +23,7 @@ def write_xml(tree, i):
 
   <!-- Tree topology -->
   <topology> """)
-    file.write('\t <instance id="T1" init.tree="user" file.name="input/phyrex_tree'+str(i)+'.txt" optimise.tree="no"/>\n')  
+    file.write('\t <instance id="T1" init.tree="user" file.name="output/phyrex_input/phyrex_tree'+str(i)+'.txt" optimise.tree="no"/>\n')  
     file.write('</topology>\n')
     file.write("""
                <!-- Model of rate variation across lineages -->
@@ -60,7 +60,7 @@ def write_xml(tree, i):
 
   <!-- Model assembly -->
 """)
-    file.write('  <partitionelem id="partition1" file.name="input/phyrex'+str(i)+'.nxs" data.type="nt" interleaved="no">')
+    file.write('  <partitionelem id="partition1" file.name="output/phyrex_input/phyrex'+str(i)+'.nxs" data.type="nt" interleaved="no">')
     file.write("""    <mixtureelem list="T1"/>
     <mixtureelem list="M1"/>
     <mixtureelem list="F1"/>
@@ -69,11 +69,11 @@ def write_xml(tree, i):
   </partitionelem>
   """)
     
-    file.write('  <coordinates id="coordinates" file.name="input/phyrex_coord'+str(i)+'.txt"/>')
+    file.write('  <coordinates id="coordinates" file.name="output/phyrex_input/phyrex_coord'+str(i)+'.txt"/>')
     index = 1
     for leaf in tree.leaf_node_iter():
         file.write('\t<clade id="clad'+str(index)+'">\n')
-        file.write('\t\t<taxon value="'+leaf.taxon.label+'">\n')
+        file.write('\t\t<taxon value="'+leaf.taxon.label+'"/>\n')
         file.write('\t</clade> \n')
         index = index+1
     
