@@ -378,7 +378,7 @@ parser.add_argument('-pl', action="store", type=float, dest="period_length", def
 parser.add_argument('-sigma', action="store", type=float, dest="sigma", default=1, help='standart deviation for brownian diffusion simulation for a branch of length 1 (default 1)')
 parser.add_argument('-jobi', action="store", type=int, dest="job_index", default=1, help='job index')
 parser.add_argument('--linux', dest='linux', action='store_const', const=False, default=True, help='is the program run on Linux? (default: False)')
-parser.add_argument('--annotate', dest='run_tree_annotator', action='store_const', const=False, default=True, help='run tree annotator (default: False)')
+parser.add_argument('--annotate', dest='run_tree_annotator', action='store_const', const=True, default=False, help='run tree annotator (default: False)')
 
 
 args = parser.parse_args()
@@ -421,6 +421,7 @@ for i in range(0, num_sampling):
 
 for i in range(num_trees*(job_index-1), num_trees*job_index):
     #random.seed = 1357+i
+    print("index is" + str(i))
     t=dendropy.Tree()
     
     if args.tree_type == "nuc":
