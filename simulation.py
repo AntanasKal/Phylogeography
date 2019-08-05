@@ -394,6 +394,7 @@ lamb=args.lamb
 period_length=args.period_length
 job_index = args.linux
 linux = args.linux
+print(linux)
 run_tree_annotator = args.run_tree_annotator
 #import os
 if not os.path.exists("output"):
