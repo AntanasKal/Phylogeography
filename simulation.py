@@ -24,7 +24,6 @@ def simulate_brownian(t, sigma, dimension):
     #t is the tree
     #sigma is the standard deviation of the brownian motion
     #dimension is the number of dimensions in which we generate the random walk
-    #random.seed = 134679
     
     positions = {}
     
@@ -54,13 +53,13 @@ def simulate_brownian(t, sigma, dimension):
 def analyze_tree_list(tree, i, dimension, mcmc): 
 #   command to execute treeannotator       
     burnin=int(mcmc/10)
-    os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\beast_output\\beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\annotated_trees\\beast'+str(i)+'.tree.txt""')
+    os.system('cmd /c ""C:/Users/Antanas/Desktop/BEAST v1.10.4/bin/treeannotator" -burnin '+str(burnin)+' "C:/Users/Antanas/Phylogeny Simulation/output/beast_output/beast'+str(i)+'.trees.txt" "C:/Users/Antanas/Phylogeny Simulation/annotated_trees/beast'+str(i)+'.tree.txt""')
     for node in tree.preorder_node_iter():
         node.averageX=0
         if dimension == 2:
             node.averageY=0
         
-    annotated_tree=dendropy.Tree.get(path='output\\annotated_trees\\beast'+str(i)+'.tree.txt', taxon_namespace=tree.taxon_namespace, extract_comment_metadata=True, suppress_internal_node_taxa=False, schema="nexus")
+    annotated_tree=dendropy.Tree.get(path='output/annotated_trees/beast'+str(i)+'.tree.txt', taxon_namespace=tree.taxon_namespace, extract_comment_metadata=True, suppress_internal_node_taxa=False, schema="nexus")
 #    treelist = dendropy.TreeList.get(path="beast_output\\beast"+str(i)+'.trees.txt', schema="nexus")
     
 #    print(annotated_tree.as_ascii_plot(plot_metric='length', show_internal_node_labels=True))
@@ -378,6 +377,8 @@ parser.add_argument('-lambda', action="store", type=float, dest="lamb", default=
 parser.add_argument('-pl', action="store", type=float, dest="period_length", default=1, help='period length for nonultrametric coalescent tree (default 1)')
 parser.add_argument('-sigma', action="store", type=float, dest="sigma", default=1, help='standart deviation for brownian diffusion simulation for a branch of length 1 (default 1)')
 parser.add_argument('-jobi', action="store", type=int, dest="job_index", default=1, help='job index')
+parser.add_argument('--linux', dest='linux', action='store_const', const=False, default=True, help='is the program run on Linux? (default: False)')
+parser.add_argument('--annotate', dest='run_tree_annotator', action='store_const', const=False, default=True, help='run tree annotator (default: False)')
 
 
 args = parser.parse_args()
@@ -391,7 +392,9 @@ num_tips_per_period = args.num_tips_per_period
 num_periods=args.num_periods
 lamb=args.lamb
 period_length=args.period_length
-job_index = args.job_index
+job_index = args.linux
+linux = args.annotator
+run_tree_annotator = False
 #import os
 if not os.path.exists("output"):
     os.makedirs("output")
@@ -404,27 +407,21 @@ if not os.path.exists("output/generated_trees"):
 if not os.path.exists("output/annotated_trees"):
     os.makedirs("output/annotated_trees")
 
+num_sampling = 4
 
-for i in range(1, 5):
-    if not os.path.exists("output/sampled_beast_input"+str(i)):
-        os.makedirs("output/sampled_beast_input"+str(i))
-    if not os.path.exists("output/sampled_beast_output"+str(i)):
-        os.makedirs("output/sampled_beast_output"+str(i))
-    if not os.path.exists("output/generated_sampled_trees"+str(i)):
-        os.makedirs("output/generated_sampled_trees"+str(i))
-    if not os.path.exists("output/annotated_sampled_trees"+str(i)):
-        os.makedirs("output/annotated_sampled_trees"+str(i))
-
-
+for i in range(0, num_sampling):
+    if not os.path.exists("output/sampled_beast_input"+str(i+1)):
+        os.makedirs("output/sampled_beast_input"+str(i+1))
+    if not os.path.exists("output/sampled_beast_output"+str(i+1)):
+        os.makedirs("output/sampled_beast_output"+str(i+1))
+    if not os.path.exists("output/generated_sampled_trees"+str(i+1)):
+        os.makedirs("output/generated_sampled_trees"+str(i+1))
+    if not os.path.exists("output/annotated_sampled_trees"+str(i+1)):
+        os.makedirs("output/annotated_sampled_trees"+str(i+1))
 
 for i in range(num_trees*(job_index-1), num_trees*job_index):
     #random.seed = 1357+i
-    
-    print("Hello")
-    
-    
     t=dendropy.Tree()
-    
     
     if args.tree_type == "nuc":
         t = treegenerator.generate_nonultrametric_coalescent_tree(num_tips_per_period, num_periods, period_length, lamb)
@@ -439,7 +436,6 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
         print(args.tree_type+" is invalid tree type")
         break
                 
-    print("Tree generated")
     t= simulate_brownian(t, sigma, dimension) 
     t=calculate_time_to_tips(t)
      
@@ -447,72 +443,28 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     
     run_sample_analysis=True
     
-    if run_sample_analysis:        
+    if run_sample_analysis:    
         
-        output_index = 1
-        sampled_t=sampling.sample_unbiased(t, dimension, sample_ratio=0.05)
-        sampled_t=calculate_time_to_tips(sampled_t)
-        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/sampled_beast_input"+str(output_index)+"/sampled_beast", beast_output_string="output/sampled_beast_output"+str(output_index)+"/sampled_beast")
-        for node in sampled_t.preorder_node_iter():
-            node.annotations.add_bound_attribute("time")
-            node.annotations.add_bound_attribute("X")
-            node.annotations.add_bound_attribute("time_to_tips")
-            if dimension==2:
-                node.annotations.add_bound_attribute("Y")
-        sampled_t.write(path="output/generated_sampled_trees"+str(output_index)+"/sampled_tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
-        
-        
-        
-        
-        output_index = 2
-        sampled_t=sampling.sample_biased_vertical(t, dimension, sample_ratio=0.05)
-        sampled_t=calculate_time_to_tips(sampled_t)
-        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/sampled_beast_input"+str(output_index)+"/sampled_beast", beast_output_string="output/sampled_beast_output"+str(output_index)+"/sampled_beast")
-        for node in sampled_t.preorder_node_iter():
-            node.annotations.add_bound_attribute("time")
-            node.annotations.add_bound_attribute("X")
-            node.annotations.add_bound_attribute("time_to_tips")
-            if dimension==2:
-                node.annotations.add_bound_attribute("Y")
-        sampled_t.write(path="output/generated_sampled_trees"+str(output_index)+"/sampled_tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
-        
-        
-        
-        output_index = 3
-        sampled_t=sampling.sample_biased_most_central(t, dimension, sample_ratio=0.05)
-        sampled_t=calculate_time_to_tips(sampled_t)
-        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/sampled_beast_input"+str(output_index)+"/sampled_beast", beast_output_string="output/sampled_beast_output"+str(output_index)+"/sampled_beast")
-        for node in sampled_t.preorder_node_iter():
-            node.annotations.add_bound_attribute("time")
-            node.annotations.add_bound_attribute("X")
-            node.annotations.add_bound_attribute("time_to_tips")
-            if dimension==2:
-                node.annotations.add_bound_attribute("Y")
-        sampled_t.write(path="output/generated_sampled_trees"+str(output_index)+"/sampled_tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
-        
-        output_index = 4
-        sampled_t=sampling.sample_biased_extreme(t, dimension, sample_ratio=0.05)
-        sampled_t=calculate_time_to_tips(sampled_t)
-        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/sampled_beast_input"+str(output_index)+"/sampled_beast", beast_output_string="output/sampled_beast_output"+str(output_index)+"/sampled_beast")
-        for node in sampled_t.preorder_node_iter():
-            node.annotations.add_bound_attribute("time")
-            node.annotations.add_bound_attribute("X")
-            node.annotations.add_bound_attribute("time_to_tips")
-            if dimension==2:
-                node.annotations.add_bound_attribute("Y")
-        sampled_t.write(path="output/generated_sampled_trees"+str(output_index)+"/sampled_tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
-        
-#        #####TRIPLE SAMPLING
-#        sampled_t=sampling.sample_unbiased(t, dimension)
-#        sampled_t=calculate_time_to_tips(sampled_t)
-#        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output\sampled_beast_input3\sampled_beast", beast_output_string="output\\sampled_beast_output3\\sampled_beast")
-#        for node in sampled_t.preorder_node_iter():
-#            node.annotations.add_bound_attribute("time")
-#            node.annotations.add_bound_attribute("X")
-#            node.annotations.add_bound_attribute("time_to_tips")
-#            if dimension==2:
-#                node.annotations.add_bound_attribute("Y")
-#        sampled_t.write(path="output/generated_sampled_trees3/sampled_tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
+        for output_index in range(1, num_sampling+1):
+            if output_index ==1:
+                sampled_t=sampling.sample_unbiased(t, dimension, sample_ratio=0.05)
+            elif output_index==2:
+                sampled_t=sampling.sample_biased_vertical(t, dimension, sample_ratio=0.05)
+            elif output_index==3:
+                sampled_t=sampling.sample_biased_most_central(t, dimension, sample_ratio=0.05)            
+            elif output_index==4:
+                sampled_t=sampling.sample_biased_extreme(t, dimension, sample_ratio=0.05)
+            sampled_t=calculate_time_to_tips(sampled_t)
+            beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/sampled_beast_input"+str(output_index)+"/sampled_beast", beast_output_string="output/sampled_beast_output"+str(output_index)+"/sampled_beast")
+            for node in sampled_t.preorder_node_iter():
+                node.annotations.add_bound_attribute("time")
+                node.annotations.add_bound_attribute("X")
+                node.annotations.add_bound_attribute("time_to_tips")
+                if dimension==2:
+                    node.annotations.add_bound_attribute("Y")
+            sampled_t.write(path="output/generated_sampled_trees"+str(output_index)+"/sampled_tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
+
+ 
         
     for node in t.preorder_node_iter():
         node.annotations.add_bound_attribute("time")
@@ -522,9 +474,8 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
             node.annotations.add_bound_attribute("Y")
     t.write(path="output/generated_trees/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
     
-    run_tree_annotator = False
     run_analysis= False
-    linux = True
+
     burnin=int(mcmc/10)
     if run_analysis:
         if linux:
@@ -532,169 +483,17 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
         else:
             os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output/beast_input/beast'+str(i)+'.xml"')
         if run_tree_annotator:
-            os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\beast_output\\beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\annotated_trees\\beast'+str(i)+'.tree.txt""')
+            os.system('treeannotator -burnin '+str(burnin)+' "output/beast_output/beast'+str(i)+'.trees.txt" "output/annotated_trees/beast'+str(i)+'.tree.txt"')
         
         
     if run_sample_analysis:
-        output_index = 1
-        if linux:
-            os.system('beast -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
-        else:
-            os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
-        if run_tree_annotator:
-            os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\sampled_beast_output'+str(output_index)+'\\sampled_beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\annotated_sampled_trees'+str(output_index)+'\\sampled_beast'+str(i)+'.tree.txt""')
-       
-#        
-#        #####DOUBLE SAMPLING
-        output_index = 2
-        if linux:
-            os.system('beast -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
-        else:
-            os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
-        if run_tree_annotator:
-            os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\sampled_beast_output'+str(output_index)+'\\sampled_beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\annotated_sampled_trees'+str(output_index)+'\\sampled_beast'+str(i)+'.tree.txt""')
+        for output_index in range(1, num_sampling+1):
+            if linux:
+                os.system('beast -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
+            else:
+                os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
+            if run_tree_annotator:
+                #os.system('cmd /c ""C:/Users/Antanas/Desktop/BEAST v1.10.4/bin/treeannotator" -burnin '+str(burnin)+' "C:/Users/Antanas/Phylogeny Simulation/output/sampled_beast_output'+str(output_index)+'/sampled_beast'+str(i)+'.trees.txt" "C:/Users/Antanas/Phylogeny Simulation/output/annotated_sampled_trees'+str(output_index)+'/sampled_beast'+str(i)+'.tree.txt""')
+                os.system('treeannotator -burnin '+str(burnin)+' "output/sampled_beast_output'+str(output_index)+'/sampled_beast'+str(i)+'.trees.txt" "output/annotated_sampled_trees'+str(output_index)+'/sampled_beast'+str(i)+'.tree.txt"')
+           
 
-        output_index = 3
-        if linux:
-            os.system('beast -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
-        else:
-            os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
-        if run_tree_annotator:
-            os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\sampled_beast_output'+str(output_index)+'\\sampled_beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\annotated_sampled_trees'+str(output_index)+'\\sampled_beast'+str(i)+'.tree.txt""')
-
-        output_index = 4
-        if linux:
-            os.system('beast -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
-        else:
-            os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input'+str(output_index)+'\\sampled_beast'+str(i)+'.xml"')
-        if run_tree_annotator:
-            os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\sampled_beast_output'+str(output_index)+'\\sampled_beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\annotated_sampled_trees'+str(output_index)+'\\sampled_beast'+str(i)+'.tree.txt""')
-
-
-#        #####TRIPLE SAMPLING
-#        os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output\\sampled_beast_input3\\sampled_beast'+str(i)+'.xml"')
-#        os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\sampled_beast_output3\\sampled_beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\output\\annotated_sampled_trees3\\sampled_beast'+str(i)+'.tree.txt""')
-
-
-
-
-
-
-
-
-
-
-
-#
-#
-#
-#
-#    ###Second generation
-#
-#    t=dendropy.Tree()
-#    
-#    t = treegenerator.generate_birthdeath_tree(1, 0.5, 500)                
-#   
-#    t= simulate_brownian(t, sigma, dimension) 
-#    t=calculate_time_to_tips(t)
-#     
-#    #beastxmlwriter.write_BEAST_xml(t, i, dimension, mcmc, log_every)   
-#    
-#    run_sample_analysis=True
-#    
-#    if run_sample_analysis:        
-#        sampled_t=sample_biased_extreme(t, dimension)
-#        sampled_t=calculate_time_to_tips(sampled_t)
-#        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "sampled_beast_input4\sampled_beast", beast_output_string="sampled_beast_output4\\sampled_beast")
-#        for node in sampled_t.preorder_node_iter():
-#            node.annotations.add_bound_attribute("time")
-#            node.annotations.add_bound_attribute("X")
-#            node.annotations.add_bound_attribute("time_to_tips")
-#            if dimension==2:
-#                node.annotations.add_bound_attribute("Y")
-#        sampled_t.write(path="generated_sampled_trees4/sampled_tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
-#        
-#        
-#        
-#        #####DOUBLE SAMPLING
-#        sampled_t=sample_biased_most_central(t, dimension)
-#        sampled_t=calculate_time_to_tips(sampled_t)
-#        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "sampled_beast_input5\sampled_beast", beast_output_string="sampled_beast_output5\\sampled_beast")
-#        for node in sampled_t.preorder_node_iter():
-#            node.annotations.add_bound_attribute("time")
-#            node.annotations.add_bound_attribute("X")
-#            node.annotations.add_bound_attribute("time_to_tips")
-#            if dimension==2:
-#                node.annotations.add_bound_attribute("Y")
-#        sampled_t.write(path="generated_sampled_trees5/sampled_tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
-#        
-#        
-#        #####TRIPLE SAMPLING
-#        sampled_t=sample_unbiased(t, dimension)
-#        sampled_t=calculate_time_to_tips(sampled_t)
-#        beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "sampled_beast_input6\sampled_beast", beast_output_string="sampled_beast_output6\\sampled_beast")
-#        for node in sampled_t.preorder_node_iter():
-#            node.annotations.add_bound_attribute("time")
-#            node.annotations.add_bound_attribute("X")
-#            node.annotations.add_bound_attribute("time_to_tips")
-#            if dimension==2:
-#                node.annotations.add_bound_attribute("Y")
-#        sampled_t.write(path="generated_sampled_trees6/sampled_tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
-#        
-#    for node in t.preorder_node_iter():
-#        node.annotations.add_bound_attribute("time")
-#        node.annotations.add_bound_attribute("X")
-#        node.annotations.add_bound_attribute("time_to_tips")
-#        if dimension==2:
-#            node.annotations.add_bound_attribute("Y")
-#    t.write(path="generated_trees2/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
-#    
-#    run_analysis= False
-#    burnin=int(mcmc/10)
-#    if run_analysis:
-#        os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "beast_input\\beast'+str(i)+'.xml"')
-#        os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\beast_output\\beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\annotated_trees\\beast'+str(i)+'.tree.txt""')
-#        
-#        
-#    if run_sample_analysis:
-#        os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "sampled_beast_input4\\sampled_beast'+str(i)+'.xml"')
-#        os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\sampled_beast_output4\\sampled_beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\annotated_sampled_trees4\\sampled_beast'+str(i)+'.tree.txt""')
-#       
-#        
-#        #####DOUBLE SAMPLING
-#        os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "sampled_beast_input5\\sampled_beast'+str(i)+'.xml"')
-#        os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\sampled_beast_output5\\sampled_beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\annotated_sampled_trees5\\sampled_beast'+str(i)+'.tree.txt""')
-#
-#        #####TRIPLE SAMPLING
-#        os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "sampled_beast_input6\\sampled_beast'+str(i)+'.xml"')
-#        os.system('cmd /c ""C:\\Users\\Antanas\\Desktop\\BEAST v1.10.4\\bin\\treeannotator" -burnin '+str(burnin)+' "C:\\Users\\Antanas\\Phylogeny Simulation\\sampled_beast_output6\\sampled_beast'+str(i)+'.trees.txt" "C:\\Users\\Antanas\\Phylogeny Simulation\\annotated_sampled_trees6\\sampled_beast'+str(i)+'.tree.txt""')
-#
-#
-
-
-
-
-
-
-#        simulate hky (currently not needed)
-#    d=dendropy.model.discrete.hky85_chars(kappa=3, mutation_rate=0.01, seq_len=1000,tree_model=t, retain_sequences_on_tree=False)   
-#   d= dendropy.DnaCharacterMatrix() 
-#    
-    
-    
-#    file = open("generate_trees/tree"+str(i)+".txt","w")
-#    file.close()
-    
-#    d.write(path='output1/fasta_output'+str(i)+'.txt', schema="fasta")
-#    file1 = open("output6/dates_output"+str(i)+".txt","w") 
-#    file2 = open("output7/position_output"+str(i)+".txt","w") 
-#    file2.write("\tX\tY\n")
-#    for tax in d:
-#        file1.write(tax.label+"\t"+str(t.find_node_for_taxon(tax).time)+"\n")
-#        if dimension==2:
-#            file2.write(tax.label+"\t"+str(t.find_node_for_taxon(tax).X)+"\t"+str(t.find_node_for_taxon(tax).Y)+"\n")   
-#        else:
-#            file2.write(tax.label+"\t"+str(t.find_node_for_taxon(tax).X)+"\n")
-#    file1.close() 
-#    file2.close()    
-    
