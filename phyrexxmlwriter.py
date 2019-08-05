@@ -60,7 +60,7 @@ def write_xml(tree, i):
 
   <!-- Model assembly -->
 """)
-    file.write('  <partitionelem id="partition1" file.name="output/phyrex_input/phyrex'+str(i)+'.nxs" data.type="nt" interleaved="no">')
+    file.write('  <partitionelem id="partition1" file.name="output/phyrex_input/phyrex_nexus'+str(i)+'.nxs" data.type="nt" interleaved="no">')
     file.write("""    <mixtureelem list="T1"/>
     <mixtureelem list="M1"/>
     <mixtureelem list="F1"/>
