@@ -393,8 +393,8 @@ num_periods=args.num_periods
 lamb=args.lamb
 period_length=args.period_length
 job_index = args.linux
-linux = args.annotator
-run_tree_annotator = False
+linux = args.linux
+run_tree_annotator = args.run_tree_annotator
 #import os
 if not os.path.exists("output"):
     os.makedirs("output")
