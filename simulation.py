@@ -377,7 +377,7 @@ parser.add_argument('-lambda', action="store", type=float, dest="lamb", default=
 parser.add_argument('-pl', action="store", type=float, dest="period_length", default=1, help='period length for nonultrametric coalescent tree (default 1)')
 parser.add_argument('-sigma', action="store", type=float, dest="sigma", default=1, help='standart deviation for brownian diffusion simulation for a branch of length 1 (default 1)')
 parser.add_argument('-jobi', action="store", type=int, dest="job_index", default=1, help='job index')
-parser.add_argument('--linux', dest='linux', action='store_const', const=False, default=True, help='is the program run on Linux? (default: False)')
+parser.add_argument('--linux', dest='linux', action='store_const', const=True, default=False, help='is the program run on Linux? (default: False)')
 parser.add_argument('--annotate', dest='run_tree_annotator', action='store_const', const=True, default=False, help='run tree annotator (default: False)')
 
 
