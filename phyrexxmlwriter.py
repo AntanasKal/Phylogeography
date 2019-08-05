@@ -82,7 +82,7 @@ def write_xml(tree, i):
         file.write('\t<calibration id="clad'+str(index)+'">\n')
         file.write('\t\t<lower>0</lower>\n')        
         file.write('\t\t<upper>0</upper>\n')
-        file.write('\t\t<appliesto clade.id="clad'+str(index)+'">\n')
+        file.write('\t\t<appliesto clade.id="clad'+str(index)+'"/>\n')
         file.write('\t</calibration> \n')
         index = index+1
     
