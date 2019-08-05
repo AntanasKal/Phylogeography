@@ -17,7 +17,7 @@ def write_phyrex_input(tree, i):
     
     
 def write_xml(tree, i):
-    file = open("output/phyrex_input/phyrex"+str(i)+".xml")
+    file = open("output/phyrex_input/phyrex"+str(i)+".xml", "w")
     file.write("""<phyrex run.id="example" output.file="output/output3" mcmc.chain.len="1E+5" mcmc.sample.every="1000"
         mcmc.print.every="1000" mcmc.burnin="10000" mutmap="no" ignore.sequences="yes">
 
@@ -93,7 +93,7 @@ def write_phyrex_tree(tree, i):
     tree.write(path="output/phyrex_input/phyrex_tree"+str(i)+".txt", schema="newick", suppress_internal_taxon_labels=True)
     
 def write_phyrex_coord(tree, i):
-    file = open("output/phyrex_input/phyrex_coord"+str(i)+".txt")
+    file = open("output/phyrex_input/phyrex_coord"+str(i)+".txt", "w")
     file.write("# state.name lon lat")
     for leaf in tree.leaf_node_iter():
         file.write(leaf.taxon.label+' '+str(leaf.X)+' '+str(leaf.Y)+'\n')
@@ -105,7 +105,7 @@ def write_phyrex_nexus(tree, i):
     for leaf in tree.leaf_node_iter():
         num_leaves=num_leaves+1
     
-    file = open("output/phyrex_input/phyrex_nexus"+str(i)+".nxs")
+    file = open("output/phyrex_input/phyrex_nexus"+str(i)+".nxs", "w")
     
     file.write('#NEXUS\n')
     file.write('BEGIN DATA:\n')
