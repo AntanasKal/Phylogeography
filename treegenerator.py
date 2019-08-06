@@ -115,7 +115,7 @@ def generate_ultrametric_coalescent_tree(num_tips, lamb):
         #if it is the last merge, instead of creting a new node, we set the node of the merge to be the seed node
         if merges == num_tips-2:
             node=tree.seed_node
-            node.taxon=taxon_namespace.get_taxon("s"+str(merges+num_tips))
+            node.taxon=taxon_namespace.get_taxon(names[merges+num_tips])
         node.age = time_from_present
         current_nodes[merging_branches[0]].edge.length=time_from_present-current_nodes[merging_branches[0]].age
         current_nodes[merging_branches[1]].edge.length=time_from_present-current_nodes[merging_branches[1]].age
