@@ -81,8 +81,14 @@ def generate_ultrametric_coalescent_tree(num_tips, lamb):
     
     #if there are N tips, there must be 2N-1 nodes
     for i in range(2*num_tips-1):
-        names.append("s"+str(i))
-    
+        if i < 10: 
+            names.append("s000"+str(i))
+        elif i < 100:
+            names.append("s00"+str(i))
+        elif i < 1000:
+            names.append("s0"+str(i))
+        else:
+            names.append("s"+str(i))
     taxon_namespace = dendropy.TaxonNamespace(names)
     tree = dendropy.Tree(taxon_namespace=taxon_namespace)
     time_from_present = 0
@@ -90,7 +96,7 @@ def generate_ultrametric_coalescent_tree(num_tips, lamb):
     #current_nodes is a list of nodes that are currently not merged
     current_nodes = []
     for i in range(num_tips):
-        node = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(i)))
+        node = dendropy.Node(taxon=taxon_namespace.get_taxon(names[i]))
         current_nodes.append(node)
         node.age = 0 
     
@@ -104,7 +110,7 @@ def generate_ultrametric_coalescent_tree(num_tips, lamb):
         
         #choosing 2 indices of nodes that will be merged  randomly
         merging_branches = random.sample(range(len(current_nodes)),2)
-        node = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(merges+num_tips)))
+        node = dendropy.Node(taxon=taxon_namespace.get_taxon(names["s"+str(merges+num_tips)]))
         
         #if it is the last merge, instead of creting a new node, we set the node of the merge to be the seed node
         if merges == num_tips-2:
