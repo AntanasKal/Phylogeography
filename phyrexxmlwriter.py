@@ -22,7 +22,8 @@ def write_xml(tree, i):
         mcmc.print.every="1000" mcmc.burnin="10000" mutmap="no" ignore.sequences="yes">
 
   <!-- Tree topology -->
-  <topology> """)
+  <topology>
+  """)
     file.write('\t <instance id="T1" init.tree="user" file.name="output/phyrex_input/phyrex_tree'+str(i)+'.txt" optimise.tree="no"/>\n')  
     file.write('</topology>\n')
     file.write("""
@@ -60,7 +61,7 @@ def write_xml(tree, i):
 
   <!-- Model assembly -->
 """)
-    file.write('  <partitionelem id="partition1" file.name="output/phyrex_input/phyrex_nexus'+str(i)+'.nxs" data.type="nt" interleaved="no">')
+    file.write('  <partitionelem id="partition1" file.name="output/phyrex_input/phyrex_nexus'+str(i)+'.nxs" data.type="nt" interleaved="no">\n')
     file.write("""    <mixtureelem list="T1"/>
     <mixtureelem list="M1"/>
     <mixtureelem list="F1"/>
@@ -94,10 +95,11 @@ def write_phyrex_tree(tree, i):
     
 def write_phyrex_coord(tree, i):
     file = open("output/phyrex_input/phyrex_coord"+str(i)+".txt", "w")
-    file.write("# state.name lon lat")
+    file.write("# state.name lon lat\n")
     for leaf in tree.leaf_node_iter():
         file.write(leaf.taxon.label+' '+str(leaf.X)+' '+str(leaf.Y)+'\n')
-        
+    file.write("""|SouthWest| -5 5
+|NorthEast| 5 5 "")  
     file.close()
     
 def write_phyrex_nexus(tree, i):
