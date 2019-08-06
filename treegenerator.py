@@ -282,7 +282,14 @@ def generate_nonultrametric_coalescent_tree(num_tips_per_period, num_periods, pe
     
     #if there are N tips, there must be 2N-1 nodes
     for i in range(2*num_tips-1):
-        names.append("s"+str(i))
+        if i < 10: 
+            names.append("s000"+str(i))
+        elif i < 100:
+            names.append("s00"+str(i))
+        elif i < 1000:
+            names.append("s0"+str(i))
+        else:
+            names.append("s"+str(i))
 
     taxon_namespace = dendropy.TaxonNamespace(names)
     tree = dendropy.Tree(taxon_namespace=taxon_namespace)
@@ -298,7 +305,7 @@ def generate_nonultrametric_coalescent_tree(num_tips_per_period, num_periods, pe
         
         #adding new tips during this period
         for i in range(num_tips_per_period):
-            node = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(index)))
+            node = dendropy.Node(taxon=taxon_namespace.get_taxon(names[index]))
             current_nodes.append(node)
             index= index+1
             node.age = time_from_present
@@ -320,9 +327,9 @@ def generate_nonultrametric_coalescent_tree(num_tips_per_period, num_periods, pe
                 
                 if merges == current_num_tips-2 and current_period==num_periods-1:
                     node=tree.seed_node
-                    node.taxon=taxon_namespace.get_taxon("s"+str(index))
+                    node.taxon=taxon_namespace.get_taxon(names[index])
                 else:
-                    node = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(index)))
+                    node = dendropy.Node(taxon=taxon_namespace.get_taxon(names[index]))
                 index=index+1
                     
                 node.age = time_from_present
