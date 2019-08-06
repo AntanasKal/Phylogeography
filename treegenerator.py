@@ -110,7 +110,7 @@ def generate_ultrametric_coalescent_tree(num_tips, lamb):
         
         #choosing 2 indices of nodes that will be merged  randomly
         merging_branches = random.sample(range(len(current_nodes)),2)
-        node = dendropy.Node(taxon=taxon_namespace.get_taxon(names["s"+str(merges+num_tips)]))
+        node = dendropy.Node(taxon=taxon_namespace.get_taxon(names[merges+num_tips]))
         
         #if it is the last merge, instead of creting a new node, we set the node of the merge to be the seed node
         if merges == num_tips-2:
