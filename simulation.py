@@ -470,7 +470,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
                 if dimension==2:
                     node.annotations.add_bound_attribute("Y")
             sampled_t.write(path="output/generated_sampled_trees"+str(output_index)+"/sampled_tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
-            phyrexxmlwriter.write_phyrex_input(t, i, input_string="output/phyrex_input/sampled"+str(output_index)+"/" , output_string="output/phyrex_output/sampled"+str(output_index)+"/") 
+            phyrexxmlwriter.write_phyrex_input(sampled_t, i, input_string="output/phyrex_input/sampled"+str(output_index)+"/" , output_string="output/phyrex_output/sampled"+str(output_index)+"/") 
  
         
     for node in t.preorder_node_iter():

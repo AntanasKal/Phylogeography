@@ -10,9 +10,9 @@ Created on Mon Aug  5 15:46:53 2019
 
 def write_phyrex_input(tree, i, input_string="output/phyrex_input/" , output_string="output/phyrex_output/"):
     write_xml(tree, i, input_string, output_string)
-    write_phyrex_tree(tree, i)
-    write_phyrex_nexus(tree, i)
-    write_phyrex_coord(tree, i)
+    write_phyrex_tree(tree, i, input_string, output_string)
+    write_phyrex_nexus(tree, i, input_string, output_string)
+    write_phyrex_coord(tree, i, input_string, output_string)
     
     
     
