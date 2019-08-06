@@ -96,8 +96,8 @@ def write_phyrex_coord(tree, i, input_string, output_string):
     file.write("# state.name lon lat\n")
     for leaf in tree.leaf_node_iter():
         file.write(leaf.taxon.label+' '+str(leaf.X)+' '+str(leaf.Y)+'\n')
-    file.write("""|SouthWest| -50 -50
-|NorthEast| 50 50 """)  
+    file.write("""|SouthWest| -10 -10
+|NorthEast| 10 10 """)  
     file.close()
     
 def write_phyrex_nexus(tree, i, input_string, output_string):
