@@ -18,7 +18,7 @@ def write_phyrex_input(tree, i):
     
 def write_xml(tree, i):
     file = open("output/phyrex_input/phyrex"+str(i)+".xml", "w")
-    file.write("""<phyrex run.id="example" output.file="output/output3" mcmc.chain.len="1E+5" mcmc.sample.every="1000"
+    file.write("""<phyrex run.id="example" output.file="output/phyrex_output/out0" mcmc.chain.len="1E+5" mcmc.sample.every="1000"
         mcmc.print.every="1000" mcmc.burnin="10000" mutmap="no" ignore.sequences="yes">
 
   <!-- Tree topology -->
@@ -76,16 +76,14 @@ def write_xml(tree, i):
         file.write('\t<clade id="clad'+str(index)+'">\n')
         file.write('\t\t<taxon value="'+leaf.taxon.label+'"/>\n')
         file.write('\t</clade> \n')
-        index = index+1
-    
-    index = 1
-    for leaf in tree.leaf_node_iter():
+        
         file.write('\t<calibration id="cal'+str(index)+'">\n')
-        file.write('\t\t<lower>0</lower>\n')        
-        file.write('\t\t<upper>0</upper>\n')
-        file.write('\t\t<appliesto clade.id="clad'+str(index)+'"/>\n')
+        file.write('\t\t<lower>'+str(leaf.time)+'</lower>\n')        
+        file.write('\t\t<upper>'+str(leaf.time)+'</upper>\n')
+        file.write('\t\t<appliesto clade.id="clad'+str(index)+'"/>\n')        
         file.write('\t</calibration> \n')
         index = index+1
+    
     
     file.write('</phyrex>')
     file.close()
