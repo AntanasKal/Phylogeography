@@ -447,8 +447,8 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     t=calculate_time_to_tips(t)
      
     beastxmlwriter.write_BEAST_xml(t, i, dimension, mcmc, log_every)   
-    phyrexxmlwriter.write_phyrex_input(t, i)     
-    run_sample_analysis=False
+    #phyrexxmlwriter.write_phyrex_input(t, i)     
+    run_sample_analysis=True
     
     if run_sample_analysis:    
         
@@ -470,7 +470,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
                 if dimension==2:
                     node.annotations.add_bound_attribute("Y")
             sampled_t.write(path="output/generated_sampled_trees"+str(output_index)+"/sampled_tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
-
+            phyrexxmlwriter.write_phyrex_input(t, i, input_string="output/phyrex_input/sampled"+str(output_index)+"/" , output_string="output/phyrex_output/sampled"+str(output_index)+"/") 
  
         
     for node in t.preorder_node_iter():
@@ -481,7 +481,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
             node.annotations.add_bound_attribute("Y")
     t.write(path="output/generated_trees/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
     
-    run_analysis= True
+    run_analysis= False
 
     burnin=int(mcmc/10)
     if run_analysis:

@@ -8,23 +8,23 @@ Created on Mon Aug  5 15:46:53 2019
 
 
 
-def write_phyrex_input(tree, i):
-    write_xml(tree, i)
+def write_phyrex_input(tree, i, input_string="output/phyrex_input/" , output_string="output/phyrex_output/"):
+    write_xml(tree, i, input_string, output_string)
     write_phyrex_tree(tree, i)
     write_phyrex_nexus(tree, i)
     write_phyrex_coord(tree, i)
     
     
     
-def write_xml(tree, i):
+def write_xml(tree, i, input_string, output_string):
     file = open("output/phyrex_input/phyrex"+str(i)+".xml", "w")
-    file.write("""<phyrex run.id="example" output.file="output/phyrex_output/out0" mcmc.chain.len="1E+5" mcmc.sample.every="1000"
+    file.write("""<phyrex run.id=""" +str(i)+""" output.file="""+'"'+output_string+"out" +'"'+""" mcmc.chain.len="1E+6" mcmc.sample.every="1000"
         mcmc.print.every="1000" mcmc.burnin="10000" mutmap="no" ignore.sequences="yes">
 
   <!-- Tree topology -->
   <topology>
   """)
-    file.write('\t <instance id="T1" init.tree="user" file.name="output/phyrex_input/phyrex_tree'+str(i)+'.txt" optimise.tree="no"/>\n')  
+    file.write('\t <instance id="T1" init.tree="user" file.name="'+input_string+'phyrex_tree'+str(i)+'.txt" optimise.tree="no"/>\n')  
     file.write('</topology>\n')
     file.write("""
                <!-- Model of rate variation across lineages -->
@@ -61,7 +61,7 @@ def write_xml(tree, i):
 
   <!-- Model assembly -->
 """)
-    file.write('  <partitionelem id="partition1" file.name="output/phyrex_input/phyrex_nexus'+str(i)+'.nxs" data.type="nt" interleaved="no">\n')
+    file.write('  <partitionelem id="partition1" file.name="'+input_string+'phyrex_nexus'+str(i)+'.nxs" data.type="nt" interleaved="no">\n')
     file.write("""    <mixtureelem list="T1"/>
     <mixtureelem list="M1"/>
     <mixtureelem list="F1"/>
@@ -70,7 +70,7 @@ def write_xml(tree, i):
   </partitionelem>
   """)
     
-    file.write('  <coordinates id="coordinates" file.name="output/phyrex_input/phyrex_coord'+str(i)+'.txt"/>\n')
+    file.write('  <coordinates id="coordinates" file.name="'+input_string+'phyrex_coord'+str(i)+'.txt"/>\n')
     index = 1
     for leaf in tree.leaf_node_iter():
         file.write('\t<clade id="clad'+str(index)+'">\n')
@@ -88,24 +88,24 @@ def write_xml(tree, i):
     file.write('</phyrex>')
     file.close()
     
-def write_phyrex_tree(tree, i):
+def write_phyrex_tree(tree, i, input_string, output_string):
     tree.write(path="output/phyrex_input/phyrex_tree"+str(i)+".txt", schema="newick", suppress_internal_taxon_labels=True)
     
-def write_phyrex_coord(tree, i):
-    file = open("output/phyrex_input/phyrex_coord"+str(i)+".txt", "w")
+def write_phyrex_coord(tree, i, input_string, output_string):
+    file = open(input_string+"phyrex_coord"+str(i)+".txt", "w")
     file.write("# state.name lon lat\n")
     for leaf in tree.leaf_node_iter():
         file.write(leaf.taxon.label+' '+str(leaf.X)+' '+str(leaf.Y)+'\n')
-    file.write("""|SouthWest| -10 -10
-|NorthEast| 10 10 """)  
+    file.write("""|SouthWest| -50 -50
+|NorthEast| 50 50 """)  
     file.close()
     
-def write_phyrex_nexus(tree, i):
+def write_phyrex_nexus(tree, i, input_string, output_string):
     num_leaves = 0
     for leaf in tree.leaf_node_iter():
         num_leaves=num_leaves+1
     
-    file = open("output/phyrex_input/phyrex_nexus"+str(i)+".nxs", "w")
+    file = open(input_string+"phyrex_nexus"+str(i)+".nxs", "w")
     
     file.write('#NEXUS\n')
     file.write('BEGIN DATA:\n')
