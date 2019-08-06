@@ -17,7 +17,7 @@ def write_phyrex_input(tree, i, input_string="output/phyrex_input/" , output_str
     
     
 def write_xml(tree, i, input_string, output_string):
-    file = open("output/phyrex_input/phyrex"+str(i)+".xml", "w")
+    file = open(input_string+"phyrex"+str(i)+".xml", "w")
     file.write("""<phyrex run.id=""" +str(i)+""" output.file="""+'"'+output_string+"out" +'"'+""" mcmc.chain.len="1E+6" mcmc.sample.every="1000"
         mcmc.print.every="1000" mcmc.burnin="10000" mutmap="no" ignore.sequences="yes">
 
