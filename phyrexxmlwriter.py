@@ -89,7 +89,7 @@ def write_xml(tree, i, input_string, output_string):
     file.close()
     
 def write_phyrex_tree(tree, i, input_string, output_string):
-    tree.write(path="output/phyrex_input/phyrex_tree"+str(i)+".txt", schema="newick", suppress_internal_taxon_labels=True)
+    tree.write(path=input_string+"phyrex_tree"+str(i)+".txt", schema="newick", suppress_internal_taxon_labels=True)
     
 def write_phyrex_coord(tree, i, input_string, output_string):
     file = open(input_string+"phyrex_coord"+str(i)+".txt", "w")
