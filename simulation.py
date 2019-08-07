@@ -456,7 +456,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
             if output_index ==1:
                 sampled_t=sampling.sample_unbiased(t, dimension, sample_ratio=0.1)
             elif output_index==2:
-                sampled_t=sampling.sample_most_central(t, dimension, sample_ratio=0.1)
+                sampled_t=sampling.sample_biased_most_central(t, dimension, sample_ratio=0.1)
             elif output_index==3:
                 sampled_t=sampling.sample_biased_diagonal(t, dimension, sample_ratio=0.1)            
             elif output_index==4:
