@@ -436,6 +436,8 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
         t = treegenerator.generate_ultrametric_coalescent_tree(num_tips, lamb)
     elif args.tree_type == "bd":
         t = treegenerator.generate_birthdeath_tree(1, 0.1, num_tips)
+    elif args.tree_type == "yule":
+        t = treegenerator.generate_yule_tree(num_tips)
         #print(t.as_ascii_plot(plot_metric='length', show_internal_node_labels=True))
     elif args.tree_type == "star":
         t = treegenerator.generate_star_tree()

@@ -23,6 +23,8 @@ def calculate_times(t):
     return t 
 
 
+
+
 def generate_birthdeath_tree(br, dr, num_extinct):
     t = treesim.birth_death_tree(birth_rate=br, death_rate=dr, num_extinct_tips=num_extinct, is_retain_extinct_tips=True, is_add_extinct_attr=True)
     #t.print_plot()    
@@ -72,7 +74,63 @@ def prune_nodes(t):
     return t1
 
 
+def generate_yule_tree(num_tips):
+    lamb = 1
+    names = []
 
+    #lamb = 1
+    
+    #if there are N tips, there must be 2N-1 nodes
+    for i in range(2*num_tips-1):
+        if i < 10: 
+            names.append("s000"+str(i))
+        elif i < 100:
+            names.append("s00"+str(i))
+        elif i < 1000:
+            names.append("s0"+str(i))
+        else:
+            names.append("s"+str(i))
+            
+    taxon_namespace = dendropy.TaxonNamespace(names)
+    tree = dendropy.Tree(taxon_namespace=taxon_namespace)
+
+    time = 0
+    name_index = 0
+    current_nodes = []
+    tree.seed_node.taxon = taxon_namespace.get_taxon(names[name_index])
+    name_index=name_index+1
+    #tree.seed_node.age=0
+    current_nodes.append(tree.seed_node)
+    for i in range(num_tips-1):        
+        time_to_split=random.expovariate(lamb*len(current_nodes))
+        if i ==0:
+            time=0
+        else:
+            time = time_to_split+time
+        splitting_index = random.randint(0, len(current_nodes)-1)
+        parent_node = current_nodes[splitting_index]
+
+        node1 = dendropy.Node(taxon=taxon_namespace.get_taxon(names[name_index]))
+        name_index = name_index+1
+        node2 = dendropy.Node(taxon=taxon_namespace.get_taxon(names[name_index]))
+        name_index = name_index+1
+
+        parent_node.set_child_nodes([node1, node2])
+
+        parent_node.time=time
+#            node1.edge_length = time-parent_node.age
+#            node2.edge_length = time-parent_node.age
+
+        current_nodes.pop(splitting_index)
+        current_nodes.append(node1)
+        current_nodes.append(node2)
+    for node in current_nodes:
+        node.time = time
+
+    for node in tree.preorder_node_iter():
+        if node.time > 0:
+            node.edge_length=node.time-node.parent_node.time    
+    return tree
 
 #function to generate coalescent trees (this is the ultrametric case)
 def generate_ultrametric_coalescent_tree(num_tips, lamb):
