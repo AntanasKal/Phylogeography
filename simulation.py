@@ -393,7 +393,7 @@ num_tips_per_period = args.num_tips_per_period
 num_periods=args.num_periods
 lamb=args.lamb
 period_length=args.period_length
-job_index = args.linux
+job_index = args.job_index
 linux = args.linux
 print(linux)
 run_tree_annotator = args.run_tree_annotator
