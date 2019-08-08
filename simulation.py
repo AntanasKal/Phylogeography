@@ -400,30 +400,46 @@ run_tree_annotator = args.run_tree_annotator
 #import os
 if not os.path.exists("output"):
     os.makedirs("output")
-if not os.path.exists("output/beast_input"):
-    os.makedirs("output/beast_input")
-if not os.path.exists("output/beast_output"):
-    os.makedirs("output/beast_output")
-if not os.path.exists("output/generated_trees"):
-    os.makedirs("output/generated_tree")
-if not os.path.exists("output/annotated_trees"):
-    os.makedirs("output/annotated_trees")
-if not os.path.exists("output/phyrex_input"):
-    os.makedirs("output/phyrex_input")
-if not os.path.exists("output/phyrex_output"):
-    os.makedirs("output/phyrex_output")
+if not os.path.exists("output/beast"):
+    os.makedirs("output/beast")
+if not os.path.exists("output/beast/no_sampling"):
+    os.makedirs("output/beast/no_sampling")    
+if not os.path.exists("output/beast/no_sampling/beast_input"):
+    os.makedirs("output/beast/no_sampling/beast_input")
+if not os.path.exists("output/beast/no_sampling/beast_output"):
+    os.makedirs("output/beast/no_sampling/beast_output")
+if not os.path.exists("output/beast/no_sampling/generated_trees"):
+    os.makedirs("output/beast/no_sampling/generated_trees")
+if not os.path.exists("output/beast/no_sampling/annotated_trees"):
+    os.makedirs("output/beast/no_sampling/annotated_trees")
+    
+if not os.path.exists("output/phyrex"):
+    os.makedirs("output/phyrex")
+#if not os.path.exists("output/phyrex/phyrex_input"):
+#    os.makedirs("output/phyrex/phyrex_input")
+#if not os.path.exists("output/phyrex/phyrex_output"):
+#    os.makedirs("output/phyrex/phyrex_output")
 
 num_sampling = 4
 
-for i in range(0, num_sampling):
-    if not os.path.exists("output/sampled_beast_input"+str(i+1)):
-        os.makedirs("output/sampled_beast_input"+str(i+1))
-    if not os.path.exists("output/sampled_beast_output"+str(i+1)):
-        os.makedirs("output/sampled_beast_output"+str(i+1))
-    if not os.path.exists("output/generated_sampled_trees"+str(i+1)):
-        os.makedirs("output/generated_sampled_trees"+str(i+1))
-    if not os.path.exists("output/annotated_sampled_trees"+str(i+1)):
-        os.makedirs("output/annotated_sampled_trees"+str(i+1))
+for output_index in range(1, num_sampling+1):
+    if not os.path.exists("output/beast/sampled"+str(output_index)):
+        os.makedirs("output/beast/sampled"+str(output_index))   
+    if not os.path.exists("output/beast/sampled"+str(output_index)+"/beast_input"):
+        os.makedirs("output/beast/sampled"+str(output_index)+"/beast_input")
+    if not os.path.exists("output/beast/sampled"+str(output_index)+"/beast_output"):
+        os.makedirs("output/beast/sampled"+str(output_index)+"/beast_output")
+    if not os.path.exists("output/beast/sampled"+str(output_index)+"/generated_trees"):
+        os.makedirs("output/beast/sampled"+str(output_index)+"/generated_trees")
+    if not os.path.exists("output/beast/sampled"+str(output_index)+"/annotated_trees"):
+        os.makedirs("output/beast/sampled"+str(output_index)+"/annotated_trees")
+        
+    if not os.path.exists("output/phyrex/sampled"+str(output_index)):
+        os.makedirs("output/phyrex/sampled"+str(output_index))        
+    if not os.path.exists("output/phyrex/sampled"+str(output_index)+"/phyrex_output"):
+        os.makedirs("output/phyrex/sampled"+str(output_index)+"/phyrex_output")
+    if not os.path.exists("output/phyrex/sampled"+str(output_index)+"/phyrex_input"):
+        os.makedirs("output/phyrex/sampled"+str(output_index)+"/phyrex_input")
 
 for i in range(num_trees*(job_index-1), num_trees*job_index):
     #random.seed = 1357+i
@@ -448,7 +464,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     t= simulate_brownian(t, sigma, dimension) 
     t=calculate_time_to_tips(t)
      
-    beastxmlwriter.write_BEAST_xml(t, i, dimension, mcmc, log_every)   
+    beastxmlwriter.write_BEAST_xml(t, i, dimension, mcmc, log_every, beast_input_string="output/beast/no_sampling/beast_input/beast", beast_output_string="output/beast/no_sampling/beast_output/beast")   
     #phyrexxmlwriter.write_phyrex_input(t, i)     
     run_sample_analysis=True
     
@@ -464,16 +480,16 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
             elif output_index==4:
                 sampled_t=sampling.sample_biased_extreme(t, dimension, sample_ratio=0.1)
             sampled_t=calculate_time_to_tips(sampled_t)
-            beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/sampled_beast_input"+str(output_index)+"/sampled_beast", beast_output_string="output/sampled_beast_output"+str(output_index)+"/sampled_beast")
+            beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/beast/sampled"+str(output_index)+"/beast_input/beast", beast_output_string="output/beast/sampled"+str(output_index)+"/beast_output/beast")
             for node in sampled_t.preorder_node_iter():
                 node.annotations.add_bound_attribute("time")
                 node.annotations.add_bound_attribute("X")
                 node.annotations.add_bound_attribute("time_to_tips")
                 if dimension==2:
                     node.annotations.add_bound_attribute("Y")
-            sampled_t.write(path="output/generated_sampled_trees"+str(output_index)+"/sampled_tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
-            print("output/phyrex_input/sampled"+str(output_index)+"/")
-            phyrexxmlwriter.write_phyrex_input(sampled_t, i, input_string="output/phyrex_input/sampled"+str(output_index)+"/" , output_string="output/phyrex_output/sampled"+str(output_index)+"/") 
+            sampled_t.write(path="output/beast/sampled"+str(output_index)+"/generated_trees/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
+            print("output/phyrex/phyrex_input/sampled"+str(output_index)+"/")
+            phyrexxmlwriter.write_phyrex_input(sampled_t, i, input_string="output/phyrex/sampled"+str(output_index)+"/phyrex_input/" , output_string="output/phyrex/sampled"+str(output_index)+"/phyrex_output/") 
  
         
     for node in t.preorder_node_iter():
@@ -482,28 +498,28 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
         node.annotations.add_bound_attribute("time_to_tips")
         if dimension==2:
             node.annotations.add_bound_attribute("Y")
-    t.write(path="output/generated_trees/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
+    t.write(path="output/beast/no_sampling/generated_trees/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
     
     run_analysis= False
 
     burnin=int(mcmc/10)
     if run_analysis:
         if linux:
-            os.system('beast -overwrite -seed 123456795 "output/beast_input/beast'+str(i)+'.xml"')
+            os.system('beast -overwrite -seed 123456795 "output/beast/no_sampling/beast_input/beast'+str(i)+'.xml"')
         else:
-            os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output/beast_input/beast'+str(i)+'.xml"')
+            os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output/beast/no_sampling/beast_input/beast'+str(i)+'.xml"')
         if run_tree_annotator:
-            os.system('treeannotator -burnin '+str(burnin)+' "output/beast_output/beast'+str(i)+'.trees.txt" "output/annotated_trees/beast'+str(i)+'.tree.txt"')
+            os.system('treeannotator -burnin '+str(burnin)+' "output/beast/no_sampling/beast_output/beast'+str(i)+'.trees.txt" "output/beast/no_sampling/annotated_trees/beast'+str(i)+'.tree.txt"')
         
         
     if run_sample_analysis:
         for output_index in range(1, num_sampling+1):
             if linux:
-                os.system('beast -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
+                os.system('beast -overwrite -seed 123456795 "output/beast/sampled'+str(output_index)+'/beast_input/beast'+str(i)+'.xml"')
             else:
-                os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output/sampled_beast_input'+str(output_index)+'/sampled_beast'+str(i)+'.xml"')
+                os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output/beast/sampled'+str(output_index)+'/beast_input/beast'+str(i)+'.xml"')
             if run_tree_annotator:
                 #os.system('cmd /c ""C:/Users/Antanas/Desktop/BEAST v1.10.4/bin/treeannotator" -burnin '+str(burnin)+' "C:/Users/Antanas/Phylogeny Simulation/output/sampled_beast_output'+str(output_index)+'/sampled_beast'+str(i)+'.trees.txt" "C:/Users/Antanas/Phylogeny Simulation/output/annotated_sampled_trees'+str(output_index)+'/sampled_beast'+str(i)+'.tree.txt""')
-                os.system('treeannotator -burnin '+str(burnin)+' "output/sampled_beast_output'+str(output_index)+'/sampled_beast'+str(i)+'.trees.txt" "output/annotated_sampled_trees'+str(output_index)+'/sampled_beast'+str(i)+'.tree.txt"')
+                os.system('treeannotator -burnin '+str(burnin)+' "output/beast/sampled'+str(output_index)+'beast_output/beast'+str(i)+'.trees.txt" "output/beast/sampled'+str(output_index)+'/annotated_trees/beast'+str(i)+'.tree.txt"')
            
 
