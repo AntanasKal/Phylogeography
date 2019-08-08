@@ -472,13 +472,13 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
         
         for output_index in range(1, num_sampling+1):
             if output_index ==1:
-                sampled_t=sampling.sample_unbiased(t, dimension, sample_ratio=0.1)
+                sampled_t=sampling.sample_unbiased(t, dimension, sample_ratio=0.05)
             elif output_index==2:
-                sampled_t=sampling.sample_biased_most_central(t, dimension, sample_ratio=0.1)
+                sampled_t=sampling.sample_biased_most_central(t, dimension, sample_ratio=0.05)
             elif output_index==3:
-                sampled_t=sampling.sample_biased_diagonal(t, dimension, sample_ratio=0.1)            
+                sampled_t=sampling.sample_biased_diagonal(t, dimension, sample_ratio=0.05)            
             elif output_index==4:
-                sampled_t=sampling.sample_biased_extreme(t, dimension, sample_ratio=0.1)
+                sampled_t=sampling.sample_biased_extreme(t, dimension, sample_ratio=0.05)
             sampled_t=calculate_time_to_tips(sampled_t)
             beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/beast/sampled"+str(output_index)+"/beast_input/beast", beast_output_string="output/beast/sampled"+str(output_index)+"/beast_output/beast")
             for node in sampled_t.preorder_node_iter():
