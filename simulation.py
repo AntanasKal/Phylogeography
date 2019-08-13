@@ -501,7 +501,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
             node.annotations.add_bound_attribute("Y")
     t.write(path="output/beast/no_sampling/generated_trees/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
     
-    run_analysis= True
+    run_analysis= False
 
     burnin=int(mcmc/10)
     if run_analysis:
