@@ -8,11 +8,11 @@ Created on Mon Aug  5 15:46:53 2019
 
 
 
-def write_phyrex_input(tree, i, input_string="output/phyrex_input/" , output_string="output/phyrex_output/"):
+def write_phyrex_input(tree, i, input_string="output/phyrex_input/" , output_string="output/phyrex_output/", bound = 100):
     write_xml(tree, i, input_string, output_string)
     write_phyrex_tree(tree, i, input_string, output_string)
     write_phyrex_nexus(tree, i, input_string, output_string)
-    write_phyrex_coord(tree, i, input_string, output_string)
+    write_phyrex_coord(tree, i, input_string, output_string, bound)
     
     
     
@@ -92,13 +92,13 @@ def write_xml(tree, i, input_string, output_string):
 def write_phyrex_tree(tree, i, input_string, output_string):
     tree.write(path=input_string+"phyrex_tree"+str(i)+".txt", schema="newick", suppress_internal_taxon_labels=True)
     
-def write_phyrex_coord(tree, i, input_string, output_string):
+def write_phyrex_coord(tree, i, input_string, output_string, bound):
     file = open(input_string+"phyrex_coord"+str(i)+".txt", "w")
     file.write("# state.name lon lat\n")
     for leaf in tree.leaf_node_iter():
         file.write(leaf.taxon.label+' '+str(leaf.X)+' '+str(leaf.Y)+'\n')
-    file.write("""|SouthWest| -100 -100
-|NorthEast| 100 100 """)  
+    file.write("|SouthWest| "+str(-bound)+" "+str(-bound)+"\n")
+    file.write("|NorthEast| "+str(bound)+" "+str(bound)) 
     file.close()
     
 def write_phyrex_nexus(tree, i, input_string, output_string):

@@ -415,6 +415,8 @@ if not os.path.exists("output/beast/no_sampling/annotated_trees"):
     
 if not os.path.exists("output/phyrex"):
     os.makedirs("output/phyrex")
+    
+sample_ratio=0.1
 #if not os.path.exists("output/phyrex/phyrex_input"):
 #    os.makedirs("output/phyrex/phyrex_input")
 #if not os.path.exists("output/phyrex/phyrex_output"):
@@ -463,6 +465,13 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
                 
     t= simulate_brownian(t, sigma, dimension) 
     t=calculate_time_to_tips(t)
+    
+    max_coordinate = 0
+    
+    for node in t.preorder_node_iter():
+        max_coordinate = max(max_coordinate, abs(node.X))
+        if dimension == 2:
+            max_coordinate = max(max_coordinate, abs(node.Y))
      
     beastxmlwriter.write_BEAST_xml(t, i, dimension, mcmc, log_every, beast_input_string="output/beast/no_sampling/beast_input/beast", beast_output_string="output/beast/no_sampling/beast_output/beast")   
     #phyrexxmlwriter.write_phyrex_input(t, i)     
@@ -472,13 +481,13 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
         
         for output_index in range(1, num_sampling+1):
             if output_index ==1:
-                sampled_t=sampling.sample_unbiased(t, dimension, sample_ratio=0.05)
+                sampled_t=sampling.sample_unbiased(t, dimension, sample_ratio=sample_ratio)
             elif output_index==2:
-                sampled_t=sampling.sample_biased_most_central(t, dimension, sample_ratio=0.05)
+                sampled_t=sampling.sample_biased_most_central(t, dimension, sample_ratio=sample_ratio)
             elif output_index==3:
-                sampled_t=sampling.sample_biased_diagonal(t, dimension, sample_ratio=0.05)            
+                sampled_t=sampling.sample_biased_diagonal(t, dimension, sample_ratio=sample_ratio)            
             elif output_index==4:
-                sampled_t=sampling.sample_biased_extreme(t, dimension, sample_ratio=0.05)
+                sampled_t=sampling.sample_biased_extreme(t, dimension, sample_ratio=sample_ratio)
             sampled_t=calculate_time_to_tips(sampled_t)
             beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/beast/sampled"+str(output_index)+"/beast_input/beast", beast_output_string="output/beast/sampled"+str(output_index)+"/beast_output/beast")
             for node in sampled_t.preorder_node_iter():
@@ -490,7 +499,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
             sampled_t.write(path="output/beast/sampled"+str(output_index)+"/generated_trees/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
             print("output/phyrex/phyrex_input/sampled"+str(output_index)+"/")
             if dimension ==2:
-                phyrexxmlwriter.write_phyrex_input(sampled_t, i, input_string="output/phyrex/sampled"+str(output_index)+"/phyrex_input/" , output_string="output/phyrex/sampled"+str(output_index)+"/phyrex_output/") 
+                phyrexxmlwriter.write_phyrex_input(sampled_t, i, input_string="output/phyrex/sampled"+str(output_index)+"/phyrex_input/" , output_string="output/phyrex/sampled"+str(output_index)+"/phyrex_output/", bound=2*max_coordinate) 
  
         
     for node in t.preorder_node_iter():
@@ -512,7 +521,8 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
         if run_tree_annotator:
             os.system('treeannotator -burnin '+str(burnin)+' "output/beast/no_sampling/beast_output/beast'+str(i)+'.trees.txt" "output/beast/no_sampling/annotated_trees/beast'+str(i)+'.tree.txt"')
         
-        
+    
+    run_sample_analysis= False
     if run_sample_analysis:
         for output_index in range(1, num_sampling+1):
             if linux:
