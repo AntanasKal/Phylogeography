@@ -522,7 +522,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
             os.system('treeannotator -burnin '+str(burnin)+' "output/beast/no_sampling/beast_output/beast'+str(i)+'.trees.txt" "output/beast/no_sampling/annotated_trees/beast'+str(i)+'.tree.txt"')
         
     
-    run_sample_analysis= True
+    run_sample_analysis= False
     if run_sample_analysis:
         for output_index in range(1, num_sampling+1):
             if linux:
