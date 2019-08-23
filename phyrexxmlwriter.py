@@ -32,7 +32,7 @@ def write_xml(tree, i, input_string, output_string):
   <lineagerates model="lognormal"/>
 
   <!-- Average (clock) rate of substitution -->
-  <clockrate value="1E-4"/>
+  <clockrate value="1"/>
   
   
   <!-- Substitution model -->
