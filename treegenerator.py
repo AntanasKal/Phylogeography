@@ -101,29 +101,30 @@ def generate_yule_tree(num_tips):
     name_index=name_index+1
     #tree.seed_node.age=0
     current_nodes.append(tree.seed_node)
-    for i in range(num_tips-1):        
+    for i in range(num_tips):        
         time_to_split=random.expovariate(lamb*len(current_nodes))
         if i ==0:
             time=0
         else:
             time = time_to_split+time
-        splitting_index = random.randint(0, len(current_nodes)-1)
-        parent_node = current_nodes[splitting_index]
-
-        node1 = dendropy.Node(taxon=taxon_namespace.get_taxon(names[name_index]))
-        name_index = name_index+1
-        node2 = dendropy.Node(taxon=taxon_namespace.get_taxon(names[name_index]))
-        name_index = name_index+1
-
-        parent_node.set_child_nodes([node1, node2])
-
-        parent_node.time=time
+        if i <num_tips-1:
+            splitting_index = random.randint(0, len(current_nodes)-1)
+            parent_node = current_nodes[splitting_index]
+    
+            node1 = dendropy.Node(taxon=taxon_namespace.get_taxon(names[name_index]))
+            name_index = name_index+1
+            node2 = dendropy.Node(taxon=taxon_namespace.get_taxon(names[name_index]))
+            name_index = name_index+1
+    
+            parent_node.set_child_nodes([node1, node2])
+    
+            parent_node.time=time
 #            node1.edge_length = time-parent_node.age
 #            node2.edge_length = time-parent_node.age
 
-        current_nodes.pop(splitting_index)
-        current_nodes.append(node1)
-        current_nodes.append(node2)
+            current_nodes.pop(splitting_index)
+            current_nodes.append(node1)
+            current_nodes.append(node2)
     for node in current_nodes:
         node.time = time
 
