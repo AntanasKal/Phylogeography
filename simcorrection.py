@@ -66,7 +66,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     
     treelist = dendropy.TreeList.get(path="output/c_beast/beast_output/beast"+str(i)+".trees.txt", extract_comment_metadata=True, schema="nexus")
     for single_tree in treelist:
-        file.write(single_tree.seed_node.annotations.require_value("X")+"\t"+single_tree.seed_node.annotations.require_value("Y")+'\n')
+        file.write(single_tree.seed_node.annotations.require_value("location")[0]+"\t"+single_tree.seed_node.annotations.require_value("location")[1]+'\n')
     file.close()
     
     
