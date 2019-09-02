@@ -28,8 +28,8 @@ job_index = args.job_index
 
 
 num_tips = 500
-sample_size = 100
-other_sample_size = 100
+sample_size = 50
+other_sample_size = 50
 sigma = 1
 seq_len = 100 # 10000
 
@@ -49,7 +49,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     
     sampled_t = sampling.sample_biased_extreme(tree, sample_ratio = sample_size/num_tips, dimension = 2)    
     d = dendropy.model.discrete.hky85_chars(kappa=3, mutation_rate=0.1, seq_len=seq_len, tree_model=sampled_t, retain_sequences_on_tree=False)    
-    beastxmlwriter.write_BEAST_xml_corrected(tree, sampled_t, d, i=i,  mcmc=10000000, log_every=1000, beast_input_string ="output/c_beast/beast_input/beast", beast_output_string="output/c_beast/beast_output/beast", other_sample_size=other_sample_size, seq_len=seq_len)
+    beastxmlwriter.write_BEAST_xml_corrected(tree, sampled_t, d, i=i,  mcmc=1000000, log_every=1000, beast_input_string ="output/c_beast/beast_input/beast", beast_output_string="output/c_beast/beast_output/beast", other_sample_size=other_sample_size, seq_len=seq_len)
     
     
     os.system('beast -overwrite -seed 123456795 "output/c_beast/beast_input/beast'+str(i)+'.xml"')
