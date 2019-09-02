@@ -31,7 +31,7 @@ num_tips = 500
 sample_size = 100
 other_sample_size = 100
 sigma = 1
-seq_len = 10000 # 10000
+seq_len = 100 # 10000
 
 #num_simulations = 1
 
