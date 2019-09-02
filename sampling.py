@@ -29,6 +29,7 @@ def delete_tips(tree, dimension):
     return t1
 
 def sample_biased_extreme(tree, dimension, sample_ratio=0.1):
+    
     for node in tree.preorder_node_iter():
         node.leave = False       
     

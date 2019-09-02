@@ -20,35 +20,35 @@ import treegenerator
 
 import os
 
-#this function generates borwnian motion for a given tree
-def simulate_brownian(t, sigma, dimension):
-    #t is the tree
-    #sigma is the standard deviation of the brownian motion
-    #dimension is the number of dimensions in which we generate the random walk
-    
-    positions = {}
-    
-    for node in t.preorder_node_iter():   
-        
-        if node.parent_node is None:
-            node.X = 0
-            node.displacementX = 0
-            if dimension==2:
-                node.Y = float (0)
-                node.displacementY = float(0)
-        else:
- #           node.displacementX = random.gauss(mu=0, sigma=sigma*math.sqrt(node.edge_length))            
-            node.displacementX = random.gauss(0, sigma*math.sqrt(node.edge_length))
-            #node.displacementX = np.random.normal()*math.sqrt(node.edge_length)
-            
-            
-            node.X = node.parent_node.X+node.displacementX      
-            #node.X = random.gauss(node.parent_node.X, sigma*math.sqrt(node.edge_length))   
-            if dimension==2:
-                node.displacementY = random.gauss(0, sigma*math.sqrt(node.edge_length))
-                node.Y = node.parent_node.Y+node.displacementY   
-        positions.update({node.taxon.label: node.X})
-    return t
+##this function generates borwnian motion for a given tree
+#def simulate_brownian(t, sigma, dimension):
+#    #t is the tree
+#    #sigma is the standard deviation of the brownian motion
+#    #dimension is the number of dimensions in which we generate the random walk
+#    
+#    positions = {}
+#    
+#    for node in t.preorder_node_iter():   
+#        
+#        if node.parent_node is None:
+#            node.X = 0
+#            node.displacementX = 0
+#            if dimension==2:
+#                node.Y = float (0)
+#                node.displacementY = float(0)
+#        else:
+# #           node.displacementX = random.gauss(mu=0, sigma=sigma*math.sqrt(node.edge_length))            
+#            node.displacementX = random.gauss(0, sigma*math.sqrt(node.edge_length))
+#            #node.displacementX = np.random.normal()*math.sqrt(node.edge_length)
+#            
+#            
+#            node.X = node.parent_node.X+node.displacementX      
+#            #node.X = random.gauss(node.parent_node.X, sigma*math.sqrt(node.edge_length))   
+#            if dimension==2:
+#                node.displacementY = random.gauss(0, sigma*math.sqrt(node.edge_length))
+#                node.Y = node.parent_node.Y+node.displacementY   
+#        positions.update({node.taxon.label: node.X})
+#    return t
 
     
 def analyze_tree_list(tree, i, dimension, mcmc): 
@@ -75,41 +75,6 @@ def analyze_tree_list(tree, i, dimension, mcmc):
         else:
             nodes_tree[i].averageX=float(nodes_annotated_tree[i].annotations.require_value("X"))
             
-            
-#        if nodes_annotated_tree[i].taxon is not None:
-#            if nodes_tree[i].taxon is not None:
-#                print("%s : %s : %s : %s " % (nodes_tree[i].taxon.label, nodes_annotated_tree[i].taxon.label, nodes_tree[i].X, nodes_tree[i].averageX))
-#            else:
-#                print("None : None : %s : %s " % (nodes_tree[i].X, nodes_tree[i].averageX))
-#                              
-#        else:
-#            if nodes_tree[i].taxon is not None:
-#                print("%s : None : %s : %s " % (nodes_tree[i].taxon.label, nodes_tree[i].X, nodes_tree[i].averageX))
-#            else:
-#                print("None : None : %s : %s " % (nodes_tree[i].X, nodes_tree[i].averageX))
-    
-#    n=0
-#    average_diffusion_rate = 0
-#    
-#    for i, t in enumerate(treelist):
-#        if i > 100:
-#            diffusion_rate = 0
-#            tree_length = 0
-#            for node in t.preorder_node_iter():
-#                if node.parent_node is not None:
-#                    tree_length=tree_length + node.edge_length
-#                    if dimension ==2:
-#                        displacementX=float(node.annotations.require_value("location")[0])-float(node.parent_node.annotations.require_value("location")[0])
-#                        displacementY=float(node.annotations.require_value("location")[1])-float(node.parent_node.annotations.require_value("location")[1])
-#                        diffusion_rate = diffusion_rate + math.sqrt(displacementX*displacementX+displacementY*displacementY)
-#                    else:
-#                        displacementX=float(node.annotations.require_value("X"))-float(node.parent_node.annotations.require_value("X"))
-#                        diffusion_rate=diffusion_rate + abs(displacementX)
-#            diffusion_rate= diffusion_rate/tree_length
-#            average_diffusion_rate=average_diffusion_rate+diffusion_rate
-#            n=n+1
-#    average_diffusion_rate = average_diffusion_rate/n
-#    print("Average diffusion rate: "+str(average_diffusion_rate)+"\n")
     return tree                  
 
 def calculate_time_to_tips(tree):
@@ -119,251 +84,6 @@ def calculate_time_to_tips(tree):
         if not hasattr(node, "time_to_tips"):
             node.time_to_tips=min(set([child.time_to_tips+child.edge_length for child in node.child_nodes()]))  
     return tree
-
-def sample_biased_extreme(tree, dimension):
-    for node in tree.preorder_node_iter():
-        node.leave = False
-        
-    
-    num_tips = 0
-    for leaf in tree.leaf_node_iter():
-        num_tips = num_tips +1
-    
-    sample_size = int(num_tips/5)
-    X_positions = np.zeros(num_tips)
-    index = 0
-    for leaf in tree.leaf_node_iter():
-        X_positions[index]=leaf.X
-        index=index+1
-        
-        
-    X_positions=X_positions[X_positions.argsort()]
-    cutoff=X_positions[-sample_size]
-
-    
-
-    index = 0
-    for leaf in tree.leaf_node_iter():
-        if leaf.X >= cutoff:
-            leaf.leave = True
-        index = index+1    
-            
-    labels = []        
-    for node in tree.postorder_node_iter(): 
-        for child in node.child_node_iter():
-            if child.leave:
-                node.leave =True
-#        print(node.taxon.label+ " " +str(node.leave))
-        
-        if not node.leave:
-            labels.append(node.taxon.label)
-            
-            
-    t1 = tree.extract_tree_without_taxa_labels(labels=labels)
-
-    #seed_position_X = tree.find_node_with_taxon_label(t1.seed_node.taxon.label).X
-    #if dimension ==2:
-        #seed_position_Y = tree.find_node_with_taxon_label(t1.seed_node.taxon.label).Y
-    for node in t1.preorder_node_iter():
-        node.X=tree.find_node_with_taxon_label(node.taxon.label).X#-seed_position_X
-        node.time=tree.find_node_with_taxon_label(node.taxon.label).time
-        if dimension ==2:
-            node.Y=tree.find_node_with_taxon_label(node.taxon.label).Y#-seed_position_Y
-    return t1
-
-
-def sample_biased_halfline(tree, dimesnion):
-    for node in tree.preorder_node_iter():
-        node.leave = False
-    for leaf in tree.leaf_node_iter():
-        if leaf.X >=0:
-            leaf.leave = True
-            
-            
-    labels = []        
-    for node in tree.postorder_node_iter(): 
-        for child in node.child_node_iter():
-            if child.leave:
-                node.leave =True
-        
-        if not node.leave:
-            labels.append(node.taxon.label)
-
-    t1 = tree.extract_tree_without_taxa_labels(labels=labels)
-    #seed_position = tree.find_node_with_taxon_label(t1.seed_node.taxon.label).X
-    for node in t1.preorder_node_iter():
-        node.X=tree.find_node_with_taxon_label(node.taxon.label).X#-seed_position
-        if dimension==2:
-            node.Y=tree.find_node_with_taxon_label(node.taxon.label).Y
-        node.time=tree.find_node_with_taxon_label(node.taxon.label).time
-    return t1
-          
-
-def sample_biased_quadrant(tree, dimension):
-    for node in tree.preorder_node_iter():
-        node.leave = False
-    for leaf in tree.leaf_node_iter():
-#        print(leaf.taxon.label+ " " +str(leaf.X))
-        if leaf.X >=0 and leaf.Y >= 0:
-            leaf.leave = True
-            
-            
-    labels = []        
-    for node in tree.postorder_node_iter(): 
-        for child in node.child_node_iter():
-            if child.leave:
-                node.leave =True
-        
-        if not node.leave:
-            labels.append(node.taxon.label)
-                
-    t1 = tree.extract_tree_without_taxa_labels(labels=labels)
-
-#    print(t1.taxon_namespace)
-#    print(tree.taxon_namespace)
-    #seed_position_X = tree.find_node_with_taxon_label(t1.seed_node.taxon.label).X
-    #seed_position_Y = tree.find_node_with_taxon_label(t1.seed_node.taxon.label).Y
-    for node in t1.preorder_node_iter():
-        node.X=tree.find_node_with_taxon_label(node.taxon.label).X#-seed_position_X
-        node.Y=tree.find_node_with_taxon_label(node.taxon.label).Y#-seed_position_Y
-        node.time=tree.find_node_with_taxon_label(node.taxon.label).time
-    return t1
-          
-
-def sample_biased_radius_central(tree, dimension):
-    radius = 1
-    for node in tree.preorder_node_iter():
-        node.leave = False
-    for leaf in tree.leaf_node_iter():
-        if dimension==2:            
-            if math.sqrt(leaf.X*leaf.X+leaf.Y*leaf.Y) <= radius:
-                leaf.leave = True
-        else:
-            if abs(leaf.X) <= radius:
-                leaf.leave = True            
-            
-    labels = []        
-    for node in tree.postorder_node_iter(): 
-        for child in node.child_node_iter():
-            if child.leave:
-                node.leave =True
-        
-        if not node.leave:
-            labels.append(node.taxon.label)
-                
-    t1 = tree.extract_tree_without_taxa_labels(labels=labels)
-
-
-    for node in t1.preorder_node_iter():
-        node.X=tree.find_node_with_taxon_label(node.taxon.label).X#-seed_position_X
-        if dimension==2:
-            node.Y=tree.find_node_with_taxon_label(node.taxon.label).Y
-        node.time=tree.find_node_with_taxon_label(node.taxon.label).time
-    return t1
-
-def sample_biased_most_central(tree, dimension):
-    for node in tree.preorder_node_iter():
-        node.leave = False        
-    
-    num_tips = 0
-    for leaf in tree.leaf_node_iter():
-        num_tips = num_tips +1
-    
-    sample_size = int(num_tips/5)
-    distances = np.zeros(num_tips)
-    index = 0
-    for leaf in tree.leaf_node_iter():
-        if dimension ==2:
-            leaf.distance=math.sqrt(leaf.X*leaf.X+leaf.Y*leaf.Y)
-            distances[index]=leaf.distance
-            index = index+1
-        else:
-            leaf.distance=abs(leaf.X)
-            distances[index]=leaf.distance
-            index=index+1
-    distances=distances[distances.argsort()]
-    cutoff=distances[sample_size-1]
-    
-    for leaf in tree.leaf_node_iter():
-        if leaf.distance <= cutoff:
-            leaf.leave = True  
-
-    labels = []        
-    for node in tree.postorder_node_iter(): 
-        for child in node.child_node_iter():
-            if child.leave:
-                node.leave =True        
-        if not node.leave:
-            labels.append(node.taxon.label)            
-            
-    t1 = tree.extract_tree_without_taxa_labels(labels=labels)
-    for node in t1.preorder_node_iter():
-        node.X=tree.find_node_with_taxon_label(node.taxon.label).X#-seed_position_X
-        node.time=tree.find_node_with_taxon_label(node.taxon.label).time        
-        if dimension ==2:
-            node.Y=tree.find_node_with_taxon_label(node.taxon.label).Y#-seed_position_Y
-    return t1
-
-
-
-def sample_unbiased(tree, dimension):
-    
-    for node in tree.preorder_node_iter():
-        node.leave = False    
-    num_tips = 0
-    for leaf in tree.leaf_node_iter():
-        num_tips = num_tips +1
-    
-    sample_size = int(num_tips/5)
-    sample_set = random.sample(range(num_tips), sample_size)
-    index = 0
-    for leaf in tree.leaf_node_iter():
-        if index in sample_set:
-            leaf.leave = True
-        index = index+1    
-            
-    labels = []        
-    for node in tree.postorder_node_iter(): 
-        for child in node.child_node_iter():
-            if child.leave:
-                node.leave =True
-        
-        if not node.leave:
-            labels.append(node.taxon.label)
-                
-    t1 = tree.extract_tree_without_taxa_labels(labels=labels)
-    for node in t1.preorder_node_iter():
-        node.X=tree.find_node_with_taxon_label(node.taxon.label).X
-        node.time=tree.find_node_with_taxon_label(node.taxon.label).time
-        if dimension ==2:
-            node.Y=tree.find_node_with_taxon_label(node.taxon.label).Y
-    return t1
-
-def sample_biased_diagonal(tree, dimension):
-    for node in tree.preorder_node_iter():
-        node.leave = False
-    for leaf in tree.leaf_node_iter():
-        if abs(leaf.X-leaf.Y) <= 1:
-            leaf.leave = True
-                        
-    labels = []        
-    for node in tree.postorder_node_iter(): 
-        for child in node.child_node_iter():
-            if child.leave:
-                node.leave =True
-        
-        if not node.leave:
-            labels.append(node.taxon.label)
-                
-    t1 = tree.extract_tree_without_taxa_labels(labels=labels)
-
-
-    for node in t1.preorder_node_iter():
-        node.X=tree.find_node_with_taxon_label(node.taxon.label).X#-seed_position_X
-        node.Y=tree.find_node_with_taxon_label(node.taxon.label).Y#-seed_position_Y
-        node.time=tree.find_node_with_taxon_label(node.taxon.label).time
-    return t1
-
 
 parser = argparse.ArgumentParser(description='Run simulations')
 parser.add_argument('-dims', dest='dimension', type=int, default=1, help='number of dimensions (1 or 2) for which the random walk is generated (default: 1)')
@@ -463,7 +183,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
         print(args.tree_type+" is invalid tree type")
         break
                 
-    t= simulate_brownian(t, sigma, dimension) 
+    t= treegenerator.simulate_brownian(t, sigma, dimension) 
     t=calculate_time_to_tips(t)
     
     max_coordinate = 0

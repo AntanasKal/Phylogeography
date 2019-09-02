@@ -13,6 +13,38 @@ from dendropy.simulate import treesim
 import numpy as np
 
 
+def simulate_brownian(t, sigma, dimension):
+    #t is the tree
+    #sigma is the standard deviation of the brownian motion
+    #dimension is the number of dimensions in which we generate the random walk
+    
+    positions = {}
+    
+    for node in t.preorder_node_iter():   
+        
+        if node.parent_node is None:
+            node.X = 0
+            node.displacementX = 0
+            if dimension==2:
+                node.Y = float (0)
+                node.displacementY = float(0)
+        else:
+ #           node.displacementX = random.gauss(mu=0, sigma=sigma*math.sqrt(node.edge_length))            
+            node.displacementX = random.gauss(0, sigma*math.sqrt(node.edge_length))
+            #node.displacementX = np.random.normal()*math.sqrt(node.edge_length)
+            
+            
+            node.X = node.parent_node.X+node.displacementX      
+            #node.X = random.gauss(node.parent_node.X, sigma*math.sqrt(node.edge_length))   
+            if dimension==2:
+                node.displacementY = random.gauss(0, sigma*math.sqrt(node.edge_length))
+                node.Y = node.parent_node.Y+node.displacementY   
+        positions.update({node.taxon.label: node.X})
+    return t
+
+
+
+
 #this function calculates the time from the seed node to the present (seed node has time 0)
 def calculate_times(t):
     for node in t.preorder_node_iter():
