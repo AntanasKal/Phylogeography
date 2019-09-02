@@ -63,11 +63,10 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     file.close()
     
     file = open("output/observed_roots"+str(i)+".txt", "w")
-    f = open("output/c_beast/beast_output/beast"+str(i)+".trees.txt", "r")
-    for line in f:
-        if line.startswith("tree"):
-            single_t = dendropy.Tree.get_from_string(line, extract_comment_metadata=True, suppress_internal_node_taxa=False, schema='newick')
-            file.write(single_t.seed_node.annotations.require_value("X")+"\t"+single_t.seed_node.annotations.require_value("Y")+'\n')
+    
+    treelist = dendropy.TreeList.get(path="output/c_beast/beast_output/beast"+str(i)+".trees.txt", extract_comment_metadata=True, schema="nexus")
+    for single_tree in treelist:
+        file.write(single_tree.seed_node.annotations.require_value("X")+"\t"+single_tree.seed_node.annotations.require_value("Y")+'\n')
     file.close()
     
     
