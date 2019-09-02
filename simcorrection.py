@@ -27,9 +27,9 @@ job_index = args.job_index
 
 
 
-num_tips = 500
-sample_size = 50
-other_sample_size = 50
+num_tips = 50
+sample_size = 5
+other_sample_size = 5
 sigma = 1
 seq_len = 100 # 10000
 
@@ -56,3 +56,19 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     
     os.system('beast -overwrite -seed 123456795 "output/c_beast/beast_input/beast'+str(i)+'.xml"')
     os.system('beast -overwrite -seed 123456795 "output/c_beast/beast_input/nbeast'+str(i)+'.xml"')
+    
+    file = open("output/actual_root"+str(i)+".txt", "w")
+    file.write(str(sampled_t.seed_node.X)+'\n')
+    file.write(str(sampled_t.seed_node.Y)+'\n')
+    file.close()
+    
+    file = open("output/observed_roots"+str(i)+".txt", "w")
+    f = open("output/c_beast/beast_output/beast"+str(i)+".trees.txt", "r")
+    for line in f:
+        if line.startswith("tree"):
+            single_t = dendropy.Tree.get_from_string(line, extract_comment_metadata=True, suppress_internal_node_taxa=False, schema='newick')
+            file.write(single_t.seed_node.annotations.require_value("X")+"\t"+single_t.seed_node.annotations.require_value("Y")+'\n')
+    file.close()
+    
+    
+    
