@@ -49,9 +49,9 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     
     sampled_t = sampling.sample_biased_extreme(tree, sample_ratio = sample_size/num_tips, dimension = 2)    
     d = dendropy.model.discrete.hky85_chars(kappa=3, mutation_rate=0.1, seq_len=seq_len, tree_model=sampled_t, retain_sequences_on_tree=False)    
-    beastxmlwriter.write_BEAST_xml_corrected(tree, sampled_t, d, i=i,  mcmc=1000000, log_every=1000, beast_input_string ="output/c_beast/beast_input/beast", beast_output_string="output/c_beast/beast_output/beast", other_sample_size=other_sample_size, seq_len=seq_len)
+    beastxmlwriter.write_BEAST_xml_corrected(tree, sampled_t, d, i=i,  mcmc=100000, log_every=1000, beast_input_string ="output/c_beast/beast_input/beast", beast_output_string="output/c_beast/beast_output/beast", other_sample_size=other_sample_size, seq_len=seq_len)
     
-    beastxmlwriter.write_BEAST_xml(sampled_t, i=i, dimension=2, mcmc=1000000, log_every=1000, beast_input_string ="output/c_beast/beast_input/nbeast", beast_output_string="output/c_beast/beast_output/nbeast")
+    beastxmlwriter.write_BEAST_xml(sampled_t, i=i, dimension=2, mcmc=100000, log_every=1000, beast_input_string ="output/c_beast/beast_input/nbeast", beast_output_string="output/c_beast/beast_output/nbeast")
     
     
     os.system('beast -overwrite -seed 123456795 "output/c_beast/beast_input/beast'+str(i)+'.xml"')
@@ -62,12 +62,29 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     file.write(str(sampled_t.seed_node.Y)+'\n')
     file.close()
     
-    file = open("output/observed_roots"+str(i)+".txt", "w")
     
+    sample_taxon_labels = []
+    
+    for leaf in sampled_t.leaf_node_iter():
+        sample_taxon_labels.append(leaf.taxon.label)
+    
+    
+    file = open("output/observed_roots"+str(i)+".txt", "w")    
     treelist = dendropy.TreeList.get(path="output/c_beast/beast_output/beast"+str(i)+".trees.txt", extract_comment_metadata=True, schema="nexus")
     for single_tree in treelist:
-        file.write(single_tree.seed_node.annotations.require_value("location")[0]+"\t"+single_tree.seed_node.annotations.require_value("location")[1]+'\n')
+        
+        mrca = single_tree.mrca(taxon_labels=sample_taxon_labels)
+        file.write(mrca.annotations.require_value("location")[0]+"\t"+mrca.annotations.require_value("location")[1]+'\n')
+        
     file.close()
     
     
     
+    
+    
+    
+    file = open("output/old_observed_roots"+str(i)+".txt", "w")    
+    treelist = dendropy.TreeList.get(path="output/c_beast/beast_output/nbeast"+str(i)+".trees.txt", extract_comment_metadata=True, schema="nexus")
+    for single_tree in treelist:
+        file.write(single_tree.seed_node.annotations.require_value("location")[0]+"\t"+single_tree.seed_node.annotations.require_value("location")[1]+'\n')
+    file.close() 
