@@ -8,7 +8,6 @@ Created on Thu Aug 29 16:47:06 2019
 import argparse
 import dendropy
 import numpy as np
-
 import sampling
 import beastxmlwriter
 import treegenerator
@@ -32,6 +31,8 @@ sample_size = 50
 other_sample_size = 50
 sigma = 1
 seq_len = 10000 # 10000
+mcmc = 1e7
+
 
 #num_simulations = 1
 
@@ -49,9 +50,9 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     
     sampled_t = sampling.sample_biased_extreme(tree, sample_ratio = sample_size/num_tips, dimension = 2)    
     d = dendropy.model.discrete.hky85_chars(kappa=3, mutation_rate=0.05, seq_len=seq_len, tree_model=sampled_t, retain_sequences_on_tree=False)    
-    beastxmlwriter.write_BEAST_xml_corrected(tree, sampled_t, d, i=i,  mcmc=10000000, log_every=1000, beast_input_string ="output/c_beast/beast_input/beast", beast_output_string="output/c_beast/beast_output/beast", other_sample_size=other_sample_size, seq_len=seq_len)
+    beastxmlwriter.write_BEAST_xml_corrected(tree, sampled_t, d, i=i,  mcmc=100000, log_every=1000, beast_input_string ="output/c_beast/beast_input/beast", beast_output_string="output/c_beast/beast_output/beast", other_sample_size=other_sample_size, seq_len=seq_len)
     
-    beastxmlwriter.write_BEAST_xml(sampled_t, i=i, dimension=2, mcmc=1000000, log_every=1000, beast_input_string ="output/c_beast/beast_input/nbeast", beast_output_string="output/c_beast/beast_output/nbeast")
+    beastxmlwriter.write_BEAST_xml(sampled_t, i=i, dimension=2, mcmc=10000, log_every=10, beast_input_string ="output/c_beast/beast_input/nbeast", beast_output_string="output/c_beast/beast_output/nbeast")
     
     
     os.system('beast -overwrite -seed 123456795 "output/c_beast/beast_input/beast'+str(i)+'.xml"')
@@ -70,17 +71,28 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     
     
     file = open("output/root_data/observed_roots"+str(i)+".txt", "w")    
-    treelist = dendropy.TreeList.get(path="output/c_beast/beast_output/beast"+str(i)+".trees.txt", extract_comment_metadata=True, schema="nexus")
-    for single_tree in treelist:
+    
+    for line in open("output/c_beast/beast_output/beast"+str(i)+".trees.txt"):
         
-        mrca = single_tree.mrca(taxon_labels=sample_taxon_labels)
-        file.write(mrca.annotations.require_value("location")[0]+"\t"+mrca.annotations.require_value("location")[1]+'\n')
-        
+        if line.startswith("tree"):
+            start_index = 0
+            while True:
+                if line[start_index:start_index+4]=="[&R]":
+                    break
+                start_index=start_index+1
+            single_tree=dendropy.Tree.get(line[start_index:], schema="newick", extract_comment_metadata=True)
+            
+            mrca = single_tree.mrca(taxon_labels=sample_taxon_labels)
+            file.write(mrca.annotations.require_value("location")[0]+"\t"+mrca.annotations.require_value("location")[1]+'\n')
     file.close()
-    
-    
-    
-    
+        
+#    treelist = dendropy.TreeList.get(path="output/c_beast/beast_output/beast"+str(i)+".trees.txt", extract_comment_metadata=True, schema="nexus")
+#    for single_tree in treelist:
+#        
+#        mrca = single_tree.mrca(taxon_labels=sample_taxon_labels)
+#        file.write(mrca.annotations.require_value("location")[0]+"\t"+mrca.annotations.require_value("location")[1]+'\n')
+#        
+#    
     
     
     file = open("output/root_data/old_observed_roots"+str(i)+".txt", "w")    
