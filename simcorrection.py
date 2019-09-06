@@ -92,7 +92,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
             #print("adsfasdf")
             initialize_dict = True 
     
-    
+    print(taxon_dict)
     translated_sample_taxon_labels = []
     for label in sample_taxon_labels:
         translated_sample_taxon_labels.append(taxon_dict.get(label))
