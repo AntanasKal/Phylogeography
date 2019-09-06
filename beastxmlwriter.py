@@ -823,11 +823,27 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, beast_inpu
 	</patterns>
 	
 
-	<!-- A prior assumption that the population size has remained constant       -->
-	<!-- throughout the time spanned by the genealogy.                           -->
-	<constantSize id="constant" units="substitutions">
+	
+	<!-- The unique patterns from 1 to end                                       -->
+	<!-- npatterns=42                                                            -->
+	<patterns id="patterns" from="1" strip="false">
+		<alignment idref="alignment"/>
+	</patterns>
+	
+
+	<!-- A prior on the distribution node heights defined given                  -->
+	<!-- a Yule speciation process (a pure birth process).                       -->
+	<yuleModel id="yule" units="years">
+		<birthRate>
+			<parameter id="yule.birthRate" value="1.0"/>
+		</birthRate>
+	</yuleModel>
+
+	<!-- This is a simple constant population size coalescent model              -->
+	<!-- that is used to generate an initial tree for the chain.                 -->
+	<constantSize id="initialDemo" units="years">
 		<populationSize>
-			<parameter id="constant.popSize" value="1.0" lower="0.0"/>
+			<parameter id="initialDemo.popSize" value="100.0"/>
 		</populationSize>
 	</constantSize>
 	
@@ -835,7 +851,7 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, beast_inpu
 	<!-- Generate a random starting tree under the coalescent process            -->
 	<coalescentSimulator id="startingTree">
 		<taxa idref="taxa"/>
-		<constantSize idref="constant"/>
+		<constantSize idref="initialDemo"/>
 	</coalescentSimulator>
 	
 
@@ -859,15 +875,15 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, beast_inpu
 	</treeLengthStatistic>
 	
 
-	<!-- Generate a coalescent likelihood                                        -->
-	<coalescentLikelihood id="coalescent">
+	<!-- Generate a speciation likelihood for Yule or Birth Death                -->
+	<speciationLikelihood id="speciation">
 		<model>
-			<constantSize idref="constant"/>
+			<yuleModel idref="yule"/>
 		</model>
-		<populationTree>
+		<speciesTree>
 			<treeModel idref="treeModel"/>
-		</populationTree>
-	</coalescentLikelihood>
+		</speciesTree>
+	</speciationLikelihood>
 	
 
 	<!-- The strict clock (Uniform rates across branches)                        -->
@@ -1007,9 +1023,6 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, beast_inpu
 		<uniformOperator weight="30">
 			<parameter idref="treeModel.internalNodeHeights"/>
 		</uniformOperator>
-		<scaleOperator scaleFactor="0.75" weight="3">
-			<parameter idref="constant.popSize"/>
-		</scaleOperator>
 
 		<!-- START Multivariate diffusion model                                      -->
 		<precisionGibbsOperator weight="2">
@@ -1031,10 +1044,7 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, beast_inpu
 				<dirichletPrior alpha="1.0" sumsTo="1.0">
 					<parameter idref="frequencies"/>
 				</dirichletPrior>
-				<oneOnXPrior>
-					<parameter idref="constant.popSize"/>
-				</oneOnXPrior>
-				<coalescentLikelihood idref="coalescent"/>
+				<speciationLikelihood idref="speciation"/>
 				
 				
 				<strictClockBranchRates idref="branchRates"/>
@@ -1074,13 +1084,14 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, beast_inpu
 		</log>
 """)
 #		<log id="fileLog" logEvery="""+'"'+str(log_every)+'"'+""" fileName="""+'"'+beast_output_string+str(i)+'.log.txt"'+""" overwrite="false">
-    file.write('\t\t<log id="fileLog" logEvery="'+str(log_every)+'" fileName="'+beast_output_string+str(i)+'log.txt" overwrite="false">\n')
-    file.write("""			<joint idref="joint"/>
+    file.write('\t\t<log id="fileLog" logEvery="'+str(log_every)+'" fileName="'+beast_output_string+str(i)+'.log.txt" overwrite="false">\n')
+    file.write("""			<log id="fileLog" logEvery="1000" fileName="fasta.log.txt" overwrite="false">
+			<joint idref="joint"/>
 			<prior idref="prior"/>
 			<likelihood idref="likelihood"/>
 			<parameter idref="treeModel.rootHeight"/>
 			<treeLengthStatistic idref="treeLength"/>
-			<parameter idref="constant.popSize"/>
+			<parameter idref="yule.birthRate"/>
 			<parameter idref="kappa"/>
 			<parameter idref="frequencies"/>
 			<parameter idref="clock.rate"/>
@@ -1102,7 +1113,7 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, beast_inpu
 
 			<!-- END Multivariate diffusion model                                        -->
 
-			<coalescentLikelihood idref="coalescent"/>
+			<speciationLikelihood idref="speciation"/>
 			
 		</log>
 
