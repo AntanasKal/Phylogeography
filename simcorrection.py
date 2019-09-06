@@ -11,7 +11,7 @@ import numpy as np
 import sampling
 import beastxmlwriter
 import treegenerator
-
+import time
 import os
 
 
@@ -63,6 +63,8 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     file.write(str(sampled_t.seed_node.Y)+'\n')
     file.close()
     
+    
+    time.sleep(2)
     
     sample_taxon_labels = []
     
