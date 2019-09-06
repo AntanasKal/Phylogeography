@@ -823,14 +823,6 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, beast_inpu
 	</patterns>
 	
 
-	
-	<!-- The unique patterns from 1 to end                                       -->
-	<!-- npatterns=42                                                            -->
-	<patterns id="patterns" from="1" strip="false">
-		<alignment idref="alignment"/>
-	</patterns>
-	
-
 	<!-- A prior on the distribution node heights defined given                  -->
 	<!-- a Yule speciation process (a pure birth process).                       -->
 	<yuleModel id="yule" units="years">
