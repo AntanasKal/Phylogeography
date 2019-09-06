@@ -112,7 +112,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
                 start_index=start_index+1
             single_tree=dendropy.Tree.get(data=line[start_index:], schema="newick", extract_comment_metadata=True)
             for leaf in single_tree.leaf_node_iter():
-                print(leaf.taxon.label)
+                print("label: "+leaf.taxon.label)
             mrca = single_tree.mrca(taxon_labels=translated_sample_taxon_labels)
             file.write(mrca.annotations.require_value("location")[0]+"\t"+mrca.annotations.require_value("location")[1]+'\n')
     file.close()
