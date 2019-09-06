@@ -752,11 +752,7 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, beast_inpu
     #print("full taxon namespace")
     #print(tree.taxon_namespace)
     
-    sample_set = random.sample(range(len(label_sample_space)), other_sample_size)
-    
-    
-    
-    
+    sample_set = random.sample(range(len(label_sample_space)), other_sample_size)    
     
     file = open(beast_input_string+str(i)+".xml","w")
     file.write('<?xml version="1.0" standalone="yes"?>\n')
@@ -1077,8 +1073,7 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, beast_inpu
 """)
 #		<log id="fileLog" logEvery="""+'"'+str(log_every)+'"'+""" fileName="""+'"'+beast_output_string+str(i)+'.log.txt"'+""" overwrite="false">
     file.write('\t\t<log id="fileLog" logEvery="'+str(log_every)+'" fileName="'+beast_output_string+str(i)+'.log.txt" overwrite="false">\n')
-    file.write("""			<log id="fileLog" logEvery="1000" fileName="fasta.log.txt" overwrite="false">
-			<joint idref="joint"/>
+    file.write("""			<joint idref="joint"/>
 			<prior idref="prior"/>
 			<likelihood idref="likelihood"/>
 			<parameter idref="treeModel.rootHeight"/>
