@@ -80,7 +80,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
                 if line[start_index:start_index+4]=="[&R]":
                     break
                 start_index=start_index+1
-            single_tree=dendropy.Tree.get(line[start_index:], schema="newick", extract_comment_metadata=True)
+            single_tree=dendropy.Tree.get(data=line[start_index:], schema="newick", extract_comment_metadata=True)
             
             mrca = single_tree.mrca(taxon_labels=sample_taxon_labels)
             file.write(mrca.annotations.require_value("location")[0]+"\t"+mrca.annotations.require_value("location")[1]+'\n')
