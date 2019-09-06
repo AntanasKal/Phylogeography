@@ -69,7 +69,34 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     for leaf in sampled_t.leaf_node_iter():
         sample_taxon_labels.append(leaf.taxon.label)
     
+    initialize_dict = False
+    taxon_dict = {}
+    for line in open("output/c_beast/beast_output/beast"+str(i)+".trees.txt"):
+        
+        if initialize_dict==True and line.startswith("		;"):
+            break           
+        
+        if initialize_dict==True:
+#            print(line[2:-2])
+            [a, b]=line[2:-2].split()
+            
+#            print(a)
+#            print(b)
+            
+            taxon_dict.update({b : a})
+            #break   
+        
+        if line.startswith("	Translate"):
+            #print("adsfasdf")
+            initialize_dict = True 
     
+    
+    translated_sample_taxon_labels = []
+    for label in sample_taxon_labels:
+        translated_sample_taxon_labels.append(taxon_dict.get(label))
+    
+      
+        
     file = open("output/root_data/observed_roots"+str(i)+".txt", "w")    
     
     for line in open("output/c_beast/beast_output/beast"+str(i)+".trees.txt"):
@@ -82,7 +109,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
                 start_index=start_index+1
             single_tree=dendropy.Tree.get(data=line[start_index:], schema="newick", extract_comment_metadata=True)
             
-            mrca = single_tree.mrca(taxon_labels=sample_taxon_labels)
+            mrca = single_tree.mrca(taxon_labels=translated_sample_taxon_labels)
             file.write(mrca.annotations.require_value("location")[0]+"\t"+mrca.annotations.require_value("location")[1]+'\n')
     file.close()
         
