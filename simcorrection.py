@@ -26,9 +26,9 @@ job_index = args.job_index
 
 
 
-num_tips = 500
-sample_size = 50
-other_sample_size = 50
+num_tips = 50
+sample_size = 5
+other_sample_size = 5
 sigma = 1
 seq_len = 10000 # 10000
 mcmc = 1e7
