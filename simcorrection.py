@@ -96,6 +96,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     translated_sample_taxon_labels = []
     for label in sample_taxon_labels:
         translated_sample_taxon_labels.append(taxon_dict.get(label))
+        print(taxon_dict.get(label))
     
       
         
@@ -110,7 +111,8 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
                     break
                 start_index=start_index+1
             single_tree=dendropy.Tree.get(data=line[start_index:], schema="newick", extract_comment_metadata=True)
-            
+            for leaf in single_tree.leaf_node_iter():
+                print(leaf.taxon.label)
             mrca = single_tree.mrca(taxon_labels=translated_sample_taxon_labels)
             file.write(mrca.annotations.require_value("location")[0]+"\t"+mrca.annotations.require_value("location")[1]+'\n')
     file.close()
