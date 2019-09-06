@@ -80,8 +80,11 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
         
         if initialize_dict==True:
 #            print(line[2:-2])
-            [a, b]=line[2:-2].split()
             
+            if line[-2]==',':
+                [a, b]=line[2:-2].split()
+            else:
+                [a, b]=line[2:-1].split()            
 #            print(a)
 #            print(b)
             
