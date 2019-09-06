@@ -50,9 +50,9 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     
     sampled_t = sampling.sample_biased_extreme(tree, sample_ratio = sample_size/num_tips, dimension = 2)    
     d = dendropy.model.discrete.hky85_chars(kappa=3, mutation_rate=0.05, seq_len=seq_len, tree_model=sampled_t, retain_sequences_on_tree=False)    
-    beastxmlwriter.write_BEAST_xml_corrected(tree, sampled_t, d, i=i,  mcmc=10000, log_every=1000, beast_input_string ="output/c_beast/beast_input/beast", beast_output_string="output/c_beast/beast_output/beast", other_sample_size=other_sample_size, seq_len=seq_len)
+    beastxmlwriter.write_BEAST_xml_corrected(tree, sampled_t, d, i=i,  mcmc=10000000, log_every=1000, beast_input_string ="output/c_beast/beast_input/beast", beast_output_string="output/c_beast/beast_output/beast", other_sample_size=other_sample_size, seq_len=seq_len)
     
-    beastxmlwriter.write_BEAST_xml(sampled_t, i=i, dimension=2, mcmc=100, log_every=10, beast_input_string ="output/c_beast/beast_input/nbeast", beast_output_string="output/c_beast/beast_output/nbeast")
+    beastxmlwriter.write_BEAST_xml(sampled_t, i=i, dimension=2, mcmc=10000, log_every=10, beast_input_string ="output/c_beast/beast_input/nbeast", beast_output_string="output/c_beast/beast_output/nbeast")
     
     
     os.system('beast -overwrite -seed 123456795 "output/c_beast/beast_input/beast'+str(i)+'.xml"')
@@ -64,7 +64,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     file.close()
     
     
-    time.sleep(2)
+    #time.sleep(2)
     
     sample_taxon_labels = []
     
