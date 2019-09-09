@@ -16,7 +16,7 @@ import os
 
 parser = argparse.ArgumentParser(description='Run simulations')
 #parser.add_argument('-file', action="store", type=int, dest="file_name", default="output/c_beast/sampled1/beast_input/beast0.xml", help='File name')
-parser.add_argument('-sample_index', action="store", type=int, dest="output_index", default = 1, help='index of sampling scenario for analysis (default: 1)')
+parser.add_argument('-sample_index', action="store", type=int, dest="sample_index", default = 1, help='index of sampling scenario for analysis (default: 1)')
 parser.add_argument('-index', action="store", type=int, dest="index", default = 0, help='index of sample (default: 0)')
 
 args = parser.parse_args()
