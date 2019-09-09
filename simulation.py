@@ -20,29 +20,6 @@ import treegenerator
 
 import os
 
-    
-#def analyze_tree_list(tree, i, dimension, mcmc): 
-##   command to execute treeannotator       
-#    burnin=int(mcmc/10)
-#    os.system('cmd /c ""C:/Users/Antanas/Desktop/BEAST v1.10.4/bin/treeannotator" -burnin '+str(burnin)+' "C:/Users/Antanas/Phylogeny Simulation/output/beast_output/beast'+str(i)+'.trees.txt" "C:/Users/Antanas/Phylogeny Simulation/annotated_trees/beast'+str(i)+'.tree.txt""')
-#    for node in tree.preorder_node_iter():
-#        node.averageX=0
-#        if dimension == 2:
-#            node.averageY=0
-#        
-#    annotated_tree=dendropy.Tree.get(path='output/annotated_trees/beast'+str(i)+'.tree.txt', taxon_namespace=tree.taxon_namespace, extract_comment_metadata=True, suppress_internal_node_taxa=False, schema="nexus")     
-#           
-#    nodes_tree = [nd for nd in tree.preorder_node_iter()]
-#    nodes_annotated_tree = [nd for nd in annotated_tree.preorder_node_iter()]
-#    for i, n in enumerate(nodes_tree):            
-#        if dimension==2:
-#            nodes_tree[i].averageX=float(nodes_annotated_tree[i].annotations.require_value("location1"))
-#            nodes_tree[i].averageY=float(nodes_annotated_tree[i].annotations.require_value("location2"))
-#        else:
-#            nodes_tree[i].averageX=float(nodes_annotated_tree[i].annotations.require_value("X"))
-#            
-#    return tree                  
-
 
 
 
@@ -269,16 +246,39 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
                 #os.system('cmd /c ""C:/Users/Antanas/Desktop/BEAST v1.10.4/bin/treeannotator" -burnin '+str(burnin)+' "C:/Users/Antanas/Phylogeny Simulation/output/sampled_beast_output'+str(output_index)+'/sampled_beast'+str(i)+'.trees.txt" "C:/Users/Antanas/Phylogeny Simulation/output/annotated_sampled_trees'+str(output_index)+'/sampled_beast'+str(i)+'.tree.txt""')
                 os.system('treeannotator -burnin '+str(burnin)+' "output/beast/sampled'+str(output_index)+'beast_output/beast'+str(i)+'.trees.txt" "output/beast/sampled'+str(output_index)+'/annotated_trees/beast'+str(i)+'.tree.txt"')
                
-        file = open("output/beast/sampled"+str(output_index)+"/root_data/observed_roots"+str(i)+".txt", "w")   
-        for line in open("output/beast/sampled"+str(output_index)+"/beast_output/beast"+str(i)+".trees.txt"):
-            
-            if line.startswith("tree"):
-                start_index = 0
-                while True:
-                    if line[start_index:start_index+4]=="[&R]":
-                        break
-                    start_index=start_index+1
-                single_tree=dendropy.Tree.get(data=line[start_index:], schema="newick", extract_comment_metadata=True)
-                file.write(single_tree.seed_node.annotations.require_value("location")[0]+"\t"+single_tree.seed_node.annotations.require_value("location")[1]+'\n')
-        file.close()
+            file = open("output/beast/sampled"+str(output_index)+"/root_data/observed_roots"+str(i)+".txt", "w")   
+            for line in open("output/beast/sampled"+str(output_index)+"/beast_output/beast"+str(i)+".trees.txt"):
+                
+                if line.startswith("tree"):
+                    start_index = 0
+                    while True:
+                        if line[start_index:start_index+4]=="[&R]":
+                            break
+                        start_index=start_index+1
+                    single_tree=dendropy.Tree.get(data=line[start_index:], schema="newick", extract_comment_metadata=True)
+                    file.write(single_tree.seed_node.annotations.require_value("location")[0]+"\t"+single_tree.seed_node.annotations.require_value("location")[1]+'\n')
+            file.close()
         
+        
+        #def analyze_tree_list(tree, i, dimension, mcmc): 
+##   command to execute treeannotator       
+#    burnin=int(mcmc/10)
+#    os.system('cmd /c ""C:/Users/Antanas/Desktop/BEAST v1.10.4/bin/treeannotator" -burnin '+str(burnin)+' "C:/Users/Antanas/Phylogeny Simulation/output/beast_output/beast'+str(i)+'.trees.txt" "C:/Users/Antanas/Phylogeny Simulation/annotated_trees/beast'+str(i)+'.tree.txt""')
+#    for node in tree.preorder_node_iter():
+#        node.averageX=0
+#        if dimension == 2:
+#            node.averageY=0
+#        
+#    annotated_tree=dendropy.Tree.get(path='output/annotated_trees/beast'+str(i)+'.tree.txt', taxon_namespace=tree.taxon_namespace, extract_comment_metadata=True, suppress_internal_node_taxa=False, schema="nexus")     
+#           
+#    nodes_tree = [nd for nd in tree.preorder_node_iter()]
+#    nodes_annotated_tree = [nd for nd in annotated_tree.preorder_node_iter()]
+#    for i, n in enumerate(nodes_tree):            
+#        if dimension==2:
+#            nodes_tree[i].averageX=float(nodes_annotated_tree[i].annotations.require_value("location1"))
+#            nodes_tree[i].averageY=float(nodes_annotated_tree[i].annotations.require_value("location2"))
+#        else:
+#            nodes_tree[i].averageX=float(nodes_annotated_tree[i].annotations.require_value("X"))
+#            
+#    return tree                  
+

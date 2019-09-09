@@ -57,7 +57,7 @@ for label in sample_taxon_labels:
         
 file = open("output/c_beast/sampled"+str(sample_index)+"/root_data/observed_roots"+str(index)+".txt", "w")    
     
-for line in open("output/c_beast/sampled"+str(sample_index)+"beast_output/beast"+str(index)+".trees.txt"):
+for line in open("output/c_beast/sampled"+str(sample_index)+"/beast_output/beast"+str(index)+".trees.txt"):
     
     if line.startswith("tree"):
         start_index = 0
