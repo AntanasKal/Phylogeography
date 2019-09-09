@@ -25,7 +25,7 @@ import os
 
 
 parser = argparse.ArgumentParser(description='Run simulations')
-parser.add_argument('-dims', dest='dimension', type=int, default=1, help='number of dimensions (1 or 2) for which the random walk is generated (default: 1)')
+parser.add_argument('-dims', dest='dimension', type=int, default=2, help='number of dimensions (1 or 2) for which the random walk is generated (default: 2)')
 parser.add_argument('-N', action="store", type=int, dest="num_trees", default=5, help='number of simulations (default 5)')
 parser.add_argument('-treetype', action="store", dest="tree_type", default='nuc', help='type of tree generated \n "nuc" - nonultrametric coalescent \n "uc" - ultrametric coalescent \n "bd" - birth-death tree')
 parser.add_argument('-mcmc', action="store", type=int, dest="mcmc", default=5000, help='number of simulations (default 5000)')
@@ -65,7 +65,7 @@ run_tree_annotator = args.run_tree_annotator
 #####
 sample_ratio=0.05
 num_sampling = 4
-corr_beast_mcmc=1e5
+corr_beast_mcmc=int(1e7)
 generate_corrected_files=True
 #####
 
@@ -198,9 +198,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
             file = open("output/beast/sampled"+str(output_index)+"/root_data/actual_root"+str(i)+".txt", "w")
             file.write(str(sampled_t.seed_node.X)+'\n')
             file.write(str(sampled_t.seed_node.Y)+'\n')
-            file.close()
-                
-            
+            file.close()   
             
             
             if generate_corrected_files:
