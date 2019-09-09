@@ -29,7 +29,7 @@ os.system('beast -overwrite -seed 123456795 "output/c_beast/sampled'+str(sample_
 sample_taxon_labels = []
 
 for line in open("output/c_beast/sampled"+str(sample_index)+"/root_data/labels"+str(index)+".txt","r"):
-    if len(line>1):
+    if len(line)>1:
         sample_taxon_labels.append(line)
     
     
