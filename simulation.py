@@ -21,39 +21,31 @@ import treegenerator
 import os
 
     
-def analyze_tree_list(tree, i, dimension, mcmc): 
-#   command to execute treeannotator       
-    burnin=int(mcmc/10)
-    os.system('cmd /c ""C:/Users/Antanas/Desktop/BEAST v1.10.4/bin/treeannotator" -burnin '+str(burnin)+' "C:/Users/Antanas/Phylogeny Simulation/output/beast_output/beast'+str(i)+'.trees.txt" "C:/Users/Antanas/Phylogeny Simulation/annotated_trees/beast'+str(i)+'.tree.txt""')
-    for node in tree.preorder_node_iter():
-        node.averageX=0
-        if dimension == 2:
-            node.averageY=0
-        
-    annotated_tree=dendropy.Tree.get(path='output/annotated_trees/beast'+str(i)+'.tree.txt', taxon_namespace=tree.taxon_namespace, extract_comment_metadata=True, suppress_internal_node_taxa=False, schema="nexus")
-#    treelist = dendropy.TreeList.get(path="beast_output\\beast"+str(i)+'.trees.txt', schema="nexus")
-    
-#    print(annotated_tree.as_ascii_plot(plot_metric='length', show_internal_node_labels=True))
-#    print(tree.as_ascii_plot(plot_metric='length', show_internal_node_labels=True))       
-           
-    nodes_tree = [nd for nd in tree.preorder_node_iter()]
-    nodes_annotated_tree = [nd for nd in annotated_tree.preorder_node_iter()]
-    for i, n in enumerate(nodes_tree):            
-        if dimension==2:
-            nodes_tree[i].averageX=float(nodes_annotated_tree[i].annotations.require_value("location1"))
-            nodes_tree[i].averageY=float(nodes_annotated_tree[i].annotations.require_value("location2"))
-        else:
-            nodes_tree[i].averageX=float(nodes_annotated_tree[i].annotations.require_value("X"))
-            
-    return tree                  
+#def analyze_tree_list(tree, i, dimension, mcmc): 
+##   command to execute treeannotator       
+#    burnin=int(mcmc/10)
+#    os.system('cmd /c ""C:/Users/Antanas/Desktop/BEAST v1.10.4/bin/treeannotator" -burnin '+str(burnin)+' "C:/Users/Antanas/Phylogeny Simulation/output/beast_output/beast'+str(i)+'.trees.txt" "C:/Users/Antanas/Phylogeny Simulation/annotated_trees/beast'+str(i)+'.tree.txt""')
+#    for node in tree.preorder_node_iter():
+#        node.averageX=0
+#        if dimension == 2:
+#            node.averageY=0
+#        
+#    annotated_tree=dendropy.Tree.get(path='output/annotated_trees/beast'+str(i)+'.tree.txt', taxon_namespace=tree.taxon_namespace, extract_comment_metadata=True, suppress_internal_node_taxa=False, schema="nexus")     
+#           
+#    nodes_tree = [nd for nd in tree.preorder_node_iter()]
+#    nodes_annotated_tree = [nd for nd in annotated_tree.preorder_node_iter()]
+#    for i, n in enumerate(nodes_tree):            
+#        if dimension==2:
+#            nodes_tree[i].averageX=float(nodes_annotated_tree[i].annotations.require_value("location1"))
+#            nodes_tree[i].averageY=float(nodes_annotated_tree[i].annotations.require_value("location2"))
+#        else:
+#            nodes_tree[i].averageX=float(nodes_annotated_tree[i].annotations.require_value("X"))
+#            
+#    return tree                  
 
-def calculate_time_to_tips(tree):
-    for leaf in tree.leaf_node_iter():
-        leaf.time_to_tips = 0
-    for node in tree.postorder_node_iter():
-        if not hasattr(node, "time_to_tips"):
-            node.time_to_tips=min(set([child.time_to_tips+child.edge_length for child in node.child_nodes()]))  
-    return tree
+
+
+
 
 parser = argparse.ArgumentParser(description='Run simulations')
 parser.add_argument('-dims', dest='dimension', type=int, default=1, help='number of dimensions (1 or 2) for which the random walk is generated (default: 1)')
@@ -71,6 +63,11 @@ parser.add_argument('-jobi', action="store", type=int, dest="job_index", default
 parser.add_argument('--linux', dest='linux', action='store_const', const=True, default=False, help='is the program run on Linux? (default: False)')
 parser.add_argument('--annotate', dest='run_tree_annotator', action='store_const', const=True, default=False, help='run tree annotator (default: False)')
 
+sample_size = 50
+other_sample_size = 50
+seq_len = 10000
+
+
 
 args = parser.parse_args()
 dimension = args.dimension
@@ -85,13 +82,28 @@ lamb=args.lamb
 period_length=args.period_length
 job_index = args.job_index
 linux = args.linux
-print(linux)
 run_tree_annotator = args.run_tree_annotator
-#import os
+
+
+#####
+sample_ratio=0.05
+num_sampling = 4
+corr_beast_mcmc=1e7
+generate_corrected_files=True
+#####
+
+generate_sample_files=True
+run_sample_analysis=True
+
 if not os.path.exists("output"):
     os.makedirs("output")
 if not os.path.exists("output/beast"):
     os.makedirs("output/beast")
+if not os.path.exists("output/c_beast"):
+    os.makedirs("output/c_beast")  
+if not os.path.exists("output/phyrex"):
+    os.makedirs("output/phyrex")   
+    
 if not os.path.exists("output/beast/no_sampling"):
     os.makedirs("output/beast/no_sampling")    
 if not os.path.exists("output/beast/no_sampling/beast_input"):
@@ -103,16 +115,7 @@ if not os.path.exists("output/beast/no_sampling/generated_trees"):
 if not os.path.exists("output/beast/no_sampling/annotated_trees"):
     os.makedirs("output/beast/no_sampling/annotated_trees")
     
-if not os.path.exists("output/phyrex"):
-    os.makedirs("output/phyrex")
-    
-sample_ratio=0.05
-#if not os.path.exists("output/phyrex/phyrex_input"):
-#    os.makedirs("output/phyrex/phyrex_input")
-#if not os.path.exists("output/phyrex/phyrex_output"):
-#    os.makedirs("output/phyrex/phyrex_output")
 
-num_sampling = 4
 
 for output_index in range(1, num_sampling+1):
     if not os.path.exists("output/beast/sampled"+str(output_index)):
@@ -125,7 +128,23 @@ for output_index in range(1, num_sampling+1):
         os.makedirs("output/beast/sampled"+str(output_index)+"/generated_trees")
     if not os.path.exists("output/beast/sampled"+str(output_index)+"/annotated_trees"):
         os.makedirs("output/beast/sampled"+str(output_index)+"/annotated_trees")
+    if not os.path.exists("output/beast/sampled"+str(output_index)+"/root_data"):
+        os.makedirs("output/beast/sampled"+str(output_index)+"/root_data")    
         
+    if not os.path.exists("output/c_beast/sampled"+str(output_index)):
+        os.makedirs("output/c_beast/sampled"+str(output_index))   
+    if not os.path.exists("output/c_beast/sampled"+str(output_index)+"/beast_input"):
+        os.makedirs("output/c_beast/sampled"+str(output_index)+"/beast_input")
+    if not os.path.exists("output/c_beast/sampled"+str(output_index)+"/beast_output"):
+        os.makedirs("output/c_beast/sampled"+str(output_index)+"/beast_output")
+    if not os.path.exists("output/c_beast/sampled"+str(output_index)+"/generated_trees"):
+        os.makedirs("output/c_beast/sampled"+str(output_index)+"/generated_trees")
+    if not os.path.exists("output/c_beast/sampled"+str(output_index)+"/annotated_trees"):
+        os.makedirs("output/c_beast/sampled"+str(output_index)+"/annotated_trees")
+    if not os.path.exists("output/c_beast/sampled"+str(output_index)+"/root_data"):
+        os.makedirs("output/c_beast/sampled"+str(output_index)+"/root_data") 
+
+    
     if not os.path.exists("output/phyrex/sampled"+str(output_index)):
         os.makedirs("output/phyrex/sampled"+str(output_index))        
     if not os.path.exists("output/phyrex/sampled"+str(output_index)+"/phyrex_output"):
@@ -134,9 +153,11 @@ for output_index in range(1, num_sampling+1):
         os.makedirs("output/phyrex/sampled"+str(output_index)+"/phyrex_input")
 
 for i in range(num_trees*(job_index-1), num_trees*job_index):
-    #random.seed = 1357+i
-    print("index is" + str(i))
+    
+    #print("index is" + str(i))
+    
     t=dendropy.Tree()
+    
     
     if args.tree_type == "nuc":
         t = treegenerator.generate_nonultrametric_coalescent_tree(num_tips_per_period, num_periods, period_length, lamb)
@@ -146,7 +167,6 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
         t = treegenerator.generate_birthdeath_tree(1, 0.1, num_tips)
     elif args.tree_type == "yule":
         t = treegenerator.generate_yule_tree(num_tips)
-        #print(t.as_ascii_plot(plot_metric='length', show_internal_node_labels=True))
     elif args.tree_type == "star":
         t = treegenerator.generate_star_tree()
     else:
@@ -154,7 +174,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
         break
                 
     t= treegenerator.simulate_brownian(t, sigma, dimension) 
-    t=calculate_time_to_tips(t)
+    t= treegenerator.calculate_time_to_tips(t)
     
     max_coordinate = 0
     
@@ -163,11 +183,9 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
         if dimension == 2:
             max_coordinate = max(max_coordinate, abs(node.Y))
      
-    beastxmlwriter.write_BEAST_xml(t, i, dimension, mcmc, log_every, beast_input_string="output/beast/no_sampling/beast_input/beast", beast_output_string="output/beast/no_sampling/beast_output/beast")   
-    #phyrexxmlwriter.write_phyrex_input(t, i)     
-    run_sample_analysis=True
+    beastxmlwriter.write_BEAST_xml(t, i, dimension, mcmc, log_every, beast_input_string="output/beast/no_sampling/beast_input/beast", beast_output_string="output/beast/no_sampling/beast_output/beast")    
     
-    if run_sample_analysis:    
+    if generate_sample_files:    
         
         for output_index in range(1, num_sampling+1):
             if output_index ==1:
@@ -178,7 +196,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
                 sampled_t=sampling.sample_biased_diagonal(t, dimension, sample_ratio=sample_ratio)            
             elif output_index==4:
                 sampled_t=sampling.sample_biased_extreme(t, dimension, sample_ratio=sample_ratio)
-            sampled_t=calculate_time_to_tips(sampled_t)
+            sampled_t=treegenerator.calculate_time_to_tips(sampled_t)
             beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/beast/sampled"+str(output_index)+"/beast_input/beast", beast_output_string="output/beast/sampled"+str(output_index)+"/beast_output/beast")
             for node in sampled_t.preorder_node_iter():
                 node.annotations.add_bound_attribute("time")
@@ -186,11 +204,38 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
                 node.annotations.add_bound_attribute("time_to_tips")
                 if dimension==2:
                     node.annotations.add_bound_attribute("Y")
+                    
+                    
+            ######
+            if generate_corrected_files:
+                d = dendropy.model.discrete.hky85_chars(kappa=3, mutation_rate=0.05, seq_len=seq_len, tree_model=sampled_t, retain_sequences_on_tree=False)    
+                beastxmlwriter.write_BEAST_xml_corrected(t, sampled_t, d, i=i,  mcmc=corr_beast_mcmc, log_every=1000, beast_input_string ="output/c_beast/sampled"+str(output_index)+"/beast_input/beast", beast_output_string="output/c_beast/sampled"+str(output_index)+"/beast_output/beast", other_sample_size=other_sample_size, seq_len=seq_len)
+            ######
+            
+            
             sampled_t.write(path="output/beast/sampled"+str(output_index)+"/generated_trees/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
-            print("output/phyrex/phyrex_input/sampled"+str(output_index)+"/")
             if dimension ==2:
                 phyrexxmlwriter.write_phyrex_input(sampled_t, i, input_string="output/phyrex/sampled"+str(output_index)+"/phyrex_input/" , output_string="output/phyrex/sampled"+str(output_index)+"/phyrex_output/", bound=2*max_coordinate) 
- 
+            
+
+            file = open("output/beast/sampled"+str(output_index)+"/root_data/actual_root"+str(i)+".txt", "w")
+            file.write(str(sampled_t.seed_node.X)+'\n')
+            file.write(str(sampled_t.seed_node.Y)+'\n')
+            file.close()
+                
+            
+            
+            
+            if generate_corrected_files:
+                file = open("output/c_beast/sampled"+str(output_index)+"/root_data/actual_root"+str(i)+".txt", "w")
+                file.write(str(sampled_t.seed_node.X)+'\n')
+                file.write(str(sampled_t.seed_node.Y)+'\n')
+                file.close()
+                
+                file = open("output/c_beast/sampled"+str(output_index)+"/root_data/labels"+str(i)+".txt", "w")
+                for leaf in sampled_t.leaf_node_iter():
+                    file.write(leaf.taxon.label+'\n')
+                file.close()
         
     for node in t.preorder_node_iter():
         node.annotations.add_bound_attribute("time")
@@ -208,11 +253,12 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
             os.system('beast -overwrite -seed 123456795 "output/beast/no_sampling/beast_input/beast'+str(i)+'.xml"')
         else:
             os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output/beast/no_sampling/beast_input/beast'+str(i)+'.xml"')
+            
+            
         if run_tree_annotator:
             os.system('treeannotator -burnin '+str(burnin)+' "output/beast/no_sampling/beast_output/beast'+str(i)+'.trees.txt" "output/beast/no_sampling/annotated_trees/beast'+str(i)+'.tree.txt"')
         
     
-    run_sample_analysis= False
     if run_sample_analysis:
         for output_index in range(1, num_sampling+1):
             if linux:
@@ -222,36 +268,17 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
             if run_tree_annotator:
                 #os.system('cmd /c ""C:/Users/Antanas/Desktop/BEAST v1.10.4/bin/treeannotator" -burnin '+str(burnin)+' "C:/Users/Antanas/Phylogeny Simulation/output/sampled_beast_output'+str(output_index)+'/sampled_beast'+str(i)+'.trees.txt" "C:/Users/Antanas/Phylogeny Simulation/output/annotated_sampled_trees'+str(output_index)+'/sampled_beast'+str(i)+'.tree.txt""')
                 os.system('treeannotator -burnin '+str(burnin)+' "output/beast/sampled'+str(output_index)+'beast_output/beast'+str(i)+'.trees.txt" "output/beast/sampled'+str(output_index)+'/annotated_trees/beast'+str(i)+'.tree.txt"')
-           
-
-
-
-##this function generates borwnian motion for a given tree
-#def simulate_brownian(t, sigma, dimension):
-#    #t is the tree
-#    #sigma is the standard deviation of the brownian motion
-#    #dimension is the number of dimensions in which we generate the random walk
-#    
-#    positions = {}
-#    
-#    for node in t.preorder_node_iter():   
-#        
-#        if node.parent_node is None:
-#            node.X = 0
-#            node.displacementX = 0
-#            if dimension==2:
-#                node.Y = float (0)
-#                node.displacementY = float(0)
-#        else:
-# #           node.displacementX = random.gauss(mu=0, sigma=sigma*math.sqrt(node.edge_length))            
-#            node.displacementX = random.gauss(0, sigma*math.sqrt(node.edge_length))
-#            #node.displacementX = np.random.normal()*math.sqrt(node.edge_length)
-#            
-#            
-#            node.X = node.parent_node.X+node.displacementX      
-#            #node.X = random.gauss(node.parent_node.X, sigma*math.sqrt(node.edge_length))   
-#            if dimension==2:
-#                node.displacementY = random.gauss(0, sigma*math.sqrt(node.edge_length))
-#                node.Y = node.parent_node.Y+node.displacementY   
-#        positions.update({node.taxon.label: node.X})
-#    return t
+               
+        file = open("output/beast/sampled"+str(output_index)+"/root_data/observed_roots"+str(i)+".txt", "w")   
+        for line in open("output/beast/sampled"+str(output_index)+"/beast_output/beast"+str(i)+".trees.txt"):
+            
+            if line.startswith("tree"):
+                start_index = 0
+                while True:
+                    if line[start_index:start_index+4]=="[&R]":
+                        break
+                    start_index=start_index+1
+                single_tree=dendropy.Tree.get(data=line[start_index:], schema="newick", extract_comment_metadata=True)
+                file.write(single_tree.seed_node.annotations.require_value("location")[0]+"\t"+single_tree.seed_node.annotations.require_value("location")[1]+'\n')
+        file.close()
+        

@@ -11,7 +11,6 @@ import numpy as np
 import sampling
 import beastxmlwriter
 import treegenerator
-import time
 import os
 
 
@@ -42,11 +41,9 @@ mcmc = 1e7
 for i in range(num_trees*(job_index-1), num_trees*job_index):
     
     tree = treegenerator.generate_yule_tree(num_tips)    
-    tree = treegenerator.simulate_brownian(tree, sigma, 2) 
+
     tree= treegenerator.simulate_brownian(tree, sigma, dimension=2) 
-    #t=calculate_time_to_tips(t)
-    
-    
+   
     
     sampled_t = sampling.sample_biased_extreme(tree, sample_ratio = sample_size/num_tips, dimension = 2)    
     d = dendropy.model.discrete.hky85_chars(kappa=3, mutation_rate=0.05, seq_len=seq_len, tree_model=sampled_t, retain_sequences_on_tree=False)    
@@ -64,8 +61,6 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     file.close()
     
     
-    #time.sleep(2)
-    
     sample_taxon_labels = []
     
     for leaf in sampled_t.leaf_node_iter():
@@ -78,30 +73,23 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
         if initialize_dict==True and line.startswith("		;"):
             break           
         
-        if initialize_dict==True:
-#            print(line[2:-2])
-            
+        if initialize_dict==True:            
             if line[-2]==',':
                 [a, b]=line[2:-2].split()
             else:
                 [a, b]=line[2:-1].split()            
-#            print(a)
-#            print(b)
             
-            taxon_dict.update({b : a})
-            #break   
+            taxon_dict.update({b : a}) 
         
         if line.startswith("	Translate"):
-            #print("adsfasdf")
             initialize_dict = True 
     
     print(taxon_dict)
     translated_sample_taxon_labels = []
     for label in sample_taxon_labels:
         translated_sample_taxon_labels.append(taxon_dict.get(label))
-        print(taxon_dict.get(label))
-    
-      
+        #print(taxon_dict.get(label))
+         
         
     file = open("output/root_data/observed_roots"+str(i)+".txt", "w")    
     
@@ -119,16 +107,7 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
             mrca = single_tree.mrca(taxon_labels=translated_sample_taxon_labels)
             file.write(mrca.annotations.require_value("location")[0]+"\t"+mrca.annotations.require_value("location")[1]+'\n')
     file.close()
-        
-#    treelist = dendropy.TreeList.get(path="output/c_beast/beast_output/beast"+str(i)+".trees.txt", extract_comment_metadata=True, schema="nexus")
-#    for single_tree in treelist:
-#        
-#        mrca = single_tree.mrca(taxon_labels=sample_taxon_labels)
-#        file.write(mrca.annotations.require_value("location")[0]+"\t"+mrca.annotations.require_value("location")[1]+'\n')
-#        
-#    
-    
-    
+           
     file = open("output/root_data/old_observed_roots"+str(i)+".txt", "w")    
     treelist = dendropy.TreeList.get(path="output/c_beast/beast_output/nbeast"+str(i)+".trees.txt", extract_comment_metadata=True, schema="nexus")
     for single_tree in treelist:

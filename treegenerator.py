@@ -42,8 +42,13 @@ def simulate_brownian(t, sigma, dimension):
         positions.update({node.taxon.label: node.X})
     return t
 
-
-
+def calculate_time_to_tips(tree):
+    for leaf in tree.leaf_node_iter():
+        leaf.time_to_tips = 0
+    for node in tree.postorder_node_iter():
+        if not hasattr(node, "time_to_tips"):
+            node.time_to_tips=min(set([child.time_to_tips+child.edge_length for child in node.child_nodes()]))  
+    return tree
 
 #this function calculates the time from the seed node to the present (seed node has time 0)
 def calculate_times(t):
@@ -220,66 +225,6 @@ def generate_ultrametric_coalescent_tree(num_tips, lamb):
     tree=calculate_times(tree)
     return tree
 
-
-def generate_birth_death_custom(br, dr, num_extinct):
-    names = []
-    #lamb = 1
-    
-    successful = False
-    while not successful:
-        #generation_done=False
-        alive_nodes=[]
-        tree = dendropy.Tree()
-        allive_nodes.append(tree.seed_node)
-        #while not generation_done:
-            
-    
-    
-    
-    #if there are N tips, there must be 2N-1 nodes
-    for i in range(2*num_tips-1):
-        names.append("s"+str(i))
-    
-    taxon_namespace = dendropy.TaxonNamespace(names)
-    tree = dendropy.Tree(taxon_namespace=taxon_namespace)
-    time_from_present = 0
-    
-    #current_nodes is a list of nodes that are currently not merged
-    current_nodes = []
-    for i in range(num_tips):
-        node = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(i)))
-        current_nodes.append(node)
-        node.age = 0 
-    
-    
-    
-    #if there are N leaves, there must be N-1 merges
-    for merges in range(num_tips-1):
-        #calculating time to the next coalescent
-        time_to_coalescent=random.expovariate(lamb*len(current_nodes)*(len(current_nodes)-1)/2)
-        
-        time_from_present=time_from_present+time_to_coalescent
-        
-        #choosing 2 indices of nodes that will be merged  randomly
-        merging_branches = random.sample(range(len(current_nodes)),2)
-        node = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(merges+num_tips)))
-        
-        #if it is the last merge, instead of creting a new node, we set the node of the merge to be the seed node
-        if merges == num_tips-2:
-            node=tree.seed_node
-            node.taxon=taxon_namespace.get_taxon("s"+str(merges+num_tips))
-        node.age = time_from_present
-        current_nodes[merging_branches[0]].edge.length=time_from_present-current_nodes[merging_branches[0]].age
-        current_nodes[merging_branches[1]].edge.length=time_from_present-current_nodes[merging_branches[1]].age
-        node.set_child_nodes([current_nodes[merging_branches[0]], current_nodes[merging_branches[1]]])
-        
-        #deleting the nodes that have been merging from the list of nodes
-        current_nodes.pop(max(merging_branches))
-        current_nodes.pop(min(merging_branches))
-        current_nodes.append(node)
-        
-    tree=calculate_times(tree)
-    return tree
 
 
 def generate_star_tree2():
