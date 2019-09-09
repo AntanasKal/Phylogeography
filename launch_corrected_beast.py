@@ -24,13 +24,14 @@ args = parser.parse_args()
 index = args.index
 sample_index = args.sample_index
 
-os.system('beast -overwrite -seed 123456795 "output/c_beast/sampled'+str(sample_index)+'/beast_input/beast'+str(index)+'.xml"')
+#os.system('beast -overwrite -seed 123456795 "output/c_beast/sampled'+str(sample_index)+'/beast_input/beast'+str(index)+'.xml"')
 
 sample_taxon_labels = []
 
 for line in open("output/c_beast/sampled"+str(sample_index)+"/root_data/labels"+str(index)+".txt","r"):
     if len(line)>1:
-        sample_taxon_labels.append(line)
+        sample_taxon_labels.append(line[:-1])
+        print(line[:-1])
     
     
 initialize_dict = False
