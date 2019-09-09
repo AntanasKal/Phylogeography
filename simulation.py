@@ -65,7 +65,7 @@ run_tree_annotator = args.run_tree_annotator
 #####
 sample_ratio=0.05
 num_sampling = 4
-corr_beast_mcmc=1e7
+corr_beast_mcmc=1e5
 generate_corrected_files=True
 #####
 
