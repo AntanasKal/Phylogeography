@@ -31,7 +31,9 @@ parser.add_argument('-sigma', action="store", type=float, dest="sigma", default=
 parser.add_argument('-jobi', action="store", type=int, dest="job_index", default=1, help='job index')
 parser.add_argument('--linux', dest='linux', action='store_const', const=True, default=False, help='is the program run on Linux? (default: False)')
 parser.add_argument('--annotate', dest='run_tree_annotator', action='store_const', const=True, default=False, help='run tree annotator (default: False)')
-
+parser.add_argument('-sample_ratio', dest='sample_ratio', action="store", type=float, default=0.05, help='ratio of samples (default: 0.05)')
+parser.add_argument('-seq_len', action="store", type=int, dest="seq_len", default=10000, help='alignment length for corrected beast (default 10000)')
+parser.add_argument('--c_beast', dest='c_beast', action='store_const', const=True, default=False, help='should the files be generated for corrected BEAST? (default: False)')
 
 args = parser.parse_args()
 dimension = args.dimension
@@ -49,7 +51,7 @@ linux = args.linux
 run_tree_annotator = args.run_tree_annotator
 
 #ratio of samples
-sample_ratio=0.05
+sample_ratio=args.sample_ratio
 
 
 #variables for corrected BEAST
@@ -71,7 +73,7 @@ num_sampling = 4
 generate_sample_files=True
 
 #boolean variable for whether to generate files for corrected beast
-generate_corrected_files=False
+generate_corrected_files=args.c_beast
 
 #boolean variable for whether to run BEAST on sampled scenarios
 run_sample_analysis=True
@@ -147,7 +149,7 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
     elif args.tree_type == "uc":
         t = treegenerator.generate_ultrametric_coalescent_tree(num_tips, lamb)
     elif args.tree_type == "bd":
-        t = treegenerator.generate_birthdeath_tree(1, 0.1, num_tips)
+        t = treegenerator.generate_birthdeath_tree(1, 0.5, num_tips)
     elif args.tree_type == "yule":
         t = treegenerator.generate_yule_tree(num_tips)
     elif args.tree_type == "star":
@@ -255,6 +257,8 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
                     single_tree=dendropy.Tree.get(data=line[start_index:], schema="newick", extract_comment_metadata=True)
                     file.write(single_tree.seed_node.annotations.require_value("location")[0]+"\t"+single_tree.seed_node.annotations.require_value("location")[1]+'\n')
             file.close()
+            
+
         
         
     if run_analysis:
