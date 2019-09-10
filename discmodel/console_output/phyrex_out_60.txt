@@ -1,0 +1,2026 @@
+
+. 4 patterns found (out of a total of 12 sites). 
+
+. 12 sites without polymorphism (100.00%).
+
+. Starting tree: output/phyrex/LV/phyrex_input/phyrex_tree60.txt
+
+. Processing 1 data set ( output/phyrex/LV/phyrex_input/phyrex_nexus60.nxs )
+
+
+ _______________________________________________________________________ 
+|                                                                       |
+| output/phyrex/LV/phyrex_input/phyrex_nexus60.nxs      (partition element  0)  |
+|_______________________________________________________________________|
+
+. Number of rate classes:		                   1
+. Relative average rate:		            1.000000
+
+. Mixture class 1
+   Substitution model:		               HKY85
+   Value of the ts/tv ratio:	            4.000000
+   Optimise ts/tv ratio:	                  no
+   Rate matrix weight:		            1.000000
+   Optimise nucletide freq.:	                  no
+   Equ. freq. weight:		            1.000000
+
+
+ _______________________________________________________________________ 
+|                                                                       |
+|                        Model summary table                            |
+|_______________________________________________________________________|
+
+  ---------------------
+  Partition element  0 
+  ---------------------
+  State frequencies  a 
+     Branch lengths  a 
+        Rate matrix  a 
+  ---------------------
+
+. Reading tree...
+
+.......................................................................
+ Calibration id: cal1.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 0 with probability 1.
+.......................................................................
+ Calibration id: cal2.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 1 with probability 1.
+.......................................................................
+ Calibration id: cal3.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 2 with probability 1.
+.......................................................................
+ Calibration id: cal4.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 3 with probability 1.
+.......................................................................
+ Calibration id: cal5.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 4 with probability 1.
+.......................................................................
+ Calibration id: cal6.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 5 with probability 1.
+.......................................................................
+ Calibration id: cal7.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 6 with probability 1.
+.......................................................................
+ Calibration id: cal8.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 7 with probability 1.
+.......................................................................
+ Calibration id: cal9.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 8 with probability 1.
+.......................................................................
+ Calibration id: cal10.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 9 with probability 1.
+.......................................................................
+ Calibration id: cal11.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 10 with probability 1.
+.......................................................................
+ Calibration id: cal12.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 11 with probability 1.
+.......................................................................
+ Calibration id: cal13.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 12 with probability 1.
+.......................................................................
+ Calibration id: cal14.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 13 with probability 1.
+.......................................................................
+ Calibration id: cal15.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 14 with probability 1.
+.......................................................................
+ Calibration id: cal16.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 15 with probability 1.
+.......................................................................
+ Calibration id: cal17.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 16 with probability 1.
+.......................................................................
+ Calibration id: cal18.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 17 with probability 1.
+.......................................................................
+ Calibration id: cal19.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 18 with probability 1.
+.......................................................................
+ Calibration id: cal20.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 19 with probability 1.
+.......................................................................
+ Calibration id: cal21.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 20 with probability 1.
+.......................................................................
+ Calibration id: cal22.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 21 with probability 1.
+.......................................................................
+ Calibration id: cal23.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 22 with probability 1.
+.......................................................................
+ Calibration id: cal24.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 23 with probability 1.
+.......................................................................
+ Calibration id: cal25.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 24 with probability 1.
+.......................................................................
+ Calibration id: cal26.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 25 with probability 1.
+.......................................................................
+ Calibration id: cal27.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 26 with probability 1.
+.......................................................................
+ Calibration id: cal28.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 27 with probability 1.
+.......................................................................
+ Calibration id: cal29.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 28 with probability 1.
+.......................................................................
+ Calibration id: cal30.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 29 with probability 1.
+.......................................................................
+ Calibration id: cal31.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 30 with probability 1.
+.......................................................................
+ Calibration id: cal32.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 31 with probability 1.
+.......................................................................
+ Calibration id: cal33.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 32 with probability 1.
+.......................................................................
+ Calibration id: cal34.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 33 with probability 1.
+.......................................................................
+ Calibration id: cal35.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 34 with probability 1.
+.......................................................................
+ Calibration id: cal36.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 35 with probability 1.
+.......................................................................
+ Calibration id: cal37.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 36 with probability 1.
+.......................................................................
+ Calibration id: cal38.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 37 with probability 1.
+.......................................................................
+ Calibration id: cal39.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 38 with probability 1.
+.......................................................................
+ Calibration id: cal40.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 39 with probability 1.
+.......................................................................
+ Calibration id: cal41.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 40 with probability 1.
+.......................................................................
+ Calibration id: cal42.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 41 with probability 1.
+.......................................................................
+ Calibration id: cal43.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 42 with probability 1.
+.......................................................................
+ Calibration id: cal44.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 43 with probability 1.
+.......................................................................
+ Calibration id: cal45.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 44 with probability 1.
+.......................................................................
+ Calibration id: cal46.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 45 with probability 1.
+.......................................................................
+ Calibration id: cal47.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 46 with probability 1.
+.......................................................................
+ Calibration id: cal48.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 47 with probability 1.
+.......................................................................
+ Calibration id: cal49.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 48 with probability 1.
+.......................................................................
+ Calibration id: cal50.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 49 with probability 1.
+.......................................................................
+ Calibration id: cal51.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 50 with probability 1.
+.......................................................................
+ Calibration id: cal52.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 51 with probability 1.
+.......................................................................
+ Calibration id: cal53.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 52 with probability 1.
+.......................................................................
+ Calibration id: cal54.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 53 with probability 1.
+.......................................................................
+ Calibration id: cal55.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 54 with probability 1.
+.......................................................................
+ Calibration id: cal56.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 55 with probability 1.
+.......................................................................
+ Calibration id: cal57.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 56 with probability 1.
+.......................................................................
+ Calibration id: cal58.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 57 with probability 1.
+.......................................................................
+ Calibration id: cal59.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 58 with probability 1.
+.......................................................................
+ Calibration id: cal60.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 59 with probability 1.
+.......................................................................
+ Calibration id: cal61.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 60 with probability 1.
+.......................................................................
+ Calibration id: cal62.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 61 with probability 1.
+.......................................................................
+ Calibration id: cal63.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 62 with probability 1.
+.......................................................................
+ Calibration id: cal64.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 63 with probability 1.
+.......................................................................
+ Calibration id: cal65.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 64 with probability 1.
+.......................................................................
+ Calibration id: cal66.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 65 with probability 1.
+.......................................................................
+ Calibration id: cal67.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 66 with probability 1.
+.......................................................................
+ Calibration id: cal68.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 67 with probability 1.
+.......................................................................
+ Calibration id: cal69.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 68 with probability 1.
+.......................................................................
+ Calibration id: cal70.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 69 with probability 1.
+.......................................................................
+ Calibration id: cal71.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 70 with probability 1.
+.......................................................................
+ Calibration id: cal72.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 71 with probability 1.
+.......................................................................
+ Calibration id: cal73.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 72 with probability 1.
+.......................................................................
+ Calibration id: cal74.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 73 with probability 1.
+.......................................................................
+ Calibration id: cal75.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 74 with probability 1.
+.......................................................................
+ Calibration id: cal76.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 75 with probability 1.
+.......................................................................
+ Calibration id: cal77.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 76 with probability 1.
+.......................................................................
+ Calibration id: cal78.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 77 with probability 1.
+.......................................................................
+ Calibration id: cal79.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 78 with probability 1.
+.......................................................................
+ Calibration id: cal80.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 79 with probability 1.
+.......................................................................
+ Calibration id: cal81.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 80 with probability 1.
+.......................................................................
+ Calibration id: cal82.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 81 with probability 1.
+.......................................................................
+ Calibration id: cal83.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 82 with probability 1.
+.......................................................................
+ Calibration id: cal84.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 83 with probability 1.
+.......................................................................
+ Calibration id: cal85.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 84 with probability 1.
+.......................................................................
+ Calibration id: cal86.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 85 with probability 1.
+.......................................................................
+ Calibration id: cal87.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 86 with probability 1.
+.......................................................................
+ Calibration id: cal88.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 87 with probability 1.
+.......................................................................
+ Calibration id: cal89.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 88 with probability 1.
+.......................................................................
+ Calibration id: cal90.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 89 with probability 1.
+.......................................................................
+ Calibration id: cal91.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 90 with probability 1.
+.......................................................................
+ Calibration id: cal92.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 91 with probability 1.
+.......................................................................
+ Calibration id: cal93.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 92 with probability 1.
+.......................................................................
+ Calibration id: cal94.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 93 with probability 1.
+.......................................................................
+ Calibration id: cal95.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 94 with probability 1.
+.......................................................................
+ Calibration id: cal96.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 95 with probability 1.
+.......................................................................
+ Calibration id: cal97.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 96 with probability 1.
+.......................................................................
+ Calibration id: cal98.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 97 with probability 1.
+.......................................................................
+ Calibration id: cal99.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 98 with probability 1.
+.......................................................................
+ Calibration id: cal100.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 99 with probability 1.
+.......................................................................
+
+
+. Is asynchronous: no
+. Youngest sampled disk time set to 0.000000 (disk id: hag)
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Set sampled disk (id: hag) time to        0.000000
+. Coordinates of 's0074                                             ':    49.264573	    45.715048
+. Coordinates of 's0086                                             ':    51.404728	    45.444754
+. Coordinates of 's0027                                             ':    41.231232	    68.687485
+. Coordinates of 's0030                                             ':    50.076807	    68.288448
+. Coordinates of 's0036                                             ':    56.065346	    67.250962
+. Coordinates of 's0002                                             ':    42.124010	    36.749398
+. Coordinates of 's0072                                             ':    61.702975	    67.323558
+. Coordinates of 's0022                                             ':    69.855210	    68.514773
+. Coordinates of 's0061                                             ':    74.014324	    72.043319
+. Coordinates of 's0034                                             ':    51.639855	    31.835078
+. Coordinates of 's0053                                             ':    48.680781	    33.170296
+. Coordinates of 's0055                                             ':    50.726641	    42.370753
+. Coordinates of 's0026                                             ':    52.204631	    48.781182
+. Coordinates of 's0019                                             ':    61.741902	    28.681455
+. Coordinates of 's0087                                             ':    68.181536	    44.398019
+. Coordinates of 's0014                                             ':    45.776357	    40.887136
+. Coordinates of 's0059                                             ':    33.593922	    32.939488
+. Coordinates of 's0052                                             ':    64.868034	    60.189074
+. Coordinates of 's0078                                             ':    40.612639	    42.509267
+. Coordinates of 's0070                                             ':    40.446557	    58.878691
+. Coordinates of 's0025                                             ':    38.176948	    54.943835
+. Coordinates of 's0082                                             ':    40.488832	    53.465665
+. Coordinates of 's0009                                             ':    54.841046	    67.706354
+. Coordinates of 's0062                                             ':    71.938956	    60.679855
+. Coordinates of 's0024                                             ':    28.632867	    73.303745
+. Coordinates of 's0028                                             ':    36.266709	    54.149452
+. Coordinates of 's0007                                             ':    26.751668	    32.949258
+. Coordinates of 's0075                                             ':    26.600743	    38.229174
+. Coordinates of 's0066                                             ':    48.999455	    25.544676
+. Coordinates of 's0017                                             ':    26.780705	    28.709411
+. Coordinates of 's0057                                             ':    42.238873	    25.592977
+. Coordinates of 's0004                                             ':    41.503170	    31.424264
+. Coordinates of 's0065                                             ':    48.059931	    25.082035
+. Coordinates of 's0069                                             ':    56.408512	    36.440859
+. Coordinates of 's0067                                             ':    61.745930	    74.825949
+. Coordinates of 's0068                                             ':    51.269861	    28.028031
+. Coordinates of 's0041                                             ':    61.575576	    60.496090
+. Coordinates of 's0092                                             ':    70.024470	    62.254303
+. Coordinates of 's0054                                             ':    43.684876	    34.887019
+. Coordinates of 's0091                                             ':    36.593431	    27.807326
+. Coordinates of 's0079                                             ':    52.340640	    56.874136
+. Coordinates of 's0038                                             ':    27.740020	    67.562383
+. Coordinates of 's0085                                             ':    41.869860	    59.344282
+. Coordinates of 's0023                                             ':    47.748803	    53.999295
+. Coordinates of 's0081                                             ':    45.206520	    59.207600
+. Coordinates of 's0013                                             ':    64.572856	    70.003927
+. Coordinates of 's0088                                             ':    56.207825	    44.598972
+. Coordinates of 's0096                                             ':    55.379508	    46.022317
+. Coordinates of 's0060                                             ':    67.282844	    47.030176
+. Coordinates of 's0095                                             ':    70.948332	    47.866449
+. Coordinates of 's0033                                             ':    41.975899	    70.655532
+. Coordinates of 's0044                                             ':    28.968736	    41.620310
+. Coordinates of 's0016                                             ':    43.836320	    31.373126
+. Coordinates of 's0029                                             ':    25.180189	    60.137120
+. Coordinates of 's0006                                             ':    72.310081	    30.523188
+. Coordinates of 's0011                                             ':    72.789634	    28.330888
+. Coordinates of 's0035                                             ':    64.251431	    45.804079
+. Coordinates of 's0089                                             ':    67.593313	    61.489192
+. Coordinates of 's0083                                             ':    42.093597	    41.469235
+. Coordinates of 's0021                                             ':    37.362745	    31.011140
+. Coordinates of 's0093                                             ':    38.838919	    41.257129
+. Coordinates of 's0099                                             ':    45.343108	    50.520311
+. Coordinates of 's0056                                             ':    28.693832	    65.811642
+. Coordinates of 's0005                                             ':    27.298847	    29.219984
+. Coordinates of 's0010                                             ':    32.485611	    58.680308
+. Coordinates of 's0031                                             ':    26.804136	    42.021938
+. Coordinates of 's0039                                             ':    68.786187	    71.867038
+. Coordinates of 's0001                                             ':    73.467348	    53.079860
+. Coordinates of 's0050                                             ':    66.763081	    54.739239
+. Coordinates of 's0040                                             ':    41.337506	    74.087143
+. Coordinates of 's0015                                             ':    70.094528	    42.639701
+. Coordinates of 's0084                                             ':    60.398254	    44.083408
+. Coordinates of 's0071                                             ':    73.885844	    63.719675
+. Coordinates of 's0058                                             ':    25.614849	    50.145264
+. Coordinates of 's0003                                             ':    73.601803	    51.951102
+. Coordinates of 's0051                                             ':    56.842213	    51.245541
+. Coordinates of 's0049                                             ':    54.482071	    65.314367
+. Coordinates of 's0094                                             ':    54.911560	    60.900646
+. Coordinates of 's0046                                             ':    44.141857	    39.224732
+. Coordinates of 's0064                                             ':    40.727036	    44.707088
+. Coordinates of 's0008                                             ':    25.303573	    26.701531
+. Coordinates of 's0020                                             ':    34.239949	    64.101554
+. Coordinates of 's0018                                             ':    33.659914	    71.570687
+. Coordinates of 's0032                                             ':    32.900841	    62.936582
+. Coordinates of 's0100                                             ':    37.813417	    63.985981
+. Coordinates of 's0077                                             ':    64.905924	    27.081570
+. Coordinates of 's0098                                             ':    53.571621	    41.194976
+. Coordinates of 's0043                                             ':    53.891884	    74.675659
+. Coordinates of 's0012                                             ':    51.770014	    62.285144
+. Coordinates of 's0048                                             ':    49.977179	    71.126842
+. Coordinates of 's0037                                             ':    59.376763	    69.664477
+. Coordinates of 's0097                                             ':    47.177654	    73.053814
+. Coordinates of 's0063                                             ':    31.564416	    42.653078
+. Coordinates of 's0080                                             ':    55.000617	    26.073016
+. Coordinates of 's0047                                             ':    74.668713	    35.238063
+. Coordinates of 's0073                                             ':    72.335894	    72.071954
+. Coordinates of 's0045                                             ':    66.372788	    53.454704
+. Coordinates of 's0090                                             ':    52.235369	    46.404686
+. Coordinates of 's0042                                             ':    49.852347	    64.196085
+. Coordinates of 's0076                                             ':    57.036798	    61.121597
+. Init lnPr(seq|phylo): -1341.039994 lnPr(coor|phylo): -190377.523006
+. Random seed: 1567091739
+.          0                             nu        -17421.759674         -1341.039994        -64302.799668
+.       1000              phyrex_disk_multi         -6201.471502         -1341.039994        -53082.511496
+.       2000        phyrex_ldsk_tip_to_root         -7746.853825         -1341.039994        -54627.893819
+.       3000                   spr_weighted        -11794.886709         -1341.039994        -58675.926703
+.       4000               phyrex_swap_disk        -13994.567367         -1341.039994        -60875.607362
+.       5000                     geo_lambda        -15314.573699         -1341.039994        -62195.613693
+.       6000                times_and_rates        -17532.944450         -1341.039994        -64413.984444
+.       7000            phyrex_move_disk_ud        -20174.216886         -1341.039994        -67055.256880
+.       8000         phyrex_ldsk_given_disk        -21730.353296         -1341.039994        -68611.393290
+.       9000                      phyrex_mu        -23494.121583         -1341.039994        -70375.161577
+.      10000                     death_rate        -24808.606346         -1341.039994        -71689.646340
+.      11000            phyrex_move_disk_ud        -26594.627396         -1341.039994        -73475.667390
+.      12000                    phyrex_lbda        -27707.961224         -1341.039994        -74589.001218
+.      13000                   spr_weighted        -30364.454223         -1341.039994        -77245.494217
+.      14000        phyrex_ldsk_tip_to_root        -32421.741247         -1341.039994        -79302.781241
+.      15000       phyrex_indel_disk_serial        -33041.007462         -1341.039994        -79922.047456
+.      16000            geo_updown_tau_lbda        -32423.453526         -1341.039994        -79304.493520
+.      17000              phyrex_indel_disk        -33414.028339         -1341.039994        -80295.068333
+.      18000                      phyrex_mu        -33369.539805         -1341.039994        -80250.579799
+.      19000                      phyrex_mu        -33404.898913         -1341.039994        -80285.938907
+.      20000                times_and_rates        -35052.773962         -1341.039994        -81933.813956
+.      21000                    phyrex_traj        -37242.542803         -1341.039994        -84123.582797
+.      22000         phyrex_disk_given_ldsk        -38355.577073         -1341.039994        -85236.617067
+.      23000                          clock        -38797.829564         -1341.039994        -85678.869558
+.      24000                            spr        -39827.464103         -1341.039994        -86708.504097
+.      25000                   spr_weighted        -40196.841275         -1341.039994        -87077.881270
+.      26000                times_and_rates        -41000.537872         -1341.039994        -87881.577866
+.      27000            phyrex_move_disk_ud        -39426.110291         -1341.039994        -86307.150285
+.      28000                     geo_lambda        -40681.280407         -1341.039994        -87562.320401
+.      29000                    updown_t_cr        -41279.647367         -1341.039994        -88160.687361
+.      30000                        br_rate        -43655.419523         -1341.039994        -90536.459518
+.      31000        phyrex_indel_hit_serial        -45765.446288         -1341.039994        -92646.486282
+.      32000         phyrex_add_remove_jump        -45668.302315         -1341.039994        -92549.342310
+.      33000            phyrex_move_disk_ud        -45163.652231         -1341.039994        -92044.692226
+.      34000                   spr_weighted        -46432.197060         -1341.039994        -93313.237054
+.      35000       phyrex_indel_disk_serial        -47811.032195         -1341.039994        -94692.072189
+.      36000                          clock        -47613.909356         -1341.039994        -94494.949350
+.      37000                      spr_local        -48555.623422         -1341.039994        -95436.663416
+.      38000             birth_death_updown        -49507.268338         -1341.039994        -96388.308332
+.      39000                    phyrex_traj        -50302.800151         -1341.039994        -97183.840146
+.      40000            geo_updown_tau_lbda        -49303.448779         -1341.039994        -96184.488773
+.      41000          geo_updown_lbda_sigma        -50875.221146         -1341.039994        -97756.261140
+.      42000                          kappa        -51605.296000         -1341.039994        -98486.335994
+.      43000                times_and_rates        -52614.084386         -1341.039994        -99495.124380
+.      44000                            ras        -52528.319150         -1341.039994        -99409.359144
+.      45000         phyrex_add_remove_jump        -52818.576208         -1341.039994        -99699.616202
+.      46000              phyrex_disk_multi        -52911.360449         -1341.039994        -99792.400444
+.      47000             phyrex_scale_times        -54773.985468         -1341.039994       -101655.025462
+.      48000                     geo_lambda        -56877.769462         -1341.039994       -103758.809457
+.      49000                            ras        -56764.862693         -1341.039994       -103645.902687
+.      50000               phyrex_indel_hit        -59449.196581         -1341.039994       -106330.236575
+.      51000          geo_updown_lbda_sigma        -60518.935988         -1341.039994       -107399.975982
+.      52000                    phyrex_lbda        -60666.977226         -1341.039994       -107548.017220
+.      53000               phyrex_swap_disk        -60818.817481         -1341.039994       -107699.857475
+.      54000                             rr        -60672.049821         -1341.039994       -107553.089815
+.      55000                times_and_rates        -60480.549044         -1341.039994       -107361.589038
+.      56000         phyrex_disk_given_ldsk        -60875.040404         -1341.039994       -107756.080398
+.      57000               phyrex_spr_local        -60810.822300         -1341.039994       -107691.862294
+.      58000              phyrex_disk_multi        -61836.893325         -1341.039994       -108717.933319
+.      59000                    tree_height        -62287.383297         -1341.039994       -109168.423292
+.      60000           phyrex_ldsk_and_disk        -64814.689119         -1341.039994       -111695.729114
+.      61000                      spr_local        -65568.207504         -1341.039994       -112449.247498
+.      62000       phyrex_indel_disk_serial        -66119.247880         -1341.039994       -113000.287874
+.      63000              phyrex_indel_disk        -65791.092378         -1341.039994       -112672.132372
+.      64000       phyrex_indel_disk_serial        -65731.814330         -1341.039994       -112612.854324
+.      65000                     geo_lambda        -66056.892404         -1341.039994       -112937.932398
+.      66000        phyrex_ldsk_tip_to_root        -66497.006506         -1341.039994       -113378.046501
+.      67000         phyrex_disk_given_ldsk        -67162.733076         -1341.039994       -114043.773071
+.      68000                   spr_weighted        -67981.405538         -1341.039994       -114862.445532
+.      69000         phyrex_add_remove_jump        -68008.968146         -1341.039994       -114890.008141
+.      70000              phyrex_disk_multi        -68094.027726         -1341.039994       -114975.067721
+.      71000                            spr        -67234.953521         -1341.039994       -114115.993515
+.      72000               phyrex_indel_hit        -68526.715451         -1341.039994       -115407.755445
+.      73000                     geo_lambda        -70317.728113         -1341.039994       -117198.768107
+.      74000              phyrex_indel_disk        -67890.633361         -1341.039994       -114771.673355
+.      75000                          clock        -67623.350285         -1341.039994       -114504.390279
+.      76000                             nu        -68591.064645         -1341.039994       -115472.104639
+.      77000                      phyrex_mu        -70284.778832         -1341.039994       -117165.818827
+.      78000                        geo_tau        -68669.716275         -1341.039994       -115550.756269
+.      79000                     phyrex_rad        -67350.137418         -1341.039994       -114231.177413
+.      80000                     geo_lambda        -69049.522863         -1341.039994       -115930.562857
+.      81000                             nu        -65664.912923         -1341.039994       -112545.952917
+.      82000             phyrex_scale_times        -66638.704205         -1341.039994       -113519.744200
+.      83000                     death_rate        -69480.167459         -1341.039994       -116361.207453
+.      84000                     tree_rates        -71045.892911         -1341.039994       -117926.932905
+.      85000             birth_death_updown        -71922.993093         -1341.039994       -118804.033087
+.      86000                times_and_rates        -70926.509368         -1341.039994       -117807.549363
+.      87000               phyrex_swap_disk        -71617.567930         -1341.039994       -118498.607924
+.      88000                times_and_rates        -72127.137332         -1341.039994       -119008.177326
+.      89000                            spr        -74987.716849         -1341.039994       -121868.756844
+.      90000                      spr_local        -73502.376591         -1341.039994       -120383.416585
+.      91000                   spr_weighted        -72494.315161         -1341.039994       -119375.355155
+.      92000                   spr_weighted        -73754.121628         -1341.039994       -120635.161623
+.      93000                            spr        -73581.293532         -1341.039994       -120462.333526
+.      94000                             nu        -75377.227844         -1341.039994       -122258.267838
+.      95000             phyrex_scale_times        -76064.930498         -1341.039994       -122945.970492
+.      96000            phyrex_move_disk_ud        -76051.486242         -1341.039994       -122932.526236
+.      97000                          times        -74765.462529         -1341.039994       -121646.502523
+.      98000                            spr        -73896.685898         -1341.039994       -120777.725893
+
+. Do you really want to terminate [Y/n]: 
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-12-07>
+Subject: Job 979147: <./phyrex --xml=output/phyrex/LV/phyrex_input/phyrex60.xml> in cluster <EBI> Exited
+
+Job <./phyrex --xml=output/phyrex/LV/phyrex_input/phyrex60.xml> was submitted from host <ebi-cli-001> by user <kalkauskas> in cluster <EBI> at Thu Aug 29 16:15:36 2019
+Job was executed on host(s) <hx-noah-12-07>, in queue <research-rh74>, as user <kalkauskas> in cluster <EBI> at Thu Aug 29 16:15:38 2019
+</homes/kalkauskas> was used as the home directory.
+</hps/research1/goldman/kalkauskas/discmodel> was used as the working directory.
+Started at Thu Aug 29 16:15:38 2019
+Terminated at Fri Aug 30 11:08:13 2019
+Results reported at Fri Aug 30 11:08:13 2019
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+./phyrex --xml=output/phyrex/LV/phyrex_input/phyrex60.xml
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 143.
+
+Resource usage summary:
+
+    CPU time :                                   33822.00 sec.
+    Max Memory :                                 18 MB
+    Average Memory :                             16.36 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   169 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   67952 sec.
+    Turnaround time :                            67957 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <console_output/phyrex_err_60.txt> for stderr output of this job.
+
+
+. 4 patterns found (out of a total of 12 sites). 
+
+. 12 sites without polymorphism (100.00%).
+
+. Starting tree: output/phyrex/LV/phyrex_input/phyrex_tree60.txt
+
+. Processing 1 data set ( output/phyrex/LV/phyrex_input/phyrex_nexus60.nxs )
+
+
+ _______________________________________________________________________ 
+|                                                                       |
+| output/phyrex/LV/phyrex_input/phyrex_nexus60.nxs      (partition element  0)  |
+|_______________________________________________________________________|
+
+. Number of rate classes:		                   1
+. Relative average rate:		            1.000000
+
+. Mixture class 1
+   Substitution model:		               HKY85
+   Value of the ts/tv ratio:	            4.000000
+   Optimise ts/tv ratio:	                  no
+   Rate matrix weight:		            1.000000
+   Optimise nucletide freq.:	                  no
+   Equ. freq. weight:		            1.000000
+
+
+ _______________________________________________________________________ 
+|                                                                       |
+|                        Model summary table                            |
+|_______________________________________________________________________|
+
+  ---------------------
+  Partition element  0 
+  ---------------------
+  State frequencies  a 
+     Branch lengths  a 
+        Rate matrix  a 
+  ---------------------
+
+. Reading tree...
+
+.......................................................................
+ Calibration id: cal1.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 0 with probability 1.
+.......................................................................
+ Calibration id: cal2.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 1 with probability 1.
+.......................................................................
+ Calibration id: cal3.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 2 with probability 1.
+.......................................................................
+ Calibration id: cal4.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 3 with probability 1.
+.......................................................................
+ Calibration id: cal5.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 4 with probability 1.
+.......................................................................
+ Calibration id: cal6.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 5 with probability 1.
+.......................................................................
+ Calibration id: cal7.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 6 with probability 1.
+.......................................................................
+ Calibration id: cal8.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 7 with probability 1.
+.......................................................................
+ Calibration id: cal9.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 8 with probability 1.
+.......................................................................
+ Calibration id: cal10.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 9 with probability 1.
+.......................................................................
+ Calibration id: cal11.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 10 with probability 1.
+.......................................................................
+ Calibration id: cal12.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 11 with probability 1.
+.......................................................................
+ Calibration id: cal13.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 12 with probability 1.
+.......................................................................
+ Calibration id: cal14.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 13 with probability 1.
+.......................................................................
+ Calibration id: cal15.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 14 with probability 1.
+.......................................................................
+ Calibration id: cal16.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 15 with probability 1.
+.......................................................................
+ Calibration id: cal17.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 16 with probability 1.
+.......................................................................
+ Calibration id: cal18.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 17 with probability 1.
+.......................................................................
+ Calibration id: cal19.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 18 with probability 1.
+.......................................................................
+ Calibration id: cal20.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 19 with probability 1.
+.......................................................................
+ Calibration id: cal21.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 20 with probability 1.
+.......................................................................
+ Calibration id: cal22.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 21 with probability 1.
+.......................................................................
+ Calibration id: cal23.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 22 with probability 1.
+.......................................................................
+ Calibration id: cal24.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 23 with probability 1.
+.......................................................................
+ Calibration id: cal25.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 24 with probability 1.
+.......................................................................
+ Calibration id: cal26.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 25 with probability 1.
+.......................................................................
+ Calibration id: cal27.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 26 with probability 1.
+.......................................................................
+ Calibration id: cal28.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 27 with probability 1.
+.......................................................................
+ Calibration id: cal29.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 28 with probability 1.
+.......................................................................
+ Calibration id: cal30.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 29 with probability 1.
+.......................................................................
+ Calibration id: cal31.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 30 with probability 1.
+.......................................................................
+ Calibration id: cal32.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 31 with probability 1.
+.......................................................................
+ Calibration id: cal33.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 32 with probability 1.
+.......................................................................
+ Calibration id: cal34.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 33 with probability 1.
+.......................................................................
+ Calibration id: cal35.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 34 with probability 1.
+.......................................................................
+ Calibration id: cal36.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 35 with probability 1.
+.......................................................................
+ Calibration id: cal37.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 36 with probability 1.
+.......................................................................
+ Calibration id: cal38.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 37 with probability 1.
+.......................................................................
+ Calibration id: cal39.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 38 with probability 1.
+.......................................................................
+ Calibration id: cal40.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 39 with probability 1.
+.......................................................................
+ Calibration id: cal41.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 40 with probability 1.
+.......................................................................
+ Calibration id: cal42.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 41 with probability 1.
+.......................................................................
+ Calibration id: cal43.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 42 with probability 1.
+.......................................................................
+ Calibration id: cal44.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 43 with probability 1.
+.......................................................................
+ Calibration id: cal45.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 44 with probability 1.
+.......................................................................
+ Calibration id: cal46.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 45 with probability 1.
+.......................................................................
+ Calibration id: cal47.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 46 with probability 1.
+.......................................................................
+ Calibration id: cal48.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 47 with probability 1.
+.......................................................................
+ Calibration id: cal49.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 48 with probability 1.
+.......................................................................
+ Calibration id: cal50.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 49 with probability 1.
+.......................................................................
+ Calibration id: cal51.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 50 with probability 1.
+.......................................................................
+ Calibration id: cal52.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 51 with probability 1.
+.......................................................................
+ Calibration id: cal53.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 52 with probability 1.
+.......................................................................
+ Calibration id: cal54.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 53 with probability 1.
+.......................................................................
+ Calibration id: cal55.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 54 with probability 1.
+.......................................................................
+ Calibration id: cal56.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 55 with probability 1.
+.......................................................................
+ Calibration id: cal57.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 56 with probability 1.
+.......................................................................
+ Calibration id: cal58.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 57 with probability 1.
+.......................................................................
+ Calibration id: cal59.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 58 with probability 1.
+.......................................................................
+ Calibration id: cal60.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 59 with probability 1.
+.......................................................................
+ Calibration id: cal61.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 60 with probability 1.
+.......................................................................
+ Calibration id: cal62.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 61 with probability 1.
+.......................................................................
+ Calibration id: cal63.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 62 with probability 1.
+.......................................................................
+ Calibration id: cal64.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 63 with probability 1.
+.......................................................................
+ Calibration id: cal65.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 64 with probability 1.
+.......................................................................
+ Calibration id: cal66.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 65 with probability 1.
+.......................................................................
+ Calibration id: cal67.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 66 with probability 1.
+.......................................................................
+ Calibration id: cal68.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 67 with probability 1.
+.......................................................................
+ Calibration id: cal69.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 68 with probability 1.
+.......................................................................
+ Calibration id: cal70.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 69 with probability 1.
+.......................................................................
+ Calibration id: cal71.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 70 with probability 1.
+.......................................................................
+ Calibration id: cal72.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 71 with probability 1.
+.......................................................................
+ Calibration id: cal73.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 72 with probability 1.
+.......................................................................
+ Calibration id: cal74.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 73 with probability 1.
+.......................................................................
+ Calibration id: cal75.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 74 with probability 1.
+.......................................................................
+ Calibration id: cal76.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 75 with probability 1.
+.......................................................................
+ Calibration id: cal77.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 76 with probability 1.
+.......................................................................
+ Calibration id: cal78.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 77 with probability 1.
+.......................................................................
+ Calibration id: cal79.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 78 with probability 1.
+.......................................................................
+ Calibration id: cal80.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 79 with probability 1.
+.......................................................................
+ Calibration id: cal81.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 80 with probability 1.
+.......................................................................
+ Calibration id: cal82.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 81 with probability 1.
+.......................................................................
+ Calibration id: cal83.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 82 with probability 1.
+.......................................................................
+ Calibration id: cal84.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 83 with probability 1.
+.......................................................................
+ Calibration id: cal85.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 84 with probability 1.
+.......................................................................
+ Calibration id: cal86.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 85 with probability 1.
+.......................................................................
+ Calibration id: cal87.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 86 with probability 1.
+.......................................................................
+ Calibration id: cal88.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 87 with probability 1.
+.......................................................................
+ Calibration id: cal89.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 88 with probability 1.
+.......................................................................
+ Calibration id: cal90.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 89 with probability 1.
+.......................................................................
+ Calibration id: cal91.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 90 with probability 1.
+.......................................................................
+ Calibration id: cal92.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 91 with probability 1.
+.......................................................................
+ Calibration id: cal93.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 92 with probability 1.
+.......................................................................
+ Calibration id: cal94.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 93 with probability 1.
+.......................................................................
+ Calibration id: cal95.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 94 with probability 1.
+.......................................................................
+ Calibration id: cal96.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 95 with probability 1.
+.......................................................................
+ Calibration id: cal97.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 96 with probability 1.
+.......................................................................
+ Calibration id: cal98.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 97 with probability 1.
+.......................................................................
+ Calibration id: cal99.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 98 with probability 1.
+.......................................................................
+ Calibration id: cal100.
+ Lower bound set to:       -0.000000 time units.
+ Upper bound set to:       -0.000000 time units.
+ This calibration applies to node 99 with probability 1.
+.......................................................................
+
+
+. Is asynchronous: no
+. Youngest sampled disk time set to 0.000000 (disk id: qsu)
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Set sampled disk (id: qsu) time to        0.000000
+. Coordinates of 's0043                                             ':    55.205283	    56.842219
+. Coordinates of 's0047                                             ':    69.174909	    46.697755
+. Coordinates of 's0055                                             ':    69.218434	    35.264248
+. Coordinates of 's0054                                             ':    46.475255	    74.038397
+. Coordinates of 's0089                                             ':    27.475537	    68.227475
+. Coordinates of 's0015                                             ':    26.881979	    48.461491
+. Coordinates of 's0032                                             ':    35.339017	    56.414894
+. Coordinates of 's0003                                             ':    49.539916	    37.813638
+. Coordinates of 's0078                                             ':    41.817422	    31.744919
+. Coordinates of 's0038                                             ':    43.180998	    46.010525
+. Coordinates of 's0004                                             ':    45.409144	    33.247235
+. Coordinates of 's0007                                             ':    29.096558	    55.169467
+. Coordinates of 's0030                                             ':    30.010449	    54.489120
+. Coordinates of 's0026                                             ':    41.800739	    29.392513
+. Coordinates of 's0074                                             ':    29.019095	    42.131142
+. Coordinates of 's0050                                             ':    49.722760	    25.779968
+. Coordinates of 's0033                                             ':    61.324760	    27.189497
+. Coordinates of 's0042                                             ':    69.570674	    27.739286
+. Coordinates of 's0016                                             ':    46.752031	    48.761913
+. Coordinates of 's0017                                             ':    42.303474	    38.613124
+. Coordinates of 's0060                                             ':    35.729044	    31.176244
+. Coordinates of 's0006                                             ':    59.457987	    29.421064
+. Coordinates of 's0041                                             ':    60.720546	    67.801862
+. Coordinates of 's0063                                             ':    32.442949	    27.979135
+. Coordinates of 's0083                                             ':    45.067418	    69.554423
+. Coordinates of 's0002                                             ':    40.828356	    49.742483
+. Coordinates of 's0024                                             ':    37.141062	    42.062322
+. Coordinates of 's0068                                             ':    55.091378	    72.091750
+. Coordinates of 's0005                                             ':    47.276442	    66.315833
+. Coordinates of 's0067                                             ':    43.338375	    64.481776
+. Coordinates of 's0064                                             ':    46.873162	    46.954031
+. Coordinates of 's0091                                             ':    33.563290	    40.186928
+. Coordinates of 's0010                                             ':    73.734291	    70.728718
+. Coordinates of 's0019                                             ':    67.163094	    65.222305
+. Coordinates of 's0051                                             ':    70.371789	    27.362909
+. Coordinates of 's0100                                             ':    62.992339	    52.183362
+. Coordinates of 's0090                                             ':    72.791827	    65.561473
+. Coordinates of 's0087                                             ':    27.614487	    64.875440
+. Coordinates of 's0058                                             ':    33.582538	    73.921366
+. Coordinates of 's0014                                             ':    34.542114	    74.869991
+. Coordinates of 's0088                                             ':    31.450345	    73.542986
+. Coordinates of 's0079                                             ':    39.961314	    37.773791
+. Coordinates of 's0081                                             ':    74.451490	    50.193862
+. Coordinates of 's0036                                             ':    74.919351	    29.687047
+. Coordinates of 's0012                                             ':    30.420954	    31.741680
+. Coordinates of 's0094                                             ':    29.442300	    40.171829
+. Coordinates of 's0025                                             ':    64.741281	    59.254706
+. Coordinates of 's0035                                             ':    60.905493	    59.455490
+. Coordinates of 's0018                                             ':    58.541679	    42.527243
+. Coordinates of 's0028                                             ':    63.854554	    31.945014
+. Coordinates of 's0084                                             ':    67.679456	    28.240616
+. Coordinates of 's0092                                             ':    31.480833	    49.022153
+. Coordinates of 's0049                                             ':    67.766344	    51.700459
+. Coordinates of 's0072                                             ':    66.670465	    52.908542
+. Coordinates of 's0098                                             ':    69.052605	    32.968680
+. Coordinates of 's0057                                             ':    71.100542	    30.461677
+. Coordinates of 's0001                                             ':    74.202393	    32.049628
+. Coordinates of 's0066                                             ':    71.798117	    30.915876
+. Coordinates of 's0020                                             ':    29.360809	    29.123906
+. Coordinates of 's0039                                             ':    36.496255	    36.360598
+. Coordinates of 's0099                                             ':    38.663252	    32.646043
+. Coordinates of 's0013                                             ':    59.185538	    68.191133
+. Coordinates of 's0048                                             ':    66.056938	    53.822154
+. Coordinates of 's0027                                             ':    60.617544	    30.227041
+. Coordinates of 's0021                                             ':    47.186482	    43.211201
+. Coordinates of 's0082                                             ':    45.955769	    44.187644
+. Coordinates of 's0022                                             ':    38.825319	    31.059794
+. Coordinates of 's0029                                             ':    38.729623	    35.669327
+. Coordinates of 's0031                                             ':    35.717114	    30.473726
+. Coordinates of 's0071                                             ':    64.232222	    37.549061
+. Coordinates of 's0069                                             ':    25.457693	    44.717826
+. Coordinates of 's0076                                             ':    27.150533	    43.689365
+. Coordinates of 's0034                                             ':    36.675692	    48.299955
+. Coordinates of 's0037                                             ':    65.457685	    74.075101
+. Coordinates of 's0075                                             ':    39.951117	    32.985281
+. Coordinates of 's0077                                             ':    30.802003	    34.948265
+. Coordinates of 's0040                                             ':    30.747464	    31.652442
+. Coordinates of 's0073                                             ':    39.027127	    55.716256
+. Coordinates of 's0011                                             ':    25.650601	    27.640040
+. Coordinates of 's0065                                             ':    25.720899	    25.528607
+. Coordinates of 's0061                                             ':    57.244783	    51.627501
+. Coordinates of 's0095                                             ':    56.306041	    50.771423
+. Coordinates of 's0053                                             ':    49.506290	    29.460668
+. Coordinates of 's0086                                             ':    51.072065	    29.855635
+. Coordinates of 's0056                                             ':    68.137156	    73.414073
+. Coordinates of 's0096                                             ':    49.660209	    59.672104
+. Coordinates of 's0008                                             ':    48.101367	    56.734098
+. Coordinates of 's0097                                             ':    45.346841	    56.934840
+. Coordinates of 's0093                                             ':    52.127848	    61.430057
+. Coordinates of 's0009                                             ':    47.036152	    38.081486
+. Coordinates of 's0023                                             ':    38.060458	    68.862470
+. Coordinates of 's0052                                             ':    38.055861	    70.659389
+. Coordinates of 's0080                                             ':    27.602940	    57.799516
+. Coordinates of 's0059                                             ':    74.702105	    40.154077
+. Coordinates of 's0062                                             ':    73.292357	    39.690892
+. Coordinates of 's0046                                             ':    71.731372	    61.613756
+. Coordinates of 's0070                                             ':    65.432162	    68.930172
+. Coordinates of 's0044                                             ':    42.772848	    54.363809
+. Coordinates of 's0045                                             ':    74.073924	    43.304676
+. Coordinates of 's0085                                             ':    72.730817	    46.057364
+. Init lnPr(seq|phylo): -1334.977630 lnPr(coor|phylo): -87634.623515
+. Random seed: 1567169060
+.          0             phyrex_scale_times         -7125.798810         -1334.977630        -54000.776439
+.       1000                      spr_local         -6204.382000         -1334.977630        -53079.359629
+.       2000                   spr_weighted         -7221.919699         -1334.977630        -54096.897328
+.       3000           phyrex_ldsk_and_disk        -10038.482591         -1334.977630        -56913.460221
+.       4000                     geo_lambda        -11940.570115         -1334.977630        -58815.547744
+.       5000                      spr_local        -13228.191583         -1334.977630        -60103.169213
+.       6000                             rr        -15851.623780         -1334.977630        -62726.601409
+.       7000         phyrex_add_remove_jump        -18314.088511         -1334.977630        -65189.066140
+.       8000             birth_death_updown        -20003.603106         -1334.977630        -66878.580735
+.       9000                   spr_weighted        -22433.395634         -1334.977630        -69308.373264
+.      10000                          times        -23088.487784         -1334.977630        -69963.465414
+.      11000                      phyrex_mu        -24452.482013         -1334.977630        -71327.459643
+.      12000                     phyrex_rad        -24775.913493         -1334.977630        -71650.891123
+.      13000          geo_updown_lbda_sigma        -25950.008918         -1334.977630        -72824.986547
+.      14000               phyrex_swap_disk        -28618.027803         -1334.977630        -75493.005433
+.      15000                             nu        -30100.066890         -1334.977630        -76975.044520
+.      16000                      phyrex_mu        -31235.166308         -1334.977630        -78110.143938
+.      17000                   spr_weighted        -32252.448127         -1334.977630        -79127.425756
+.      18000              phyrex_disk_multi        -32590.694176         -1334.977630        -79465.671806
+.      19000             phyrex_scale_times        -31513.369524         -1334.977630        -78388.347153
+.      20000         phyrex_ldsk_given_disk        -34272.283490         -1334.977630        -81147.261120
+.      21000       phyrex_indel_disk_serial        -36670.207294         -1334.977630        -83545.184924
+.      22000       phyrex_indel_disk_serial        -39773.345967         -1334.977630        -86648.323597
+.      23000                    phyrex_lbda        -42521.505050         -1334.977630        -89396.482680
+.      24000              phyrex_ldsk_multi        -43212.957504         -1334.977630        -90087.935134
+.      25000                times_and_rates        -44678.684453         -1334.977630        -91553.662083
+.      26000                        geo_dum        -46083.180944         -1334.977630        -92958.158574
+.      27000          geo_updown_lbda_sigma        -47324.190164         -1334.977630        -94199.167793
+.      28000                             nu        -47248.391645         -1334.977630        -94123.369274
+.      29000                    updown_t_cr        -46604.259055         -1334.977630        -93479.236684
+.      30000              phyrex_disk_multi        -47234.937439         -1334.977630        -94109.915068
+.      31000                   clade_change        -51309.226867         -1334.977630        -98184.204497
+.      32000                          times        -51676.088598         -1334.977630        -98551.066228
+.      33000                   spr_weighted        -51069.506661         -1334.977630        -97944.484290
+.      34000                   clade_change        -51985.162607         -1334.977630        -98860.140237
+.      35000                        geo_tau        -53148.424342         -1334.977630       -100023.401972
+.      36000              phyrex_disk_multi        -52411.953590         -1334.977630        -99286.931220
+.      37000             phyrex_scale_times        -53258.745880         -1334.977630       -100133.723510
+.      38000                      spr_local        -52632.417991         -1334.977630        -99507.395620
+.      39000               phyrex_swap_disk        -55060.858606         -1334.977630       -101935.836236
+.      40000                     geo_lambda        -56463.574191         -1334.977630       -103338.551821
+.      41000            phyrex_move_disk_ud        -58534.203182         -1334.977630       -105409.180812
+.      42000             phyrex_scale_times        -55242.721937         -1334.977630       -102117.699567
+.      43000                          kappa        -56846.720339         -1334.977630       -103721.697969
+.      44000             phyrex_scale_times        -57791.137212         -1334.977630       -104666.114842
+.      45000        phyrex_indel_hit_serial        -61305.642926         -1334.977630       -108180.620556
+.      46000                times_and_rates        -62376.308943         -1334.977630       -109251.286572
+.      47000                times_and_rates        -62803.089643         -1334.977630       -109678.067273
+.      48000               phyrex_spr_local        -63561.964760         -1334.977630       -110436.942390
+.      49000        phyrex_indel_hit_serial        -63462.463093         -1334.977630       -110337.440722
+.      50000         phyrex_disk_given_ldsk        -64829.524740         -1334.977630       -111704.502370
+.      51000         phyrex_add_remove_jump        -64215.647343         -1334.977630       -111090.624973
+.      52000       phyrex_indel_disk_serial        -67127.759114         -1334.977630       -114002.736744
+.      53000                     geo_lambda        -69556.730625         -1334.977630       -116431.708254
+.      54000                    phyrex_lbda        -69882.076650         -1334.977630       -116757.054280
+.      55000                        geo_tau        -71415.218239         -1334.977630       -118290.195869
+.      56000                    phyrex_traj        -71970.076075         -1334.977630       -118845.053704
+.      57000                     birth_rate        -72829.718283         -1334.977630       -119704.695912
+.      58000             birth_death_updown        -74238.786297         -1334.977630       -121113.763926
+.      59000         phyrex_add_remove_jump        -74474.881787         -1334.977630       -121349.859417
+.      60000                   spr_weighted        -73449.226473         -1334.977630       -120324.204103
+.      61000                times_and_rates        -72567.456729         -1334.977630       -119442.434358
+.      62000                   spr_weighted        -73985.837865         -1334.977630       -120860.815494
+.      63000              phyrex_disk_multi        -76672.416070         -1334.977630       -123547.393700
+.      64000                    phyrex_traj        -77628.402127         -1334.977630       -124503.379757
+.      65000                times_and_rates        -77124.885098         -1334.977630       -123999.862727
+.      66000             birth_death_updown        -79002.771163         -1334.977630       -125877.748793
+.      67000              phyrex_indel_disk        -80613.777131         -1334.977630       -127488.754761
+.      68000               phyrex_swap_disk        -82514.589160         -1334.977630       -129389.566790
+.      69000                          times        -83603.992672         -1334.977630       -130478.970302
+.      70000             phyrex_scale_times        -85117.460799         -1334.977630       -131992.438428
+.      71000                            spr        -84648.502122         -1334.977630       -131523.479751
+.      72000                     death_rate        -83456.567751         -1334.977630       -130331.545381
+.      73000               phyrex_swap_disk        -87836.060870         -1334.977630       -134711.038500
+.      74000                     birth_rate        -89849.683187         -1334.977630       -136724.660816
+.      75000          geo_updown_lbda_sigma        -88851.752147         -1334.977630       -135726.729777
+.      76000                      geo_sigma        -90389.138163         -1334.977630       -137264.115793
+.      77000                   clade_change        -88285.392756         -1334.977630       -135160.370386
+.      78000                times_and_rates        -88270.471269         -1334.977630       -135145.448899
+.      79000                    updown_t_cr        -87365.751814         -1334.977630       -134240.729443
+.      80000                          clock        -87234.812899         -1334.977630       -134109.790529
+.      81000                    phyrex_traj        -87721.763976         -1334.977630       -134596.741606
+.      82000              phyrex_indel_disk        -90260.914631         -1334.977630       -137135.892260
+.      83000                   spr_weighted        -90945.408190         -1334.977630       -137820.385820
+.      84000                          times        -91364.142698         -1334.977630       -138239.120328
+.      85000                        br_rate        -87341.672085         -1334.977630       -134216.649714
+.      86000                     death_rate        -86872.552581         -1334.977630       -133747.530210
+.      87000             phyrex_scale_times        -87018.574971         -1334.977630       -133893.552601
+.      88000                   clade_change        -85544.395497         -1334.977630       -132419.373126
+.      89000            phyrex_move_disk_ud        -88144.242619         -1334.977630       -135019.220248
+.      90000                      spr_local        -87514.435511         -1334.977630       -134389.413140
+.      91000                        geo_tau        -87625.720509         -1334.977630       -134500.698139
+.      92000         phyrex_disk_given_ldsk        -89264.612618         -1334.977630       -136139.590247
+.      93000                times_and_rates        -85798.814823         -1334.977630       -132673.792453
+.      94000                        geo_dum        -85379.101402         -1334.977630       -132254.079032
+.      95000            geo_updown_tau_lbda        -84624.893359         -1334.977630       -131499.870989
+.      96000                    phyrex_traj        -85200.558701         -1334.977630       -132075.536331
+.      97000       phyrex_indel_disk_serial        -83921.737814         -1334.977630       -130796.715444
+.      98000                     geo_lambda        -82489.714225         -1334.977630       -129364.691854
+.      99000                      geo_sigma        -83421.226648         -1334.977630       -130296.204277
+.     100000         phyrex_disk_given_ldsk        -83204.709301         -1334.977630       -130079.686931
+.     101000              phyrex_disk_multi        -82220.315977         -1334.977630       -129095.293607
+.     102000                      spr_local        -79245.208089         -1334.977630       -126120.185718
+.     103000             phyrex_scale_times        -81170.320214         -1334.977630       -128045.297843
+.     104000                      geo_sigma        -81985.558810         -1334.977630       -128860.536439
+.     105000         phyrex_add_remove_jump        -80304.542605         -1334.977630       -127179.520235
+.     106000                        br_rate        -79470.297914         -1334.977630       -126345.275544
+.     107000                times_and_rates        -80548.131588         -1334.977630       -127423.109218
+.     108000                          kappa        -79681.382633         -1334.977630       -126556.360263
+.     109000                   spr_weighted        -77155.424575         -1334.977630       -124030.402204
+.     110000         phyrex_ldsk_given_disk        -74994.073391         -1334.977630       -121869.051021
+.     111000                times_and_rates        -77166.078502         -1334.977630       -124041.056131
+.     112000                   spr_weighted        -75588.455812         -1334.977630       -122463.433441
+.     113000                times_and_rates        -75760.942359         -1334.977630       -122635.919988
+.     114000                          clock        -73793.061510         -1334.977630       -120668.039140
+.     115000                        geo_tau        -77527.964253         -1334.977630       -124402.941882
+.     116000                      spr_local        -77929.305779         -1334.977630       -124804.283409
+.     117000               phyrex_swap_disk        -78927.925488         -1334.977630       -125802.903118
+.     118000                     geo_lambda        -79409.434396         -1334.977630       -126284.412026
+.     119000           phyrex_ldsk_and_disk        -79611.720741         -1334.977630       -126486.698371
+.     120000                             nu        -79470.702107         -1334.977630       -126345.679736
+.     121000                        geo_dum        -78896.514461         -1334.977630       -125771.492091
+.     122000            phyrex_move_disk_ud        -78079.791138         -1334.977630       -124954.768767
+.     123000                      spr_local        -76762.784772         -1334.977630       -123637.762401
+.     124000        phyrex_indel_hit_serial        -76607.633844         -1334.977630       -123482.611474
+.     125000                    updown_t_cr        -77562.115379         -1334.977630       -124437.093008
+.     126000            phyrex_move_disk_ud        -76682.613217         -1334.977630       -123557.590847
+.     127000                    tree_height        -74805.777917         -1334.977630       -121680.755547
+.     128000                      spr_local        -75664.743819         -1334.977630       -122539.721449
+.     129000                            spr        -75443.197866         -1334.977630       -122318.175495
+.     130000                      spr_local        -73290.724332         -1334.977630       -120165.701962
+.     131000                times_and_rates        -73693.816659         -1334.977630       -120568.794289
+.     132000                            spr        -74533.547067         -1334.977630       -121408.524696
+.     133000        phyrex_indel_hit_serial        -74702.482104         -1334.977630       -121577.459733
+.     134000                            ras        -75779.187429         -1334.977630       -122654.165059
+.     135000               phyrex_indel_hit        -75952.358471         -1334.977630       -122827.336100
+.     136000                            spr        -77990.663802         -1334.977630       -124865.641432
+.     137000                             nu        -78686.669106         -1334.977630       -125561.646736
+.     138000            phyrex_move_disk_ud        -82488.847718         -1334.977630       -129363.825347
+.     139000         phyrex_disk_given_ldsk        -82053.978579         -1334.977630       -128928.956209
+.     140000                   spr_weighted        -83680.988913         -1334.977630       -130555.966542
+.     141000        phyrex_indel_hit_serial        -84351.279951         -1334.977630       -131226.257581
+.     142000                     death_rate        -84045.618743         -1334.977630       -130920.596372
+.     143000                    phyrex_traj        -86429.289357         -1334.977630       -133304.266987
+.     144000       phyrex_indel_disk_serial        -85044.893997         -1334.977630       -131919.871626
+.     145000             birth_death_updown        -84899.622590         -1334.977630       -131774.600220
+.     146000                      spr_local        -85262.888000         -1334.977630       -132137.865630
+.     147000               phyrex_swap_disk        -87304.954216         -1334.977630       -134179.931846
+.     148000                             nu        -86921.414999         -1334.977630       -133796.392628
+.     149000                times_and_rates        -85589.400365         -1334.977630       -132464.377994
+.     150000                     birth_rate        -85632.888315         -1334.977630       -132507.865944
+.     151000                      spr_local        -85547.210267         -1334.977630       -132422.187897
+.     152000                     death_rate        -87140.787752         -1334.977630       -134015.765382
+.     153000                            ras        -87873.386464         -1334.977630       -134748.364093
+.     154000              phyrex_ldsk_multi        -90712.142888         -1334.977630       -137587.120517
+.     155000         phyrex_disk_given_ldsk        -91029.603649         -1334.977630       -137904.581279
+.     156000           phyrex_ldsk_and_disk        -91536.563630         -1334.977630       -138411.541260
+.     157000                   spr_weighted        -90314.906477         -1334.977630       -137189.884106
+.     158000         phyrex_add_remove_jump        -93833.621604         -1334.977630       -140708.599234
+.     159000               phyrex_swap_disk        -95989.121484         -1334.977630       -142864.099113
+.     160000                     phyrex_spr        -97511.895508         -1334.977630       -144386.873137
+.     161000                   spr_weighted        -97331.328766         -1334.977630       -144206.306396
+.     162000        phyrex_indel_hit_serial        -97855.091316         -1334.977630       -144730.068945
+.     163000                            spr        -99508.679066         -1334.977630       -146383.656695
+.     164000            phyrex_move_disk_ud        -98818.052216         -1334.977630       -145693.029846
+.     165000                     death_rate       -101338.840345         -1334.977630       -148213.817974
+.     166000                   spr_weighted       -101657.775497         -1334.977630       -148532.753126
+.     167000                times_and_rates       -102035.881703         -1334.977630       -148910.859333
+.     168000               phyrex_swap_disk       -101280.012070         -1334.977630       -148154.989700
+.     169000         phyrex_ldsk_given_disk       -102362.020356         -1334.977630       -149236.997985
+.     170000             birth_death_updown       -101982.889338         -1334.977630       -148857.866968
+.     171000                times_and_rates       -103002.052170         -1334.977630       -149877.029799
+.     172000        phyrex_ldsk_tip_to_root       -105907.303215         -1334.977630       -152782.280844
+.     173000         phyrex_add_remove_jump       -104002.069028         -1334.977630       -150877.046657
+.     174000                   spr_weighted       -104277.793531         -1334.977630       -151152.771160
+.     175000                            ras       -105071.349380         -1334.977630       -151946.327010
+.     176000                     geo_lambda       -104919.731217         -1334.977630       -151794.708846
+.     177000                             nu       -104436.071440         -1334.977630       -151311.049069
+.     178000        phyrex_ldsk_tip_to_root       -103683.544717         -1334.977630       -150558.522347
+.     179000                            ras       -104048.461661         -1334.977630       -150923.439290
+.     180000                times_and_rates       -105019.107951         -1334.977630       -151894.085581
+.     181000               phyrex_spr_local       -104774.348099         -1334.977630       -151649.325728
+.     182000       phyrex_indel_disk_serial       -105934.181005         -1334.977630       -152809.158634
+.     183000        phyrex_indel_hit_serial       -107503.868471         -1334.977630       -154378.846101
+.     184000                     phyrex_spr       -105108.049658         -1334.977630       -151983.027288
+.     185000                   spr_weighted       -105516.473162         -1334.977630       -152391.450791
+.     186000                   spr_weighted       -103608.730740         -1334.977630       -150483.708370
+.     187000                            ras       -106182.314375         -1334.977630       -153057.292005
+.     188000                            ras       -108772.332677         -1334.977630       -155647.310306
+.     189000                            spr       -107916.445762         -1334.977630       -154791.423391
+.     190000                times_and_rates       -107661.954694         -1334.977630       -154536.932324
+.     191000               phyrex_indel_hit       -106440.966474         -1334.977630       -153315.944103
+.     192000         phyrex_disk_given_ldsk       -107433.573796         -1334.977630       -154308.551426
+.     193000              phyrex_indel_disk       -108307.564093         -1334.977630       -155182.541723
+.     194000            phyrex_move_disk_ud       -109585.204444         -1334.977630       -156460.182074
+.     195000         phyrex_add_remove_jump       -108991.206996         -1334.977630       -155866.184625
+.     196000                        geo_dum       -109490.895481         -1334.977630       -156365.873111
+.     197000       phyrex_indel_disk_serial       -108560.449352         -1334.977630       -155435.426982
+.     198000                    tree_height       -107555.623569         -1334.977630       -154430.601198
+.     199000                    updown_t_cr       -106553.009044         -1334.977630       -153427.986674
+.     200000             phyrex_scale_times       -106146.175854         -1334.977630       -153021.153483
+.     201000                        geo_dum       -104758.756087         -1334.977630       -151633.733717
+.     202000        phyrex_ldsk_tip_to_root       -105730.224183         -1334.977630       -152605.201813
+.     203000         phyrex_ldsk_given_disk       -105814.787680         -1334.977630       -152689.765310
+.     204000            phyrex_move_disk_ud       -107441.851946         -1334.977630       -154316.829576
+.     205000              phyrex_ldsk_multi       -106765.727053         -1334.977630       -153640.704682
+.     206000             birth_death_updown       -105231.870257         -1334.977630       -152106.847887
+.     207000            phyrex_move_disk_ud       -106389.872793         -1334.977630       -153264.850422
+.     208000              phyrex_disk_multi       -106528.085550         -1334.977630       -153403.063180
+.     209000                        geo_tau       -111010.307519         -1334.977630       -157885.285149
+.     210000                            spr       -113104.457726         -1334.977630       -159979.435356
+.     211000                            spr       -112596.567046         -1334.977630       -159471.544676
+.     212000                   spr_weighted       -111188.789721         -1334.977630       -158063.767350
+.     213000                        geo_tau       -112643.055207         -1334.977630       -159518.032836
+.     214000         phyrex_add_remove_jump       -110439.879857         -1334.977630       -157314.857487
+.     215000                    updown_t_cr       -113201.409236         -1334.977630       -160076.386865
+.     216000                      spr_local       -111170.095187         -1334.977630       -158045.072817
+.     217000                   spr_weighted       -112386.028592         -1334.977630       -159261.006222
+.     218000            phyrex_move_disk_ud       -110270.756970         -1334.977630       -157145.734599
+.     219000               phyrex_swap_disk       -107962.542786         -1334.977630       -154837.520416
+.     220000                    phyrex_traj       -108463.824863         -1334.977630       -155338.802493
+.     221000                          times       -108639.251619         -1334.977630       -155514.229249
+.     222000                        geo_dum       -108758.399612         -1334.977630       -155633.377242
+.     223000          geo_updown_lbda_sigma       -109690.427109         -1334.977630       -156565.404738
+.     224000         phyrex_disk_given_ldsk       -111453.135664         -1334.977630       -158328.113293
+.     225000          geo_updown_lbda_sigma       -111472.773742         -1334.977630       -158347.751371
+.     226000       phyrex_indel_disk_serial       -110420.364394         -1334.977630       -157295.342024
+.     227000               phyrex_spr_local       -109551.638911         -1334.977630       -156426.616541
+.     228000                   spr_weighted       -111005.640033         -1334.977630       -157880.617663
+.     229000                times_and_rates       -109303.326829         -1334.977630       -156178.304458
+.     230000                times_and_rates       -109469.593404         -1334.977630       -156344.571033
+.     231000                   spr_weighted       -108931.199593         -1334.977630       -155806.177223
+.     232000                          clock       -109430.816155         -1334.977630       -156305.793784
+.     233000       phyrex_indel_disk_serial       -113538.313663         -1334.977630       -160413.291292
+.     234000              phyrex_indel_disk       -114572.182552         -1334.977630       -161447.160182
+.     235000               phyrex_spr_local       -114120.623498         -1334.977630       -160995.601128
+.     236000            phyrex_move_disk_ud       -111286.044653         -1334.977630       -158161.022282
+.     237000                     phyrex_rad       -108649.264126         -1334.977630       -155524.241755
+.     238000                        geo_tau       -108585.292836         -1334.977630       -155460.270466
+.     239000                times_and_rates       -109139.147667         -1334.977630       -156014.125296
+.     240000                times_and_rates       -105886.238988         -1334.977630       -152761.216618
+.     241000                            spr       -108618.819736         -1334.977630       -155493.797366
+.     242000                   spr_weighted       -108423.902515         -1334.977630       -155298.880144
+.     243000                   clade_change       -108503.881408         -1334.977630       -155378.859037
+.     244000             phyrex_scale_times       -105956.645786         -1334.977630       -152831.623416
+.     245000                   spr_weighted       -107563.542912         -1334.977630       -154438.520541
+.     246000                          clock       -107603.728938         -1334.977630       -154478.706568
+.     247000                   spr_weighted       -107637.662940         -1334.977630       -154512.640569
+.     248000           phyrex_ldsk_and_disk       -110836.624592         -1334.977630       -157711.602222
+.     249000                    phyrex_traj       -109325.829571         -1334.977630       -156200.807200
+.     250000                          clock       -109396.610576         -1334.977630       -156271.588206
+.     251000                      phyrex_mu       -110938.192607         -1334.977630       -157813.170237
+.     252000                        geo_tau       -109537.874236         -1334.977630       -156412.851865
+.     253000               phyrex_spr_local       -105469.956069         -1334.977630       -152344.933699
+.     254000            phyrex_move_disk_ud       -104760.008614         -1334.977630       -151634.986244
+.     255000               phyrex_swap_disk       -104079.326231         -1334.977630       -150954.303861
+.     256000             phyrex_scale_times       -104483.824941         -1334.977630       -151358.802571
+.     257000                    phyrex_traj       -103661.575609         -1334.977630       -150536.553239
+.     258000                     phyrex_rad       -103560.721669         -1334.977630       -150435.699298
+.     259000                             nu       -104899.818028         -1334.977630       -151774.795657
+.     260000                      spr_local       -104575.408253         -1334.977630       -151450.385883
+.     261000                     birth_rate       -103657.461252         -1334.977630       -150532.438882
+.     262000                times_and_rates       -108086.508242         -1334.977630       -154961.485872
+.     263000         phyrex_disk_given_ldsk       -107418.244523         -1334.977630       -154293.222153
+.     264000                     phyrex_spr       -108623.165613         -1334.977630       -155498.143242
+.     265000                             rr       -107202.413642         -1334.977630       -154077.391272
+.     266000                        br_rate       -109684.981793         -1334.977630       -156559.959422
+.     267000                          kappa       -111332.398888         -1334.977630       -158207.376518
+.     268000        phyrex_indel_hit_serial       -112394.689776         -1334.977630       -159269.667406
+.     269000       phyrex_indel_disk_serial       -111574.429543         -1334.977630       -158449.407173
+.     270000                    phyrex_traj       -111609.849180         -1334.977630       -158484.826809
+.     271000               phyrex_swap_disk       -110244.653588         -1334.977630       -157119.631217
+.     272000            phyrex_move_disk_ud       -112445.960013         -1334.977630       -159320.937643
+.     273000                   spr_weighted       -112364.417631         -1334.977630       -159239.395261
+.     274000       phyrex_indel_disk_serial       -110578.779884         -1334.977630       -157453.757514
+.     275000                    phyrex_lbda       -109698.994963         -1334.977630       -156573.972593
+.     276000              phyrex_indel_disk       -109924.633749         -1334.977630       -156799.611379
+.     277000                            spr       -110106.724949         -1334.977630       -156981.702578
+.     278000             phyrex_scale_times       -110483.005895         -1334.977630       -157357.983524
+.     279000               phyrex_swap_disk       -110122.809106         -1334.977630       -156997.786736
+.     280000                times_and_rates       -108539.678760         -1334.977630       -155414.656390
+.     281000                     tree_rates       -110859.114759         -1334.977630       -157734.092389
+.     282000                      phyrex_mu       -112331.324337         -1334.977630       -159206.301967
+.     283000                   spr_weighted       -111689.582285         -1334.977630       -158564.559914
+.     284000            phyrex_move_disk_ud       -110121.635853         -1334.977630       -156996.613482
+.     285000                      spr_local       -111523.907400         -1334.977630       -158398.885030
+.     286000       phyrex_indel_disk_serial       -111580.657285         -1334.977630       -158455.634914
+.     287000                      spr_local       -112110.613433         -1334.977630       -158985.591063
+.     288000               phyrex_spr_local       -114984.221384         -1334.977630       -161859.199013
+.     289000                   spr_weighted       -112506.266937         -1334.977630       -159381.244566
+.     290000                   spr_weighted       -113083.543982         -1334.977630       -159958.521611
+.     291000                     death_rate       -112750.841967         -1334.977630       -159625.819596
+.     292000                   spr_weighted       -114329.100669         -1334.977630       -161204.078299
+.     293000             phyrex_scale_times       -113087.883445         -1334.977630       -159962.861074
+.     294000       phyrex_indel_disk_serial       -116882.222056         -1334.977630       -163757.199686
+.     295000             phyrex_scale_times       -117144.533448         -1334.977630       -164019.511078
+.     296000                   spr_weighted       -117806.734172         -1334.977630       -164681.711801
+.     297000       phyrex_indel_disk_serial       -116050.618751         -1334.977630       -162925.596381
+.     298000         phyrex_add_remove_jump       -115693.703711         -1334.977630       -162568.681340
+.     299000                        br_rate       -115358.793998         -1334.977630       -162233.771628
+.     300000               phyrex_indel_hit       -114960.163600         -1334.977630       -161835.141230
+.     301000          geo_updown_lbda_sigma       -116106.959837         -1334.977630       -162981.937467
+.     302000                          clock       -115155.935905         -1334.977630       -162030.913535
+.     303000         phyrex_ldsk_given_disk       -113679.899367         -1334.977630       -160554.876997
+.     304000                   spr_weighted       -113811.379525         -1334.977630       -160686.357155
+.     305000              phyrex_disk_multi       -114448.961566         -1334.977630       -161323.939195
+.     306000              phyrex_indel_disk       -115224.601646         -1334.977630       -162099.579275
+.     307000                times_and_rates       -115569.458698         -1334.977630       -162444.436327
+.     308000                        br_rate       -114850.612268         -1334.977630       -161725.589898
+.     309000                        geo_tau       -115465.770519         -1334.977630       -162340.748149
+.     310000                   spr_weighted       -116931.139733         -1334.977630       -163806.117363
+.     311000                   spr_weighted       -117885.898906         -1334.977630       -164760.876535
+.     312000                      spr_local       -117758.790968         -1334.977630       -164633.768597
+.     313000                      geo_sigma       -114215.840160         -1334.977630       -161090.817790
+.     314000               phyrex_swap_disk       -117742.243085         -1334.977630       -164617.220715
+.     315000                        br_rate       -115133.703263         -1334.977630       -162008.680892
+.     316000                      spr_local       -116891.283768         -1334.977630       -163766.261398
+.     317000                            ras       -118297.128579         -1334.977630       -165172.106209
+.     318000                            ras       -120092.981423         -1334.977630       -166967.959053
+.     319000                          times       -120270.220197         -1334.977630       -167145.197827
+.     320000             phyrex_scale_times       -118688.728364         -1334.977630       -165563.705993
+.     321000              phyrex_disk_multi       -119910.108422         -1334.977630       -166785.086052
+.     322000              phyrex_disk_multi       -120249.298953         -1334.977630       -167124.276583
+.     323000             phyrex_scale_times       -120003.053679         -1334.977630       -166878.031308
+.     324000            geo_updown_tau_lbda       -120107.152976         -1334.977630       -166982.130606
+.     325000             birth_death_updown       -121114.615985         -1334.977630       -167989.593614
+.     326000                   spr_weighted       -120969.634614         -1334.977630       -167844.612244
+.     327000             phyrex_scale_times       -119812.171620         -1334.977630       -166687.149250
+.     328000            phyrex_move_disk_ud       -120466.091264         -1334.977630       -167341.068894
+.     329000                        br_rate       -120882.276221         -1334.977630       -167757.253851
+.     330000                      spr_local       -121818.569135         -1334.977630       -168693.546765
+.     331000              phyrex_ldsk_multi       -122455.086151         -1334.977630       -169330.063780
+.     332000         phyrex_ldsk_given_disk       -122317.573331         -1334.977630       -169192.550961
+.     333000              phyrex_indel_disk       -122185.700559         -1334.977630       -169060.678188
+.     334000                             nu       -125800.455751         -1334.977630       -172675.433381
+.     335000                    phyrex_traj       -124938.802851         -1334.977630       -171813.780481
+.     336000             phyrex_scale_times       -122772.016422         -1334.977630       -169646.994052
+.     337000                     geo_lambda       -124231.075706         -1334.977630       -171106.053335
+.     338000                            spr       -123233.477252         -1334.977630       -170108.454882
+.     339000                            spr       -120567.653049         -1334.977630       -167442.630679
+.     340000        phyrex_indel_hit_serial       -120333.088966         -1334.977630       -167208.066596
+.     341000        phyrex_indel_hit_serial       -120496.126494         -1334.977630       -167371.104124
+.     342000                     geo_lambda       -119914.290884         -1334.977630       -166789.268513
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-08-15>
+Subject: Job 1655205: <./phyrex --xml=output/phyrex/LV/phyrex_input/phyrex60.xml> in cluster <EBI> Exited
+
+Job <./phyrex --xml=output/phyrex/LV/phyrex_input/phyrex60.xml> was submitted from host <ebi-cli-001> by user <kalkauskas> in cluster <EBI> at Fri Aug 30 13:44:19 2019
+Job was executed on host(s) <hx-noah-08-15>, in queue <research-rh74>, as user <kalkauskas> in cluster <EBI> at Fri Aug 30 13:44:20 2019
+</homes/kalkauskas> was used as the home directory.
+</hps/research1/goldman/kalkauskas/discmodel> was used as the working directory.
+Started at Fri Aug 30 13:44:20 2019
+Terminated at Fri Sep  6 13:49:42 2019
+Results reported at Fri Sep  6 13:49:42 2019
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+./phyrex --xml=output/phyrex/LV/phyrex_input/phyrex60.xml
+------------------------------------------------------------
+
+TERM_RUNLIMIT: job killed after reaching LSF run time limit.
+Exited with exit code 140.
+
+Resource usage summary:
+
+    CPU time :                                   556397.00 sec.
+    Max Memory :                                 22 MB
+    Average Memory :                             20.50 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   175 MB
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   605111 sec.
+    Turnaround time :                            605123 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <console_output/phyrex_err_60.txt> for stderr output of this job.
+
