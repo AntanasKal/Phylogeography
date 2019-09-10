@@ -4,13 +4,15 @@ Created on Wed Jul 17 14:29:19 2019
 
 @author: Antanas
 """
-
+#This is file for generating the trees
 
 import math 
 import dendropy
 import random
 from dendropy.simulate import treesim
 import numpy as np
+
+
 
 
 def simulate_brownian(t, sigma, dimension):
@@ -61,10 +63,9 @@ def calculate_times(t):
 
 
 
-
+#
 def generate_birthdeath_tree(br, dr, num_extinct):
     t = treesim.birth_death_tree(birth_rate=br, death_rate=dr, num_extinct_tips=num_extinct, is_retain_extinct_tips=True, is_add_extinct_attr=True)
-    #t.print_plot()    
     
     index = 0
     namespace = [];
@@ -81,8 +82,7 @@ def generate_birthdeath_tree(br, dr, num_extinct):
         index=index+1
         node.taxon=t.taxon_namespace.get_taxon("s"+str(index))
     
-    t =prune_nodes(t)
-    
+    t =prune_nodes(t)    
     #distance to root
     t=calculate_times(t)
         
@@ -156,8 +156,6 @@ def generate_yule_tree(num_tips):
             parent_node.set_child_nodes([node1, node2])
     
             parent_node.time=time
-#            node1.edge_length = time-parent_node.age
-#            node2.edge_length = time-parent_node.age
 
             current_nodes.pop(splitting_index)
             current_nodes.append(node1)

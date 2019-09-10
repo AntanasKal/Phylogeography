@@ -5,25 +5,17 @@ Created on Fri Jul 12 15:37:34 2019
 @author: Antanas
 """
 
-#the code that wirtes BEAST xml files is in different file, "beastxmlwriter.py"
-import math 
 import argparse
 import dendropy
-import random
-import numpy as np
-
+import os
 
 import sampling
 import beastxmlwriter
 import phyrexxmlwriter
 import treegenerator
 
-import os
 
-
-
-
-
+#argparses file to extract arguments from command line
 parser = argparse.ArgumentParser(description='Run simulations')
 parser.add_argument('-dims', dest='dimension', type=int, default=2, help='number of dimensions (1 or 2) for which the random walk is generated (default: 2)')
 parser.add_argument('-N', action="store", type=int, dest="num_trees", default=5, help='number of simulations (default 5)')
@@ -39,11 +31,6 @@ parser.add_argument('-sigma', action="store", type=float, dest="sigma", default=
 parser.add_argument('-jobi', action="store", type=int, dest="job_index", default=1, help='job index')
 parser.add_argument('--linux', dest='linux', action='store_const', const=True, default=False, help='is the program run on Linux? (default: False)')
 parser.add_argument('--annotate', dest='run_tree_annotator', action='store_const', const=True, default=False, help='run tree annotator (default: False)')
-
-sample_size = 50
-other_sample_size = 50
-seq_len = 10000
-
 
 
 args = parser.parse_args()
@@ -61,17 +48,39 @@ job_index = args.job_index
 linux = args.linux
 run_tree_annotator = args.run_tree_annotator
 
-
-#####
+#ratio of samples
 sample_ratio=0.05
-num_sampling = 4
-corr_beast_mcmc=int(1e7)
-generate_corrected_files=True
-#####
 
+
+#variables for corrected BEAST
+other_sample_size = 50
+seq_len = 10000
+#mcmc chain length for corrected BEAST
+corr_beast_mcmc=int(1e7)
+
+
+
+#number of sampling scenarios (set to 4).
+# scenario 1 - unbiased sampling
+# scenario 2 - central sampling
+# scenario 3 - diagonal sampling
+# scenario 4 - one-sided sampling
+num_sampling = 4
+
+#boolean variable for whether to generate files for sampled scenarios
 generate_sample_files=True
+
+#boolean variable for whether to generate files for corrected beast
+generate_corrected_files=False
+
+#boolean variable for whether to run BEAST on sampled scenarios
 run_sample_analysis=True
 
+#boolean variable for whether to run BEAST on full sampling
+run_analysis= False
+
+
+#code to create needed folders for output
 if not os.path.exists("output"):
     os.makedirs("output")
 if not os.path.exists("output/beast"):
@@ -79,8 +88,7 @@ if not os.path.exists("output/beast"):
 if not os.path.exists("output/c_beast"):
     os.makedirs("output/c_beast")  
 if not os.path.exists("output/phyrex"):
-    os.makedirs("output/phyrex")   
-    
+    os.makedirs("output/phyrex")    
 if not os.path.exists("output/beast/no_sampling"):
     os.makedirs("output/beast/no_sampling")    
 if not os.path.exists("output/beast/no_sampling/beast_input"):
@@ -90,8 +98,7 @@ if not os.path.exists("output/beast/no_sampling/beast_output"):
 if not os.path.exists("output/beast/no_sampling/generated_trees"):
     os.makedirs("output/beast/no_sampling/generated_trees")
 if not os.path.exists("output/beast/no_sampling/annotated_trees"):
-    os.makedirs("output/beast/no_sampling/annotated_trees")
-    
+    os.makedirs("output/beast/no_sampling/annotated_trees")    
 
 
 for output_index in range(1, num_sampling+1):
@@ -120,8 +127,7 @@ for output_index in range(1, num_sampling+1):
         os.makedirs("output/c_beast/sampled"+str(output_index)+"/annotated_trees")
     if not os.path.exists("output/c_beast/sampled"+str(output_index)+"/root_data"):
         os.makedirs("output/c_beast/sampled"+str(output_index)+"/root_data") 
-
-    
+        
     if not os.path.exists("output/phyrex/sampled"+str(output_index)):
         os.makedirs("output/phyrex/sampled"+str(output_index))        
     if not os.path.exists("output/phyrex/sampled"+str(output_index)+"/phyrex_output"):
@@ -129,13 +135,13 @@ for output_index in range(1, num_sampling+1):
     if not os.path.exists("output/phyrex/sampled"+str(output_index)+"/phyrex_input"):
         os.makedirs("output/phyrex/sampled"+str(output_index)+"/phyrex_input")
 
-for i in range(num_trees*(job_index-1), num_trees*job_index):
+
+#loop is useful if we want to split a number of simulations into several jobs
+#the program runs num_trees of simulations
+for i in range(num_trees*(job_index), num_trees*(job_index+1)):
+ 
     
-    #print("index is" + str(i))
-    
-    t=dendropy.Tree()
-    
-    
+    #generate a tree
     if args.tree_type == "nuc":
         t = treegenerator.generate_nonultrametric_coalescent_tree(num_tips_per_period, num_periods, period_length, lamb)
     elif args.tree_type == "uc":
@@ -149,12 +155,16 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
     else:
         print(args.tree_type+" is invalid tree type")
         break
-                
+    
+    #simulating brownian motion
     t= treegenerator.simulate_brownian(t, sigma, dimension) 
+    
+    #calculating time of each node to the oldest descendant node that is a tip 
     t= treegenerator.calculate_time_to_tips(t)
     
-    max_coordinate = 0
     
+    #calculating max coordinate to give the bounds of habitat for phyrex
+    max_coordinate = 0    
     for node in t.preorder_node_iter():
         max_coordinate = max(max_coordinate, abs(node.X))
         if dimension == 2:
@@ -218,35 +228,24 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
         node.annotations.add_bound_attribute("time_to_tips")
         if dimension==2:
             node.annotations.add_bound_attribute("Y")
-    t.write(path="output/beast/no_sampling/generated_trees/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
+    t.write(path="output/beast/no_sampling/generated_trees/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)   
     
-    run_analysis= False
-
     burnin=int(mcmc/10)
-    if run_analysis:
-        if linux:
-            os.system('beast -overwrite -seed 123456795 "output/beast/no_sampling/beast_input/beast'+str(i)+'.xml"')
-        else:
-            os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output/beast/no_sampling/beast_input/beast'+str(i)+'.xml"')
-            
-            
-        if run_tree_annotator:
-            os.system('treeannotator -burnin '+str(burnin)+' "output/beast/no_sampling/beast_output/beast'+str(i)+'.trees.txt" "output/beast/no_sampling/annotated_trees/beast'+str(i)+'.tree.txt"')
-        
-    
+
     if run_sample_analysis:
         for output_index in range(1, num_sampling+1):
             if linux:
                 os.system('beast -overwrite -seed 123456795 "output/beast/sampled'+str(output_index)+'/beast_input/beast'+str(i)+'.xml"')
             else:
                 os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output/beast/sampled'+str(output_index)+'/beast_input/beast'+str(i)+'.xml"')
-            if run_tree_annotator:
-                #os.system('cmd /c ""C:/Users/Antanas/Desktop/BEAST v1.10.4/bin/treeannotator" -burnin '+str(burnin)+' "C:/Users/Antanas/Phylogeny Simulation/output/sampled_beast_output'+str(output_index)+'/sampled_beast'+str(i)+'.trees.txt" "C:/Users/Antanas/Phylogeny Simulation/output/annotated_sampled_trees'+str(output_index)+'/sampled_beast'+str(i)+'.tree.txt""')
-                os.system('treeannotator -burnin '+str(burnin)+' "output/beast/sampled'+str(output_index)+'beast_output/beast'+str(i)+'.trees.txt" "output/beast/sampled'+str(output_index)+'/annotated_trees/beast'+str(i)+'.tree.txt"')
-               
-            file = open("output/beast/sampled"+str(output_index)+"/root_data/observed_roots"+str(i)+".txt", "w")   
-            for line in open("output/beast/sampled"+str(output_index)+"/beast_output/beast"+str(i)+".trees.txt"):
                 
+            #code for running tree annotator (unneeded)
+            if run_tree_annotator:                
+                os.system('treeannotator -burnin '+str(burnin)+' "output/beast/sampled'+str(output_index)+'beast_output/beast'+str(i)+'.trees.txt" "output/beast/sampled'+str(output_index)+'/annotated_trees/beast'+str(i)+'.tree.txt"')            
+            
+            #print root positions from .trees.txt file to more convenient format
+            file = open("output/beast/sampled"+str(output_index)+"/root_data/observed_roots"+str(i)+".txt", "w")   
+            for line in open("output/beast/sampled"+str(output_index)+"/beast_output/beast"+str(i)+".trees.txt"):                
                 if line.startswith("tree"):
                     start_index = 0
                     while True:
@@ -258,25 +257,12 @@ for i in range(num_trees*(job_index-1), num_trees*job_index):
             file.close()
         
         
-        #def analyze_tree_list(tree, i, dimension, mcmc): 
-##   command to execute treeannotator       
-#    burnin=int(mcmc/10)
-#    os.system('cmd /c ""C:/Users/Antanas/Desktop/BEAST v1.10.4/bin/treeannotator" -burnin '+str(burnin)+' "C:/Users/Antanas/Phylogeny Simulation/output/beast_output/beast'+str(i)+'.trees.txt" "C:/Users/Antanas/Phylogeny Simulation/annotated_trees/beast'+str(i)+'.tree.txt""')
-#    for node in tree.preorder_node_iter():
-#        node.averageX=0
-#        if dimension == 2:
-#            node.averageY=0
-#        
-#    annotated_tree=dendropy.Tree.get(path='output/annotated_trees/beast'+str(i)+'.tree.txt', taxon_namespace=tree.taxon_namespace, extract_comment_metadata=True, suppress_internal_node_taxa=False, schema="nexus")     
-#           
-#    nodes_tree = [nd for nd in tree.preorder_node_iter()]
-#    nodes_annotated_tree = [nd for nd in annotated_tree.preorder_node_iter()]
-#    for i, n in enumerate(nodes_tree):            
-#        if dimension==2:
-#            nodes_tree[i].averageX=float(nodes_annotated_tree[i].annotations.require_value("location1"))
-#            nodes_tree[i].averageY=float(nodes_annotated_tree[i].annotations.require_value("location2"))
-#        else:
-#            nodes_tree[i].averageX=float(nodes_annotated_tree[i].annotations.require_value("X"))
-#            
-#    return tree                  
-
+    if run_analysis:
+        if linux:
+            os.system('beast -overwrite -seed 123456795 "output/beast/no_sampling/beast_input/beast'+str(i)+'.xml"')
+        else:
+            os.system('cmd /c java -jar beast.jar -overwrite -seed 123456795 "output/beast/no_sampling/beast_input/beast'+str(i)+'.xml"')           
+        if run_tree_annotator:
+            os.system('treeannotator -burnin '+str(burnin)+' "output/beast/no_sampling/beast_output/beast'+str(i)+'.trees.txt" "output/beast/no_sampling/annotated_trees/beast'+str(i)+'.tree.txt"')
+        
+    

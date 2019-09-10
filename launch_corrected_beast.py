@@ -8,9 +8,7 @@ Created on Mon Sep  9 11:18:17 2019
 import argparse
 import dendropy
 import numpy as np
-import sampling
-import beastxmlwriter
-import treegenerator
+
 import os
 
 
