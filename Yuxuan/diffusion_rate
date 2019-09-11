@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Diffusion rate}
+
+\usepackage{amsmath}  % conflicts with \oiint
+\usepackage{anyfontsize}  
+\usepackage{bbm}
+
+\begin{document}
+
+\maketitle
+In the $\lambda$-Fleming-Viot model \cite{1}, if an event centers in $z$, then an individual at $x$ has the probability $u(z,x)$ of dying. An individual at $y$ will be chosen as the parent with density $v(z,y)$. For the disc event class, we know that $u(z,x)=\mu_0 \mathbbm{1}\{|x-z|<R\}$ and $v(z,y)=\mathbbm{1}\{|y-z|<R\}$.\\
+According to \cite{2}, the diffusion rate of the event class is the rate at which a gene is hit multiplied by the variance of the distance to the parent. The rate at which a gene is hit is $\lambda\int u(z,y)\mathrm{d}z=\lambda\mu_0\pi R^2$. Now we are going to calculate the variance of the distance between the individual and the parent. The question can be simplified to calculate the variance of distance between two uniformly chosen points in a unit circle.\\
+To calculate the variance of the distance between two uniformly chosen point in a unit circle, we could use polar coordinates $(r,\theta)$,where $r$ has the density function $f(r)=2r$ for $0<r<1$ and $\theta$ has density function $g(\theta)=\frac{1}{2\pi}$ for $0<\theta<2\pi$. Let $r_A$, $r_B$ be the radius of point $A$, $B$, and $\theta_A$, $\theta_B$ be the angular coordinate of point $A$, $B$. Then the expectation of the distance between two points should be
+\begin{eqnarray}
+\mathop{\mathbb{E}}(d)& = &\int_0^1 \int_0^1 \int_0^{2\pi} \int_0^{2\pi}\sqrt{r_A^2+r_B^2-2r_Ar_B\cos(\theta_A-\theta_B)}\nonumber \\&&f(r_A)f(r_B)
+    g(\theta_A)g(\theta_B)
+\mathrm{d}\theta_A\mathrm{d}\theta_B\mathrm{d}r_A\mathrm{d}r_B\\
+&=&\int_0^1 \int_0^1 \int_0^{2\pi} \int_0^{2\pi}\sqrt{r_A^2+r_B^2-2r_Ar_B\cos(\theta_A-\theta_B)}
+\nonumber \\&&    \frac{2r_A2r_B}{4\pi^2}
+\mathrm{d}\theta_A\mathrm{d}\theta_B\mathrm{d}r_A\mathrm{d}r_B
+\end{eqnarray}
+Readers can refer to \cite{3} to see that $\mathop{\mathbb{E}}(d)=\frac{128}{45\pi}$.\\
+The second moment of the distance d should be
+\begin{eqnarray}
+\mathop{\mathbb{E}}(d^2)&=&\int_0^1 \int_0^1 \int_0^{2\pi} \int_0^{2\pi}(r_A^2+r_B^2-2r_Ar_B\cos(\theta_A-\theta_B))\nonumber \\&&
+f(r_A)f(r_B)g(\theta_A)g(\theta_B)
+\mathrm{d}\theta_A\mathrm{d}\theta_B\mathrm{d}r_A\mathrm{d}r_B\\
+&=&\int_0^1 \int_0^1 \int_0^{2\pi} \int_0^{2\pi}
+(r_A^2+r_B^2-2r_Ar_B\cos(\theta_A-\theta_B))
+   \nonumber \\&& \frac{2r_A2r_B}{4\pi^2}
+\mathrm{d}\theta_A\mathrm{d}\theta_B\mathrm{d}r_A\mathrm{d}r_B
+\end{eqnarray}
+Since the integration of $\cos(\theta_A-\theta_B)$ from $0$ to $2\pi$ will be zero, we have
+\begin{eqnarray}
+\mathop{\mathbb{E}}(d^2)&=&\int_0^1 \int_0^1\int_0^{2\pi} \int_0^{2\pi}
+(r_A^2+r_B^2)\frac{2r_A2r_B}{4\pi^2}\mathrm{d}\theta_A\mathrm{d}\theta_B\mathrm{d}r_A\mathrm{d}r_B\\
+&=&4\int_0^1 \int_0^1 
+(r_A^3r_B+r_B^3r_A)\mathrm{d}r_A\mathrm{d}r_B\\
+&=&1
+\end{eqnarray}
+Thus the variance of the distance should be
+\begin{eqnarray}
+\mathop{\mathbb{Var}}(d)&=&\mathop{\mathbb{E}}(d^2)-\mathop{\mathbb{E}}(d)^2\\
+&=&1-(\frac{128}{45\pi})^2
+\end{eqnarray}
+Thus the variance of the distance when the radius of circle is $R$ should be $R^2(1-(\frac{128}{45\pi})^2)$, and we know that the the diffusion rate of the disc event class is $\lambda\mu_0\pi R^4(1-(\frac{128}{45\pi})^2)$.
+
+
+\begin{thebibliography}{9}
+\bibitem{1} 
+Kelleher I, Devlin N, Wigman JT, Kehoe A, Murtagh A, Fitzpatrick C, Cannon M.  2014.
+\textit{Psychotic experiences in a mental health clinic sample: implications for suicidality, multimorbidity and functioning.}. 
+Psychological Medicine. 2014;44(8):1615-24
+\bibitem{2} 
+Barton NH, Kelleher J, Etheridge AM. 2010.
+\textit{A new model for extinction andrecolonization in two dimensions: quantifying phylogeography.}. 
+Evolution64:2701–2715.
+\bibitem{3} 
+Ricardo Garcı́a-Pelayo. 2005.
+\textit{Distribution of distance in the spheroid}. 
+J. Phys. AMath. Gen.38:3475–3482.
+\end{thebibliography}
+
+\end{document}
