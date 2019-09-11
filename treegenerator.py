@@ -110,7 +110,7 @@ def prune_nodes(t):
     t1 = t.extract_tree_without_taxa_labels(labels=labels)
     return t1
 
-
+#returns a Yule tree with num_tips of leaves and birthrate br
 def generate_yule_tree(num_tips, br):
     
     names = []
