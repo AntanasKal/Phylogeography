@@ -24,8 +24,6 @@ for i in range(int(n/2)):
 my_sheet = 'Sheet1'
 file_name3 = '/YFV/YFV_coordinates.xlsx' # name of your excel file
 pic = read_excel(file_name3, sheet_name = my_sheet)    
-   
-
 x = list()
 y = list()
 for i in range(len(pic['lat'])):
