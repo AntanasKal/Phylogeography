@@ -739,7 +739,7 @@ def write_BEAST_xml_dim_2_old(t, d, i):
     
     
     
-def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, beast_input_string, beast_output_string, other_sample_size, seq_len):
+def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, log_every_tree, beast_input_string, beast_output_string, other_sample_size, seq_len):
     
     label_sample_space = []
 
@@ -1056,7 +1056,7 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, beast_inpu
 		<operators idref="operators"/>
 
 		<!-- write log to screen                                                     -->
-		<log id="screenLog" logEvery="1000">
+		<log id="screenLog" logEvery="""+'"'+str(log_every)+'"'+""">
 			<column label="Joint" dp="4" width="12">
 				<joint idref="joint"/>
 			</column>
@@ -1107,7 +1107,7 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, beast_inpu
 """)
     
 #		<logTree id="treeFileLog" logEvery="""+'"'+str(log_every)+'"'+""" nexusFormat="true" fileName="""+'"'+beast_output_string+str(i)+'.trees.txt"'""" sortTranslationTable="true">
-    file.write('\t\t<logTree id="treeFileLog" logEvery="'+str(log_every)+'" nexusFormat="true" fileName="'+beast_output_string+str(i)+'.trees.txt'+'" sortTranslationTable="true">\n')
+    file.write('\t\t<logTree id="treeFileLog" logEvery="'+str(log_every_tree)+'" nexusFormat="true" fileName="'+beast_output_string+str(i)+'.trees.txt'+'" sortTranslationTable="true">\n')
     file.write("""			<treeModel idref="treeModel"/>
 			<trait name="rate" tag="rate">
 				<strictClockBranchRates idref="branchRates"/>

@@ -64,9 +64,11 @@ sample_ratio=args.sample_ratio
 
 
 #variables for corrected BEAST
+#other_sample_size is the number of additional trees nodes that are added
 other_sample_size = 50
-seq_len = args.seq_len
 
+#seq_len is the length of generated alignment
+seq_len = args.seq_len
 
 #mcmc chain length for corrected BEAST
 corr_beast_mcmc=int(1e7)
@@ -154,7 +156,7 @@ for output_index in range(1, num_sampling+1):
 for i in range(num_trees*(job_index), num_trees*(job_index+1)):
  
     
-    #generate a tree
+    #generating a tree according to the parameteres given from the command line
     if args.tree_type == "nuc":
         t = treegenerator.generate_nonultrametric_coalescent_tree(num_tips_per_period, num_periods, period_length, lamb)
     elif args.tree_type == "uc":
@@ -169,7 +171,7 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
         print(args.tree_type+" is invalid tree type")
         break
     
-    #simulating brownian motion
+    #simulating brownian motion along entire tree
     t= treegenerator.simulate_brownian(t, sigma, dimension) 
     
 
@@ -183,7 +185,10 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
             max_coordinate = max(max_coordinate, abs(node.Y))
     
     #writing xml file for full sampling, this is not necessary
-    beastxmlwriter.write_BEAST_xml(t, i, dimension, mcmc, log_every, beast_input_string="output/beast/no_sampling/beast_input/beast", beast_output_string="output/beast/no_sampling/beast_output/beast")    
+    #beastxmlwriter.write_BEAST_xml(t, i, dimension, mcmc, log_every, beast_input_string="output/beast/no_sampling/beast_input/beast", beast_output_string="output/beast/no_sampling/beast_output/beast")    
+    
+    
+    
     
     if generate_sample_files:    
         
@@ -204,10 +209,10 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
                     node.annotations.add_bound_attribute("Y")
                     
                     
-            ######
+            #
             if generate_corrected_files:
                 d = dendropy.model.discrete.hky85_chars(kappa=3, mutation_rate=0.05, seq_len=seq_len, tree_model=sampled_t, retain_sequences_on_tree=False)    
-                beastxmlwriter.write_BEAST_xml_corrected(t, sampled_t, d, i=i,  mcmc=corr_beast_mcmc, log_every=1000, beast_input_string ="output/c_beast/sampled"+str(output_index)+"/beast_input/beast", beast_output_string="output/c_beast/sampled"+str(output_index)+"/beast_output/beast", other_sample_size=other_sample_size, seq_len=seq_len)
+                beastxmlwriter.write_BEAST_xml_corrected(t, sampled_t, d, i=i,  mcmc=corr_beast_mcmc, log_every=1000, log_every_tree=10000, beast_input_string ="output/c_beast/sampled"+str(output_index)+"/beast_input/beast", beast_output_string="output/c_beast/sampled"+str(output_index)+"/beast_output/beast", other_sample_size=other_sample_size, seq_len=seq_len)
             ######
             
             
@@ -222,6 +227,9 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
             file.close()   
             
             
+            #for correcter BEAST we write the real root locations
+            #and write the labels of the taxa in the subsampled tree
+            #in order to keep track when inference is launched for corrected BEAST which nodes are actual in the tree
             if generate_corrected_files:
                 file = open("output/c_beast/sampled"+str(output_index)+"/root_data/actual_root"+str(i)+".txt", "w")
                 file.write(str(sampled_t.seed_node.X)+'\n')
@@ -232,7 +240,8 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
                 for leaf in sampled_t.leaf_node_iter():
                     file.write(leaf.taxon.label+'\n')
                 file.close()
-        
+                
+    #code for writing the full tree in nexus format, this is not necessary
     for node in t.preorder_node_iter():
         node.annotations.add_bound_attribute("time")
         node.annotations.add_bound_attribute("X")
@@ -240,9 +249,15 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
             node.annotations.add_bound_attribute("Y")
     t.write(path="output/beast/no_sampling/generated_trees/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)   
     
+    
+    
+    
+    
+    
+    #now that all input files have been generated, we run BEAST inference
     burnin=int(mcmc/10)
-
     if run_sample_analysis:
+        #we cycle over the 4 sampling scenarios
         for output_index in range(1, num_sampling+1):
             if linux:
                 os.system('beast -overwrite -seed 123456795 "output/beast/sampled'+str(output_index)+'/beast_input/beast'+str(i)+'.xml"')
@@ -253,7 +268,9 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
             if run_tree_annotator:                
                 os.system('treeannotator -burnin '+str(burnin)+' "output/beast/sampled'+str(output_index)+'beast_output/beast'+str(i)+'.trees.txt" "output/beast/sampled'+str(output_index)+'/annotated_trees/beast'+str(i)+'.tree.txt"')            
             
+            
             #print root positions from .trees.txt file to more convenient format
+            #only the locations of the roots are necessary
             file = open("output/beast/sampled"+str(output_index)+"/root_data/observed_roots"+str(i)+".txt", "w")   
             for line in open("output/beast/sampled"+str(output_index)+"/beast_output/beast"+str(i)+".trees.txt"):                
                 if line.startswith("tree"):
