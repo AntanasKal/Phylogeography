@@ -9,7 +9,12 @@ import numpy as np
 import math
 import random
 
-def delete_tips(tree, dimension):
+#Code for sampling
+
+
+def delete_tips(tree, dimension=2):
+    #the function takes a tree and returns a subtree containing all the nodes
+    #that have a descendant node with "leave" attribute set to node.leave=True
     labels = []        
     for node in tree.postorder_node_iter(): 
         for child in node.child_node_iter():
@@ -28,8 +33,8 @@ def delete_tips(tree, dimension):
             node.Y=tree.find_node_with_taxon_label(node.taxon.label).Y            
     return t1
 
-def sample_biased_extreme(tree, dimension, sample_ratio=0.1):
-    
+def sample_biased_extreme(tree, dimension=2, sample_ratio=0.1):
+    #function returns a subtree with the all of the leaves that have the largest x coordinate
     for node in tree.preorder_node_iter():
         node.leave = False       
     
@@ -56,7 +61,8 @@ def sample_biased_extreme(tree, dimension, sample_ratio=0.1):
     return delete_tips(tree, dimension)
 
 
-def sample_biased_halfline(tree, dimension, sample_ratio=1):
+def sample_biased_halfline(tree, dimension=2, sample_ratio=1):
+    #function returns the subtree with all leaves with positive x coordinate
     for node in tree.preorder_node_iter():
         node.leave = False
     for leaf in tree.leaf_node_iter():
@@ -66,7 +72,8 @@ def sample_biased_halfline(tree, dimension, sample_ratio=1):
     return delete_tips(tree, dimension)
           
 
-def sample_biased_quadrant(tree, dimension, sample_ratio=0.1):
+def sample_biased_quadrant(tree, dimension=2, sample_ratio=0.1):
+    #function returns the subtree with leaves in the 1st quadrant
     for node in tree.preorder_node_iter():
         node.leave = False
     for leaf in tree.leaf_node_iter():
@@ -76,7 +83,8 @@ def sample_biased_quadrant(tree, dimension, sample_ratio=0.1):
             
     return delete_tips(tree, dimension)
 
-def sample_biased_radius_central(tree, dimension, radius=1, sample_ratio=1):
+def sample_biased_radius_central(tree, dimension=2, radius=1, sample_ratio=1):
+    #function returns the subtree with all the leaves inside a disc of given radius    
     for node in tree.preorder_node_iter():
         node.leave = False
     for leaf in tree.leaf_node_iter():
@@ -89,7 +97,8 @@ def sample_biased_radius_central(tree, dimension, radius=1, sample_ratio=1):
                 
     return delete_tips(tree, dimension)
 
-def sample_biased_most_central(tree, dimension, sample_ratio=0.1):
+def sample_biased_most_central(tree, dimension=2, sample_ratio=0.1):
+    #function returns the subtree with the most central leaves
     for node in tree.preorder_node_iter():
         node.leave = False        
     
@@ -120,7 +129,8 @@ def sample_biased_most_central(tree, dimension, sample_ratio=0.1):
 
 
 
-def sample_unbiased(tree, dimension, sample_ratio=0.1):
+def sample_unbiased(tree, dimension=2, sample_ratio=0.1):
+    #function returns a subtree with uniformly randomly sampled leaves
     
     for node in tree.preorder_node_iter():
         node.leave = False    
@@ -138,7 +148,8 @@ def sample_unbiased(tree, dimension, sample_ratio=0.1):
         
     return delete_tips(tree, dimension)
 
-def sample_biased_diagonal_strip(tree, dimension, strip_width=1, sample_ratio=1):
+def sample_biased_diagonal_strip(tree, dimension=2, strip_width=1, sample_ratio=1):
+    #function returns the subtree with leaves within given distance from the diagonal
     for node in tree.preorder_node_iter():
         node.leave = False
     for leaf in tree.leaf_node_iter():
@@ -147,7 +158,8 @@ def sample_biased_diagonal_strip(tree, dimension, strip_width=1, sample_ratio=1)
             
     return delete_tips(tree, dimension)
 
-def sample_biased_diagonal(tree, dimension, sample_ratio=0.1):
+def sample_biased_diagonal(tree, dimension=2, sample_ratio=0.1):
+    #function returns the subtree with leaves closest to the diagonal line
     for node in tree.preorder_node_iter():
         node.leave = False        
     
@@ -163,10 +175,7 @@ def sample_biased_diagonal(tree, dimension, sample_ratio=0.1):
         leaf.distance=abs(leaf.X-leaf.Y)/math.sqrt(2)
         distances[index]=leaf.distance
         index = index+1
-#        else:
-#            leaf.distance=abs(leaf.X)
-#            distances[index]=leaf.distance
-#            index=index+1
+
     distances=distances[distances.argsort()]
     cutoff=distances[sample_size-1]
     
@@ -177,7 +186,8 @@ def sample_biased_diagonal(tree, dimension, sample_ratio=0.1):
     return delete_tips(tree, dimension)
 
 
-def sample_biased_horizontal(tree, dimension, sample_ratio=0.1):
+def sample_biased_horizontal(tree, dimension=2, sample_ratio=0.1):
+    #function returns the subtree with leaves closest to x axis    
     for node in tree.preorder_node_iter():
         node.leave = False        
     
@@ -207,7 +217,8 @@ def sample_biased_horizontal(tree, dimension, sample_ratio=0.1):
     return delete_tips(tree, dimension)
 
 
-def sample_biased_vertical(tree, dimension, sample_ratio=0.1):
+def sample_biased_vertical(tree, dimension=2, sample_ratio=0.1):
+    #function returns the subtree with leaves closest to y axis
     for node in tree.preorder_node_iter():
         node.leave = False        
     
@@ -234,7 +245,8 @@ def sample_biased_vertical(tree, dimension, sample_ratio=0.1):
     return delete_tips(tree, dimension)
 
 
-def sample_biased_2_points(tree, dimension, sample_ratio=0.1):
+def sample_biased_2_points(tree, dimension=2, sample_ratio=0.1):
+    #function the subtree with leaves closest to one of 2 points
     point_1_X=2
     point_1_Y=0
     
@@ -257,10 +269,6 @@ def sample_biased_2_points(tree, dimension, sample_ratio=0.1):
         leaf.distance=min(distance_1, distance_2)
         distances[index]=leaf.distance
         index = index+1
-#        else:
-#            leaf.distance=abs(leaf.X)
-#            distances[index]=leaf.distance
-#            index=index+1
     distances=distances[distances.argsort()]
     cutoff=distances[sample_size-1]
     

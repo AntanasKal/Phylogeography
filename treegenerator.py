@@ -64,7 +64,7 @@ def calculate_times(t):
 
 
 #
-def generate_birthdeath_tree(br, dr, num_extinct):
+def generate_birthdeath_tree(num_extinct, br, dr):
     t = treesim.birth_death_tree(birth_rate=br, death_rate=dr, num_extinct_tips=num_extinct, is_retain_extinct_tips=True, is_add_extinct_attr=True)
     
     index = 0
@@ -111,8 +111,8 @@ def prune_nodes(t):
     return t1
 
 
-def generate_yule_tree(num_tips):
-    lamb = 1
+def generate_yule_tree(num_tips, br):
+    
     names = []
 
     #lamb = 1
@@ -139,7 +139,7 @@ def generate_yule_tree(num_tips):
     #tree.seed_node.age=0
     current_nodes.append(tree.seed_node)
     for i in range(num_tips):        
-        time_to_split=random.expovariate(lamb*len(current_nodes))
+        time_to_split=random.expovariate(br*len(current_nodes))
         if i ==0:
             time=0
         else:

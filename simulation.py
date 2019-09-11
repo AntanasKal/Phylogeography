@@ -19,7 +19,7 @@ import treegenerator
 parser = argparse.ArgumentParser(description='Run simulations')
 parser.add_argument('-dims', dest='dimension', type=int, default=2, help='number of dimensions (1 or 2) for which the random walk is generated (default: 2)')
 parser.add_argument('-N', action="store", type=int, dest="num_trees", default=5, help='number of simulations (default 5)')
-parser.add_argument('-treetype', action="store", dest="tree_type", default='nuc', help='type of tree generated \n "nuc" - nonultrametric coalescent \n "uc" - ultrametric coalescent \n "bd" - birth-death tree')
+parser.add_argument('-treetype', action="store", dest="tree_type", default='yule', help='type of tree generated \n "nuc" - nonultrametric coalescent \n "uc" - ultrametric coalescent \n "bd" - birth-death tree \n "yule" - yule tree')
 parser.add_argument('-mcmc', action="store", type=int, dest="mcmc", default=5000, help='number of simulations (default 5000)')
 parser.add_argument('-logevery', action="store", type=int, dest="log_every", default=10, help='number of simulations (default 10)')
 parser.add_argument('-ntips', action="store", type=int, dest="ntips", default=100, help='number of tips for ultrametric coalescent tree(default 100)')
@@ -35,6 +35,9 @@ parser.add_argument('-sample_ratio', dest='sample_ratio', action="store", type=f
 parser.add_argument('-seq_len', action="store", type=int, dest="seq_len", default=10000, help='alignment length for corrected beast (default 10000)')
 parser.add_argument('--c_beast', dest='c_beast', action='store_const', const=True, default=False, help='should the files be generated for corrected BEAST? (default: False)')
 
+parser.add_argument('-br', action="store", type=float, dest="br", default=1, help='birth rate for birth-death or Yule trees (default 1)')
+parser.add_argument('-dr', action="store", type=float, dest="dr", default=1, help='death rate for birth-death trees (default 0.1)')
+
 args = parser.parse_args()
 dimension = args.dimension
 num_trees = args.num_trees
@@ -44,10 +47,16 @@ sigma = args.sigma
 num_tips = args.ntips
 num_tips_per_period = args.num_tips_per_period
 num_periods=args.num_periods
+
+br = args.br
+dr = args.dr
 lamb=args.lamb
 period_length=args.period_length
 job_index = args.job_index
+
+
 linux = args.linux
+
 run_tree_annotator = args.run_tree_annotator
 
 #ratio of samples
@@ -56,7 +65,9 @@ sample_ratio=args.sample_ratio
 
 #variables for corrected BEAST
 other_sample_size = 50
-seq_len = 10000
+seq_len = args.seq_len
+
+
 #mcmc chain length for corrected BEAST
 corr_beast_mcmc=int(1e7)
 
@@ -149,9 +160,9 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
     elif args.tree_type == "uc":
         t = treegenerator.generate_ultrametric_coalescent_tree(num_tips, lamb)
     elif args.tree_type == "bd":
-        t = treegenerator.generate_birthdeath_tree(1, 0.5, num_tips)
+        t = treegenerator.generate_birthdeath_tree(num_tips, br, dr)
     elif args.tree_type == "yule":
-        t = treegenerator.generate_yule_tree(num_tips)
+        t = treegenerator.generate_yule_tree(num_tips, br)
     elif args.tree_type == "star":
         t = treegenerator.generate_star_tree()
     else:
@@ -161,8 +172,7 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
     #simulating brownian motion
     t= treegenerator.simulate_brownian(t, sigma, dimension) 
     
-    #calculating time of each node to the oldest descendant node that is a tip 
-    t= treegenerator.calculate_time_to_tips(t)
+
     
     
     #calculating max coordinate to give the bounds of habitat for phyrex
@@ -171,7 +181,8 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
         max_coordinate = max(max_coordinate, abs(node.X))
         if dimension == 2:
             max_coordinate = max(max_coordinate, abs(node.Y))
-     
+    
+    #writing xml file for full sampling, this is not necessary
     beastxmlwriter.write_BEAST_xml(t, i, dimension, mcmc, log_every, beast_input_string="output/beast/no_sampling/beast_input/beast", beast_output_string="output/beast/no_sampling/beast_output/beast")    
     
     if generate_sample_files:    
@@ -185,12 +196,10 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
                 sampled_t=sampling.sample_biased_diagonal(t, dimension, sample_ratio=sample_ratio)            
             elif output_index==4:
                 sampled_t=sampling.sample_biased_extreme(t, dimension, sample_ratio=sample_ratio)
-            sampled_t=treegenerator.calculate_time_to_tips(sampled_t)
             beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/beast/sampled"+str(output_index)+"/beast_input/beast", beast_output_string="output/beast/sampled"+str(output_index)+"/beast_output/beast")
             for node in sampled_t.preorder_node_iter():
                 node.annotations.add_bound_attribute("time")
                 node.annotations.add_bound_attribute("X")
-                node.annotations.add_bound_attribute("time_to_tips")
                 if dimension==2:
                     node.annotations.add_bound_attribute("Y")
                     
@@ -227,7 +236,6 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
     for node in t.preorder_node_iter():
         node.annotations.add_bound_attribute("time")
         node.annotations.add_bound_attribute("X")
-        node.annotations.add_bound_attribute("time_to_tips")
         if dimension==2:
             node.annotations.add_bound_attribute("Y")
     t.write(path="output/beast/no_sampling/generated_trees/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)   
