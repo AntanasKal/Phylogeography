@@ -210,8 +210,11 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
                     
                     
             #
+            #mutation rate for corrected beast 
+            mutation_rate =0.01
+            
             if generate_corrected_files:
-                d = dendropy.model.discrete.hky85_chars(kappa=3, mutation_rate=0.05, seq_len=seq_len, tree_model=sampled_t, retain_sequences_on_tree=False)    
+                d = dendropy.model.discrete.hky85_chars(kappa=3, mutation_rate=mutation_rate, seq_len=seq_len, tree_model=sampled_t, retain_sequences_on_tree=False)    
                 beastxmlwriter.write_BEAST_xml_corrected(t, sampled_t, d, i=i,  mcmc=corr_beast_mcmc, log_every=1000, log_every_tree=10000, beast_input_string ="output/c_beast/sampled"+str(output_index)+"/beast_input/beast", beast_output_string="output/c_beast/sampled"+str(output_index)+"/beast_output/beast", other_sample_size=other_sample_size, seq_len=seq_len)
             ######
             

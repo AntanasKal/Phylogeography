@@ -268,17 +268,17 @@ The shell script \textbf{run\_c\_beast.sh} executes \textbf{launch\_corrected\_b
 \begin{verbatim}
 for i in $(seq 0 99)
 do bgadd -L 10 /c_beast/sim"$i"
-bsub -g /c_beast/sim"$i" -o console_output/phyrex_out1_"$i".txt\
--e console_output/phyrex_err1_"$i".txt\
+bsub -g /c_beast/sim"$i" -o console_output/c_beast_out1_"$i".txt\
+-e console_output/c_beast_err1_"$i".txt\ 
 python launch_corrected_beast.py -index $i -sample_index 1
-bsub -g /c_beast/sim"$i" -o console_output/phyrex_out2_"$i".txt\
--e console_output/phyrex_err2_"$i".txt\
+bsub -g /c_beast/sim"$i" -o console_output/c_beast_out2_"$i".txt\
+-e console_output/c_beast_err2_"$i".txt\
 python launch_corrected_beast.py -index $i -sample_index 2
-bsub -g /c_beast/sim"$i" -o console_output/phyrex_out3_"$i".txt\
--e console_output/phyrex_err3_"$i".txt\
+bsub -g /c_beast/sim"$i" -o console_output/c_beast_out3_"$i".txt\
+-e console_output/c_beast_err3_"$i".txt\
 python launch_corrected_beast.py -index $i -sample_index 3
-bsub -g /c_beast/sim"$i" -o console_output/phyrex_out4_"$i".txt\
--e console_output/phyrex_err4_"$i".txt\
+bsub -g /c_beast/sim"$i" -o console_output/c_beast_out4_"$i".txt\
+-e console_output/c_beast_err4_"$i".txt\
 python launch_corrected_beast.py -index $i -sample_index 4
 done
 \end{verbatim}
@@ -319,8 +319,36 @@ Script \textbf{sampling.py} is used to sample the tree according to different sc
 \item \textbf{sampling.sample\_biased\_extreme(tree, dimension=2, sample\_ratio=0.1)}: returns the tree with leaves that have the largest $x$ coordinate.
 \end{itemize}
 
+\subsection*{Running PHYREX}
+
+Script \textbf{run\_phyrex.sh} runs PHYREX on the output files generated.
+
+\begin{verbatim}
+for i in $(seq 0 99)
+do bgadd -L 10 /yule/phyrex"$i"
+bsub -g /yule/phyrex"$i" -o console_output/phyrex_out1_"$i".txt\
+-e console_output/phyrex_err1_"$i".txt\
+./phyrex --xml=output/phyrex/sampled1/phyrex_input/phyrex"$i".xml
+bsub -g /yule/phyrex"$i" -o console_output/phyrex_out2_"$i".txt\
+-e console_output/phyrex_err2_"$i".txt\
+./phyrex --xml=output/phyrex/sampled2/phyrex_input/phyrex"$i".xml
+bsub -g /yule/phyrex"$i" -o console_output/phyrex_out3_"$i".txt\
+-e console_output/phyrex_err3_"$i".txt\
+./phyrex --xml=output/phyrex/sampled3/phyrex_input/phyrex"$i".xml
+bsub -g /yule/phyrex"$i" -o console_output/phyrex_out4_"$i".txt\
+-e console_output/phyrex_err4_"$i".txt\
+./phyrex --xml=output/phyrex/sampled4/phyrex_input/phyrex"$i".xml
+done
+\end{verbatim}
+
 \subsection*{Other Scripts}
 Scripts \textbf{beastxmlwriter.py} and \textbf{phyrexxmlwriter.py} are used for writing BEAST and PHYREX input files respectively.
+
+\section*{Discsim Scripts}
+
+If $\lambda$ is the rate of events is $\Lambda V$ model, $\mu$ is the death probability, $L$ is the diameter of torus,
+
+
 
 \section*{Output Folders}
 Output is organised in this way: \textbf{output} folder has subfolders 

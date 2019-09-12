@@ -59,7 +59,7 @@ if not os.path.exists("output/phyrex/LV/phyrex_input"):
 if not os.path.exists("output/root_locations"):
 	os.makedirs("output/root_locations")
 
-for index in range((job_index-1)*num_simulations, job_index*num_simulations):
+for index in range(job_index*num_simulations, (job_index+1)*num_simulations):
 	L = 100
 	''' R is the diameter of the torus we are simulating on. 
 	    This defines the size of the 1D or 2D space that lineages
@@ -70,7 +70,7 @@ for index in range((job_index-1)*num_simulations, job_index*num_simulations):
 	x = np.zeros(n) 
 	y = np.zeros(n) 
 	for i in range(n):
-		if job_index < 101:
+		if index < 100:
 			x[i] = (random.uniform(25, 75))%L
 			y[i] = (random.uniform(25, 75))%L
 			a.append((x[i], y[i]))

@@ -823,7 +823,7 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, log_every_
 	<!-- a Yule speciation process (a pure birth process).                       -->
 	<yuleModel id="yule" units="years">
 		<birthRate>
-			<parameter id="yule.birthRate" value="1.0"/>
+			<parameter id="yule.birthRate" value="2.0" lower="0.0"/>
 		</birthRate>
 	</yuleModel>
 
@@ -877,7 +877,7 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, log_every_
 	<!-- The strict clock (Uniform rates across branches)                        -->
 	<strictClockBranchRates id="branchRates">
 		<rate>
-			<parameter id="clock.rate" value="1.0"/>
+			<parameter id="clock.rate" value="0.01"/>
 		</rate>
 	</strictClockBranchRates>
 	
@@ -1011,6 +1011,9 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, log_every_
 		<uniformOperator weight="30">
 			<parameter idref="treeModel.internalNodeHeights"/>
 		</uniformOperator>
+		<scaleOperator scaleFactor="0.75" weight="3">
+			<parameter idref="yule.birthRate"/>
+		</scaleOperator>
 
 		<!-- START Multivariate diffusion model                                      -->
 		<precisionGibbsOperator weight="2">
@@ -1032,6 +1035,9 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, log_every_
 				<dirichletPrior alpha="1.0" sumsTo="1.0">
 					<parameter idref="frequencies"/>
 				</dirichletPrior>
+				<logNormalPrior mu="1.0" sigma="1.5" offset="0.0">
+					<parameter idref="yule.birthRate"/>
+				</logNormalPrior>
 				<speciationLikelihood idref="speciation"/>
 				
 				
@@ -1056,7 +1062,7 @@ def write_BEAST_xml_corrected(tree, sampled_t, d, i, mcmc, log_every, log_every_
 		<operators idref="operators"/>
 
 		<!-- write log to screen                                                     -->
-		<log id="screenLog" logEvery="""+'"'+str(log_every)+'"'+""">
+		<log id="screenLog" logEvery="1000">
 			<column label="Joint" dp="4" width="12">
 				<joint idref="joint"/>
 			</column>
