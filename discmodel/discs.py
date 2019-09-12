@@ -66,7 +66,7 @@ for index in range(job_index*num_simulations, (job_index+1)*num_simulations):
 	    can move around in.'''
 	sim = discsim.Simulator(L)
 	a = [None]
-	n = 100
+	n = 10
 	x = np.zeros(n) 
 	y = np.zeros(n) 
 	for i in range(n):
