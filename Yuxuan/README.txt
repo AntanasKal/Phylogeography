@@ -11,7 +11,7 @@ As before, we randomly sample 10 from the south and add them to the north. Then 
 The Python scripts of separating them are WNV_separate.py and YSV_separate.py.
 
 2.Disc Simulation
-To simulate the disc-based extinction/recolonisation continuum model, we use the discsim package in Python. To use discsim, we derive the diffusion rate of the disc model. The Latex file of this derivation is provided as diffusion_rate. 
+To simulate the disc-based extinction/recolonisation continuum model, we use the discsim package in Python. To use discsim, we derive the diffusion rate of the disc model. The Latex file of this derivation is provided as diffusion_rate. The output pdf file is provided as diffusion_rate.pdf. 
 The file disc_sim.py is the simulation script. Note that the output tree of discsim is in oriented tree format. We need to transfer it into Newick format which we can use in BEAST. The trasformation file is provided at https://github.com/tyjo/newick.py. In order that disc_sim.py could run, we provide the newick.py file downloaded from the original webpage.
 
 3.XML files and outputs
