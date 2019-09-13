@@ -98,32 +98,3 @@ for i in range(len(south_merged)):
 for i in range(len(south_merged),len(southrandom10fromnorth)):
     dna_10n[0][2*i] = ">" + southrandom10fromnorth['traits'][i]
     dna_10n[0][2*i + 1] = len(southrandom10fromnorth['DNA'][0])*'N' 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
