@@ -10,6 +10,20 @@ The YFV dataset is separated into 35 in the north (latitude larger than -19) and
 As before, we randomly sample 10 from the south and add them to the north. Then we will do simulations on this and show if the root changes. The files are YFV_sequences_north+10south.fasta and YFV_coordinates_north+10south.txt. We do the same on the counterpart 'south+10north' files.
 The Python scripts of separating them are WNV_separate.py and YSV_separate.py.
 
+2.Using BEAST in Cluster
+In this project, we used Cluster to assist analysing the files.
+The command line of installing BEAST in Cluster is 
+
+wget "https://github.com/beast-dev/beast-mcmc/releases/download/v1.10.4/BEASTv1.10.4.tgz"
+tar -zxvf BEASTv1.10.4.tgz
+
+To run an xml file in Cluster, you need
+
+export LD_LIBRARY_PATH=$HOME/lib:$LD_LIBRARY_PATH
+export PKG_CONFIG_PATH=$HOME/lib/pkgconfig:$PKG_CONFIG_PATH
+cd BEASTv1.10.4
+bsub -M 10000 -R "rusage[mem=10000]" java -jar lib/beast.jar -overwrite your_file.xml
+
 2.Disc Simulation
 To simulate the disc-based extinction/recolonisation continuum model, we use the discsim package in Python. To use discsim, we derive the diffusion rate of the disc model. The Latex file of this derivation is provided as diffusion_rate. 
 The file disc_sim.py is the simulation script. Note that the output tree of discsim is in oriented tree format. We need to transfer it into Newick format which we can use in BEAST. The trasformation file is provided at https://github.com/tyjo/newick.py. In order that disc_sim.py could run, we provide the newick.py file downloaded from the original webpage.
