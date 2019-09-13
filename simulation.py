@@ -84,7 +84,7 @@ num_sampling = 4
 
 
 ##Bellow are several variables on whether to run particular inference or not.
-##useful if we are interested in running some inference but not all of it
+##useful if we are interested in running some particular parts of inference, but not every part
 
 #boolean variable for whether to generate files for sampled scenarios
 generate_sample_files=True
@@ -280,7 +280,7 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
             
             
             #print root positions from .trees.txt file to more convenient format
-            #only the locations of the roots are necessary
+            #only the locations of the roots are important from the .trees.txt file
             file = open("output/beast/sampled"+str(output_index)+"/root_data/observed_roots"+str(i)+".txt", "w")   
             for line in open("output/beast/sampled"+str(output_index)+"/beast_output/beast"+str(i)+".trees.txt"):                
                 if line.startswith("tree"):
