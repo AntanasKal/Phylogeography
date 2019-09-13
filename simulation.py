@@ -82,6 +82,10 @@ corr_beast_mcmc=int(1e7)
 # scenario 4 - one-sided sampling
 num_sampling = 4
 
+
+##Bellow are several variables on whether to run particular inference or not.
+##useful if we are interested in running some inference but not all of it
+
 #boolean variable for whether to generate files for sampled scenarios
 generate_sample_files=True
 
@@ -178,14 +182,15 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
     
     
     #calculating max coordinate to give the bounds of habitat for phyrex
+    
     max_coordinate = 0    
     for node in t.preorder_node_iter():
         max_coordinate = max(max_coordinate, abs(node.X))
         if dimension == 2:
             max_coordinate = max(max_coordinate, abs(node.Y))
     
-    #writing xml file for full sampling, this is not necessary
-    #beastxmlwriter.write_BEAST_xml(t, i, dimension, mcmc, log_every, beast_input_string="output/beast/no_sampling/beast_input/beast", beast_output_string="output/beast/no_sampling/beast_output/beast")    
+    #line of code for writing xml file for full sampling (this is not needed necessary)
+    beastxmlwriter.write_BEAST_xml(t, i, dimension, mcmc, log_every, beast_input_string="output/beast/no_sampling/beast_input/beast", beast_output_string="output/beast/no_sampling/beast_output/beast")    
     
     
     
@@ -214,23 +219,25 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
             mutation_rate =0.01
             
             if generate_corrected_files:
+                #using dendropy implementation for generating alignments
                 d = dendropy.model.discrete.hky85_chars(kappa=3, mutation_rate=mutation_rate, seq_len=seq_len, tree_model=sampled_t, retain_sequences_on_tree=False)    
                 beastxmlwriter.write_BEAST_xml_corrected(t, sampled_t, d, i=i,  mcmc=corr_beast_mcmc, log_every=1000, log_every_tree=10000, beast_input_string ="output/c_beast/sampled"+str(output_index)+"/beast_input/beast", beast_output_string="output/c_beast/sampled"+str(output_index)+"/beast_output/beast", other_sample_size=other_sample_size, seq_len=seq_len)
             ######
             
-            
+            #writing the full tree with annotations containig locations and times of the nodes
+            #(currently not necessary but might be useful to check how, for instance internal nodes are inferred)
             sampled_t.write(path="output/beast/sampled"+str(output_index)+"/generated_trees/tree"+str(i)+".txt", schema="nexus", suppress_internal_taxon_labels=True)
             if dimension ==2:
                 phyrexxmlwriter.write_phyrex_input(sampled_t, i, input_string="output/phyrex/sampled"+str(output_index)+"/phyrex_input/" , output_string="output/phyrex/sampled"+str(output_index)+"/phyrex_output/", bound=2*max_coordinate) 
             
-
+            #writing the actual root data in convenient form
             file = open("output/beast/sampled"+str(output_index)+"/root_data/actual_root"+str(i)+".txt", "w")
             file.write(str(sampled_t.seed_node.X)+'\n')
             file.write(str(sampled_t.seed_node.Y)+'\n')
             file.close()   
             
             
-            #for correcter BEAST we write the real root locations
+            #for corrected BEAST we write the real root locations
             #and write the labels of the taxa in the subsampled tree
             #in order to keep track when inference is launched for corrected BEAST which nodes are actual in the tree
             if generate_corrected_files:
@@ -244,7 +251,7 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
                     file.write(leaf.taxon.label+'\n')
                 file.close()
                 
-    #code for writing the full tree in nexus format, this is not necessary
+    #code for writing the full tree in nexus format (this is not necessary now, but might be useful)
     for node in t.preorder_node_iter():
         node.annotations.add_bound_attribute("time")
         node.annotations.add_bound_attribute("X")

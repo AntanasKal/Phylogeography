@@ -225,87 +225,6 @@ def generate_ultrametric_coalescent_tree(num_tips, lamb):
 
 
 
-def generate_star_tree2():
-    num_tips = 10
-    branch_length = 1
-    names = []
-    
-    for i in range(num_tips+1):
-        names.append("s"+str(i))
-    
-    taxon_namespace = dendropy.TaxonNamespace(names)
-    tree = dendropy.Tree(taxon_namespace=taxon_namespace)
-    
-    index = 0
-    for i in range(num_tips+1):
-        if index == 0:
-            tree.seed_node.taxon=taxon_namespace.get_taxon("s"+str(0))
-            
-            tree.seed_node.X = 0
-            tree.seed_node.time = 0
-        else:
-            node = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(index)))
-            node.edge_length = branch_length
-            node.X = random.gauss(0,1)
-            node.time = branch_length
-            tree.seed_node.add_child(node)
-    return tree
-
-def generate_star_tree():
-    num_tips = 100
-    branch_length = 1
-    fake_step = 0.000000001
-    names = [] 
-      
-    for i in range(num_tips):
-        names.append("s"+str(i))   
-        
-    taxon_namespace = dendropy.TaxonNamespace(names)
-    tree = dendropy.Tree(taxon_namespace=taxon_namespace)
-    current_seed=dendropy.Node()
-    current_seed.edge_length = fake_step
-    i=0
-    while i <num_tips:
-        if i ==0:
-            node1 = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(i)))
-            node1.edge_length = branch_length
-            node1.X = random.gauss(0,branch_length)
-            current_seed.add_child(node1)
-            i=i+1
-            
-            node2 = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(i)))
-            node2.edge_length = branch_length
-            node2.X = random.gauss(0,branch_length)
-            current_seed.add_child(node2)
-            current_seed.X=0
-            i=i+1
-        elif i == num_tips-1:
-            node = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(i)))
-            node.edge_length = branch_length
-            node.X = random.gauss(0,branch_length)
-            i=i+1
-            tree.seed_node.X=0
-            tree.seed_node.add_child(node)
-            tree.seed_node.add_child(current_seed)
-        else:
-            current_seed2=dendropy.Node()
-            current_seed2.edge_length = fake_step
-            
-            node = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(i)))
-            node.edge_length = branch_length
-            node.X = random.gauss(0,branch_length)
-            i=i+1
-            
-            current_seed2.add_child(node)
-            current_seed2.add_child(current_seed)
-            current_seed= current_seed2
-            current_seed.X=0
-    for node in tree.internal_nodes():
-        node.taxon = taxon_namespace.get_taxon("s"+str(i))
-        i=i+1
-    tree=calculate_times(tree)      
-    return tree
-
 
 #function to generate coalescent nonultrametric trees
 def generate_nonultrametric_coalescent_tree(num_tips_per_period, num_periods, period_length, lamb):
@@ -374,6 +293,96 @@ def generate_nonultrametric_coalescent_tree(num_tips_per_period, num_periods, pe
                 current_nodes.pop(max(merging_branches))
                 current_nodes.pop(min(merging_branches))
                 current_nodes.append(node)
-#     print(tree.as_ascii_plot(show_internal_node_labels=True, plot_metric='length'))
     tree=calculate_times(tree)
     return tree
+
+
+
+#generating star tree with 1 root and num_tips of children. This does not work for BEAST
+#as the trees have to be bifurcating
+    
+def generate_star_tree2():
+    num_tips = 10
+    branch_length = 1
+    names = []
+    
+    for i in range(num_tips+1):
+        names.append("s"+str(i))
+    
+    taxon_namespace = dendropy.TaxonNamespace(names)
+    tree = dendropy.Tree(taxon_namespace=taxon_namespace)
+    
+    index = 0
+    for i in range(num_tips+1):
+        if index == 0:
+            tree.seed_node.taxon=taxon_namespace.get_taxon("s"+str(0))
+            
+            tree.seed_node.X = 0
+            tree.seed_node.time = 0
+        else:
+            node = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(index)))
+            node.edge_length = branch_length
+            node.X = random.gauss(0,1)
+            node.time = branch_length
+            tree.seed_node.add_child(node)
+    return tree
+
+
+#this is a star tree made to be bifurcating by adding branch of small length (varibale fake_step)
+def generate_star_tree():
+    num_tips = 100
+    branch_length = 1
+    fake_step = 0.000000001
+    names = [] 
+      
+    for i in range(num_tips):
+        names.append("s"+str(i))   
+        
+    taxon_namespace = dendropy.TaxonNamespace(names)
+    tree = dendropy.Tree(taxon_namespace=taxon_namespace)
+    current_seed=dendropy.Node()
+    current_seed.edge_length = fake_step
+    i=0
+    while i <num_tips:
+        if i ==0:
+            node1 = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(i)))
+            node1.edge_length = branch_length
+            node1.X = random.gauss(0,branch_length)
+            current_seed.add_child(node1)
+            i=i+1
+            
+            node2 = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(i)))
+            node2.edge_length = branch_length
+            node2.X = random.gauss(0,branch_length)
+            current_seed.add_child(node2)
+            current_seed.X=0
+            i=i+1
+        elif i == num_tips-1:
+            node = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(i)))
+            node.edge_length = branch_length
+            node.X = random.gauss(0,branch_length)
+            i=i+1
+            tree.seed_node.X=0
+            tree.seed_node.add_child(node)
+            tree.seed_node.add_child(current_seed)
+        else:
+            current_seed2=dendropy.Node()
+            current_seed2.edge_length = fake_step
+            
+            node = dendropy.Node(taxon=taxon_namespace.get_taxon("s"+str(i)))
+            node.edge_length = branch_length
+            node.X = random.gauss(0,branch_length)
+            i=i+1
+            
+            current_seed2.add_child(node)
+            current_seed2.add_child(current_seed)
+            current_seed= current_seed2
+            current_seed.X=0
+    for node in tree.internal_nodes():
+        node.taxon = taxon_namespace.get_taxon("s"+str(i))
+        i=i+1
+    tree=calculate_times(tree)      
+    return tree
+
+
+
