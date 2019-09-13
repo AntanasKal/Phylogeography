@@ -344,6 +344,65 @@ done
 \subsection*{Other Scripts}
 Scripts \textbf{beastxmlwriter.py} and \textbf{phyrexxmlwriter.py} are used for writing BEAST and PHYREX input files respectively.
 
+
+\section*{Output Folders}
+Output is organised in this way: \textbf{output} folder has subfolders 
+\textbf{beast}, \textbf{c\_beast}, \textbf{phyrex} which contain input and output files of BEAST, corrected BEAST and PHYREX. Each of these folders contains 4 folder for the results of 4 sampling scenarios. There are a few other folders, but they are not necessary.
+The \textbf{.trees.txt} files take lots of space and only the root locations were important for us. Processed root locations are put into \textbf{root\_data/} folders and if I am downloading the data to my computer I usually delete the \textbf{.tree.txt} files by going to the folders containing them and executing this command:
+
+\begin{verbatim}
+find . -name "*.trees.txt" -type f -delete
+\end{verbatim} 
+
+
+Here is a rough scheme of the \textbf{output/} folder:
+\begin{itemize}
+\item \textbf{beast}
+\begin{itemize}
+\item \textbf{sampled1}
+\begin{itemize}
+\item \textbf{beast\_input}
+\item \textbf{beast\_output}
+\item \textbf{root\_data}
+\end{itemize}
+\item \textbf{sampled2}
+\begin{itemize}
+\item ...
+\end{itemize}
+\item \textbf{sampled3}
+\begin{itemize}
+\item ...
+\end{itemize}
+\item \textbf{sampled4}
+\begin{itemize}
+\item ...
+\end{itemize}
+\end{itemize}
+
+\item \textbf{phyrex}
+\begin{itemize}
+\item \textbf{sampled1}
+\begin{itemize}
+\item \textbf{phyrex\_input}
+\item \textbf{phyrex\_output}
+\end{itemize}
+\item ...
+
+\end{itemize}
+
+\item \textbf{c\_beast}
+\begin{itemize}
+\item ...
+\end{itemize}
+
+
+
+
+
+\end{itemize}
+
+\clearpage
+
 \section*{Discsim Scripts}
 
 If $\lambda$ is the rate of events is $\Lambda V$ model, $\mu$ is the death probability, $L$ is the diameter of torus and $r$ is the radius of sampling circle, then the rate at which sampling event occurs at given point is
@@ -420,469 +479,10 @@ Scripts \textbf{treegenerator.py} and \textbf{beastxmlwriter.py} in the folder a
 Script \textbf{disc\_phyrexxmlwriter.py} is edited script \textbf{phyrexxmlwriter.py} to write  PHYREX xml scripts in this case.
 
 
-\section*{Output Folders}
-Output is organised in this way: \textbf{output} folder has subfolders 
-\textbf{beast}, \textbf{c\_beast}, \textbf{phyrex} which contain input and output files of BEAST, corrected BEAST and PHYREX. Each of these folders contains 4 folder for the results of 4 sampling scenarios. There are a few other folders, but they are not necessary.
-The \textbf{.trees.txt} files take lots of space and only the root locations were important for us. Processed root locations are put into \textbf{root\_data/} folders and if I am downloading the data to my computer I usually delete the \textbf{.tree.txt} files by going to the folders containing them and executing this command:
-
-\begin{verbatim}
-find . -name "*.trees.txt" -type f -delete
-\end{verbatim} 
-
-
-Here is a rough scheme of the \textbf{output/} folder:
-\begin{itemize}
-\item \textbf{beast}
-\begin{itemize}
-\item \textbf{sampled1}
-\begin{itemize}
-\item \textbf{beast\_input}
-\item \textbf{beast\_output}
-\item \textbf{root\_data}
-\end{itemize}
-\item \textbf{sampled2}
-\begin{itemize}
-\item ...
-\end{itemize}
-\item \textbf{sampled3}
-\begin{itemize}
-\item ...
-\end{itemize}
-\item \textbf{sampled4}
-\begin{itemize}
-\item ...
-\end{itemize}
-\end{itemize}
-
-\item \textbf{phyrex}
-\begin{itemize}
-\item \textbf{sampled1}
-\begin{itemize}
-\item \textbf{phyrex\_input}
-\item \textbf{phyrex\_output}
-\end{itemize}
-\item ...
-
-\end{itemize}
-
-\item \textbf{c\_beast}
-\begin{itemize}
-\item ...
-\end{itemize}
-
-
-
-
-
-\end{itemize}
 
 \clearpage
 
 
-This is an example of a short document typeset using \LaTeX\ to show
-some features such as the inclusion of
-\begin{itemize}
-\item tables,
-\item figures, and
-\item single and multi-line equations.
-\end{itemize}
 
-% In future a file \texttt{example.tex} may be made available for
-% possible use as a template, with some features of this guide, and
-% additional comments and details.
-
-This document is in no way a substitute for the many helpful resources
-which may be found online, of which a few suggestions are given at the
-end of the main part of this document.
-
-Note that although \LaTeX\ is well suited for mathematical
-typesetting, it is absolutely acceptable to write reports using other
-word-processing software (such as Microsoft Word or LibreOffice).
-%
-%, or to submit handwritten reports, or a combination.  For example, a
-% mixture of typeset text and handwritten equations may be perfectly
-% fine.
-%
-See \S\,2.3 of the \textsl{Introduction} to the \textsl{Computational
-  Projects Manual} for general guidance.
-
-\subsection{Finding a \LaTeX\ program}
-
-If you decide to use a \LaTeX, or you wish to try it out, \LaTeX\ is
-available on the University's \textsl{Managed Cluster Service}. If you
-are going to use it extensively, then you will probably want to
-install \LaTeX\ on your own personal computer. This can be done for
-free, e.g.\ for recommendations and packages see
-\begin{itemize}
-\item \url{http://www.tug.org/begin.html\#install} and
-\item \url{http://www.tug.org/interest.html\#free}
-\end{itemize}
-As a `front-end' (i.e.\ `clever editor'), Mac users will probably want
-to use \href{http://pages.uoregon.edu/koch/texshop/}{{\TeX}Shop},
-while for Windows and Linux users (and Mac users) there is,
-\textit{inter alia}, \href{http://www.tug.org/texworks/}{{\TeX}works};
-see the \textsl{Introduction} to the
-\href{http://www.maths.cam.ac.uk/undergrad/catam/IB/}{Part~IB} or
-\href{http://www.maths.cam.ac.uk/undergrad/catam/II/}{Part~II}
-\textsl{Computational Project Manuals} for more details.
-
-\subsection{Setting up the document}\label{setup}
-
-At the start of your document you will need commands to set up the
-style, font-size, and other personal preferences.  Many of these are
-\textit{optional}, but the main body of text to be typeset must start
-with
-\begin{quote}
-\verb|\begin{document}|
-\end{quote}
-and end with
-\begin{quote}
-\verb|\end{document}|
-\end{quote}
-
-%  In future, more details and explanatory comments may be found in
-% \S\,\ref{extras} below, and in \texttt{example.tex}.
-
-As indicated in the \textsl{Computational Projects Manual}, you are
-requested to leave a space 5cm by 11cm for a label at the top right
-hand corner of the front page of your project. The box at the start of
-this page was produced by the lines:
-\begin{quote}
-\begin{verbatim}
-\hfill\framebox{\parbox[t][5 true cm][c]{11 true cm}
-{\hfil Space for project label}}
-\end{verbatim}
-\end{quote}
-
-\subsection{Headings, sections and subsections}
-
-It is sensible to include headings and to organise your write-ups into
-sections, subsections and subsubsections, e.g.\ so that your answer to
-each question has a heading. For instance the document title was
-produced by
-\begin{quote}
-\begin{verbatim}
-\begin{center}\LARGE\bf
-  A Brief \LaTeX\ Guide for CATAM
-\end{center}
-\end{verbatim}
-\end{quote}
-where the \verb!\! after the \verb!\LaTeX! command is necessary to
-generate a space (you might like to experiment to see the effect of
-omitting the \verb!\!).
-
-\LaTeX\ has specific commands to generate sections, subsections,
-subsubsections, etc. Moreover, it is possible to get \LaTeX\ to
-number these automatically (the default). For instance,
-\begin{itemize}
-
-\item the first section heading in this document was produced by a
-  line
-\begin{quote}
-\verb|\section{This document}|
-\end{quote}
-
-\item and, similarly, this subsection heading was produced by
-\begin{quote}
-\verb$\subsection{Headings, sections and subsections}$
-\end{quote}
-\end{itemize}
-
-In order to omit the numbering, append \verb|`*'| to the command,
-e.g.\ \verb|\section*{This document)|.
-
-\subsection{Numbering and labels}
-
-Objects such as figures, tables, equations, sections, and page numbers
-can be referred to using \textit{labels}; the labels will be replaced
-with the correct reference when typeset by \LaTeX.  For example, we
-might wish to refer to a (sub)section by number, or to a program
-listing by page number (e.g.\ page \pageref{question:2:program} in
-this document), before knowing either what the section numbers is, or
-on which page the program will occur in the final typeset document.
-
-Numbered [sub-]sections are \textit{labelled} by adding a \verb!\label!
-command after the [sub-]section name. For example, we can refer to
-\S\,\ref{proglist} below, because the subsection heading is followed
-by a label thus:
-\begin{quote}
-\begin{verbatim}
-\subsection{Program listings and page number references}\label{proglist}
-\end{verbatim}
-\end{quote}
-so allowing us to refer to the label \verb|proglist| from elsewhere in
-the text by using, say, the reference `\verb|\S\,\ref{proglist}|'.
-
-\subsection{Mathematical expressions}
-
-Mathematical expressions such as $2x+5-3\sin x=0$ can be included
-in-line by putting \$ signs around the expression to tell \LaTeX\ to
-treat it as mathematics (where the upright `sin' is produced within
-the \$ signs by using the command \verb|\sin|; similarly for `cos',
-etc.).
-
-It is also possible to produce `displayed' equations.  The equation
-\begin{equation}
-  |f^{\prime}(x_*)| \equiv \left|\frac{3\cos{x_*}+k}{2+k}\right| > 1 \,.
-  \label{picard3}
-\end{equation}
-is produced using
-\begin{quote}
-\begin{verbatim}
-\begin{equation}
-  |f^{\prime}(x_*)| \equiv \left|\frac{3\cos{x_*}+k}{2+k}\right| > 1 \,.
-  \label{picard3}
-\end{equation}
-\end{verbatim}
-\end{quote}
-The equation is numbered automatically, and has again been associated
-with a label in order to refer to it by number elsewhere in the text;
-thus the \LaTeX
-\begin{quote}
-  \verb| `see equation (\ref{picard3})'|
-\end{quote}
-produces `see equation (\ref{picard3})'.
-
-Moreover,
-\begin{itemize}
-\item if the equations are subsequently re-ordered then, after a
-  couple of invocations, \LaTeX\ will successfully automatically
-  correct the references;
-\item this use of labels also works for figures, tables, etc.\ (see
-  below);
-\item if you do not wish to number your equation[s],
-  \begin{itemize}
-  \item[$\circ$] either append a `\verb|*|' to \verb|equation| in
-    \verb|\begin{equation} ... \end{equation}|,
-  \item[$\circ$] or replace \verb|\begin{equation} ... \end{equation}| with
-    \verb|\[ ... \]|.
-  \end{itemize}
-\end{itemize}
-
-Sometimes an equation will not fit on a single line, or there are
-multiple lines in an expression. \LaTeX\ almost always has a solution
-to any typesetting problem. For instance. here is a more complicated
-example of a single numbered equation split over multiple lines:
-\begin{eqnarray}
-x_N &=& x_{N-1} - \frac{F(x_{N-1})}{F'(x_{N-1})} \nonumber\\
-    &=& x_* + \frac{F^{\prime\prime}\left(x_*\right)}
-                   {2 F^{\prime}\left(x_*\right)}
-              \left(x_{N-1}-x_*\right)^2 + \dots \,.
-\end{eqnarray}
-This was produced by
-\begin{quote}
-\begin{verbatim}
-\begin{eqnarray}
-x_N &=& x_{N-1} - \frac{F(x_{N-1})}{F'(x_{N-1})} \nonumber\\
-    &=& x_* + \frac{F^{\prime\prime}\left(x_*\right)}
-                   {2 F^{\prime}\left(x_*\right)}
-              \left(x_{N-1}-x_*\right)^2 + \dots \,.
-\end{eqnarray}
-\end{verbatim}
-\end{quote}
-Here, the \verb|&| signs are used to align the equations -- in this
-case at the equality signs. We also note that
-\begin{itemize}
-\item each line apart from the last must end with a `new line' symbol
-  \verb|\\|;
-\item the \verb|\nonumber| command can be used to tell \LaTeX\ not to
-  number that line.
-\end{itemize}
-
-\subsection{Itemized lists}
-
-This document has a number of itemized lists. For instance
-\begin{quote}
-\begin{verbatim}
-\begin{itemize}
-\item first item;
-\item second item;
-  \begin{itemize}
-  \item[$\circ$] second item, first sub-item;
-  \item[$\circ$] second item, second sub-item.
-  \end{itemize}
-\end{itemize}
-\end{verbatim}
-\end{quote}
-produces
-\begin{itemize}
-\item first item;
-\item second item;
-  \begin{itemize}
-  \item[$\circ$] second item, first sub-item;
-  \item[$\circ$] second item, second sub-item.
-  \end{itemize}
-\end{itemize}
-It is also possible to generate numbered lists; e.g.
-\begin{quote}
-\begin{verbatim}
-\begin{enumerate}
-   \item This is the first line.
-   \item This is the second.
-   \item Here's the third.
-\end{enumerate}
-\end{verbatim}
-\end{quote}
-produces
-\begin{enumerate}
-\item This is the first line.
-\item This is the second.
-\item Here's the third.
-\end{enumerate}
-
-\subsection{Example of a figure}
-
-\LaTeX\ has many ways of inserting graphs. In what follows we assume
-that the source file for the graph is in a sub-directory
-\texttt{Plots}, and that the source file is called
-\begin{itemize}
-\item \texttt{Figure-1.pdf} if the graph is in PDF form;
-\item \texttt{Figure-1.eps} (or \texttt{Figure-1.ps}) if the graph is in
-  PostScript form.
-\end{itemize}
-If you are working with the \texttt{pdflatex} command on Linux (or
-with its equivalents on Windows/Mac), then a graph in PDF form may be
-preferable, although some modern versions of the \texttt{pdflatex}, or
-its equivalents, command also accept graphs in PostScript form. If you
-are working with the \texttt{latex} command, or its equivalents, then
-the graph should not be in PDF form but in, say, PostScript form instead.
-
-The following \LaTeX\ source \textsl{should} work with both the
-\texttt{pdflatex} and \texttt{latex} commands on Linux, or with its
-equivalents on Windows/Mac, and should insert the graph somewhere
-\textsl{near} here!
-
-% Also see the comments on including graphics in preamble.
-
-\begin{quote}
-\begin{verbatim}
-\begin{figure}[ht]\centering\label{q3fig1}
-  \includegraphics[height=78mm,angle=0]{Plots/Figure-1}
-  \caption{A caption can go here. Figures can be numbered automatically.}
-\end{figure}
-\end{verbatim}
-\end{quote}
-\begin{figure}[ht]\centering\label{q3fig1}
-  \includegraphics[height=78mm,angle=0]{Plots/Figure-1}
-  \caption{A caption can go here. Figures are numbered automatically.}
-\end{figure}
-\textsl{Remarks}
-\begin{itemize}
-\item Figures `float', i.e.\ they are included when and where there is
-  space; the \texttt{[ht]} specification means include the figure
-  `\underline{\bf h}ere' or at the `\underline{\bf t}op of a page'.
-\item Most modern versions of \LaTeX\ will append \texttt{.pdf} or
-  \texttt{.eps} (or \texttt{.ps}) as appropriate to \texttt{Figure-1};
-  if your version does not do this then you will need to add the
-  suffix explicitly by editing the \verb|\includegraphics| line to
-  refer to, say, \texttt{Plots/Figure-1.pdf}.
-\item Many \texttt{latex} commands that produce DVI output will accept many
-  different graphics formats in addition to PostScript (again you may
-  have to edit the \verb|\includegraphics| line).
-\end{itemize}
-
-% In future more information on including graphics may be given in the
-% accompanying template file.
-
-\subsection{Example of a table}
-
-You may have the need to present the output of calculations in a
-table. The following commands produce the table which follows:
-\begin{quote}
-\begin{verbatim}
-\begin{table}[ht]\centering\label{k=16:x=-2}
-\caption{The table caption can go here.}\medskip\small
-\begin{tabular}{ccccc}
- $N$ & $x_N$ & $\epsilon_N$ & $\epsilon_N/\epsilon_{N-1}$ &
- $f'(x_N)$\\[1mm]
-   0 & -2.0000000 &  8.832369e-01 \\
-   1 & -2.2071051 &  6.761317e-01 &  0.7655158 &  0.7898504 \\
-   2 & -2.3736981 &  5.095388e-01 &  0.7536087 &  0.7689931 \\
-&&&&\\[-4mm]
-\vdots & \vdots & \vdots & \vdots & \vdots \\[ 2mm]
-  32 & -2.8831971 &  3.981016e-05 &  0.7277548 &  0.7277554 \\
-  33 & -2.8832079 &  2.897202e-05 &  0.7277545 &  0.7277549 \\
-  34 & -2.8832158 &  2.108451e-05 &  0.7277543 &  0.7277546 \\
-\end{tabular}
-\end{table}
-\end{verbatim}
-\end{quote}
-\begin{table}[ht]\centering\label{k=16:x=-2}
-\caption{The table caption can go here.}\medskip\small
-\begin{tabular}{ccccc}
- $N$ & $x_N$ & $\epsilon_N$ & $\epsilon_N/\epsilon_{N-1}$ &
- $f'(x_N)$\\[1mm]
-   0 & -2.0000000 &  8.832369e-01 \\
-   1 & -2.2071051 &  6.761317e-01 &  0.7655158 &  0.7898504 \\
-   2 & -2.3736981 &  5.095388e-01 &  0.7536087 &  0.7689931 \\
-&&&&\\[-4mm]
-\vdots & \vdots & \vdots & \vdots & \vdots \\[ 2mm]
-  32 & -2.8831971 &  3.981016e-05 &  0.7277548 &  0.7277554 \\
-  33 & -2.8832079 &  2.897202e-05 &  0.7277545 &  0.7277549 \\
-  34 & -2.8832158 &  2.108451e-05 &  0.7277543 &  0.7277546 \\
-\end{tabular}
-\end{table}
-\begin{itemize}
-\item As in the case of a \texttt{figure}, by using the \texttt{[ht]}
-  specification, \LaTeX\ will try to place the table near to where it
-  occurs in the source file, or failing that at the top of page.
-\item The command \verb|\begin{tabular}{ccccc}| tells \LaTeX\ that
-  there are 5 columns and the entries are to be \underline{\bf c}entred.
-\item Column entries are separated by ampersand \texttt{\&}, and lines
-  are terminated using \verb|\\|.
-\end{itemize}
-
-\subsection{Program listings and page number references}\label{proglist}
-
-Program listings must be included at the end of your CATAM
-reports. These \textsl{either} can be included separately, \textit{or}
-can be included via your \LaTeX\ code. As an example we have included
-a program from a file called \texttt{question2.m} (located in the
-sub-directory \texttt{MATLAB}) at the end of this
-brief guide, on page~\pageref{question:2:program}.  The \LaTeX\ code
-to do this is as follows:
-\begin{quote}
-\begin{verbatim}
-\begin{center}\label{question:2:program}
-   Program \texttt{program-2.m} for Question 2
-\end{center}
-{\small \verbatiminput{MATLAB/program-2.m}}
-\end{verbatim}
-\end{quote}
-\begin{itemize}
-\item The line \verb|\label{question:2:program}| labels the page so
-  that it can be referred to elsewhere in the text, say by
-  \verb|`see the code on page \pageref{question:2:program}'| in which
-  the label will be replaced automatically with the correct number,
-  e.g.\ `see the code on page~\pageref{question:2:program}'.
-\end{itemize}
-
-% \subsection{Setting up the environment and extra commands}\label{extras}
-
-% As mentioned in section (\ref{setup}) above, the document will start
-% with optional commands.
-
-\subsection{Some \LaTeX\ references}
-
-Beginners, as well as more advanced users, may find some of the
-following references helpful (all working at time of writing):
-\begin{itemize}\small
-
-% Encode ~ as \%7E and _ as \%5F for when hyperref is not available. ~
-% is always are problem for LaTeX, and _ (or \_) will not cut and
-% paste from acroread.
-
-\item \url{http://physics.nyu.edu/\%7Ephyslab/Lab\%5FMain/Latexguide.pdf}
-\item \url{http://www.cs.princeton.edu/courses/archive/spr10/cos433/Latex/latex-guide.pdf}
-\item \url{http://www.maths.tcd.ie/\%7Edwilkins/LaTeXPrimer/}
-\item \url{http://tobi.oetiker.ch/lshort/lshort.pdf}
-\item \url{http://www.maths.adelaide.edu.au/anthony.roberts/LaTeX/index.php}
-\item \url{http://en.wikibooks.org/wiki/LaTeX/}
-\end{itemize}
-
-% Here we begin a program listing, with input from a separate file.
-% We use \clearpage rather than \newpage to clear floats.
-
-\clearpage
 
 \end{document}
