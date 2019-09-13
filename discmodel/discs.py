@@ -5,12 +5,16 @@ import random
 import math
 import argparse
 import newick
-import phyrexxmlwriter
+import discs_phyrexxmlwriter
 import beastxmlwriter
 import dendropy
 import treegenerator
 import os
 
+
+#tree by this is not completely ultrametric
+#there are some small on the branch ages
+#this functions make so branches longer if needed
 def ultrametrize(tree):
 	#print(tree.as_ascii_plot())
 	max_time =0
@@ -65,8 +69,12 @@ for index in range(job_index*num_simulations, (job_index+1)*num_simulations):
 	    This defines the size of the 1D or 2D space that lineages
 	    can move around in.'''
 	sim = discsim.Simulator(L)
+	
+	#array for sample locations
 	a = [None]
-	n = 10
+
+	#number of samples
+	n = 100
 	x = np.zeros(n) 
 	y = np.zeros(n) 
 	for i in range(n):
@@ -90,10 +98,10 @@ for index in range(job_index*num_simulations, (job_index+1)*num_simulations):
 	''' All individuals within distance r of the centre of an event
 	    have probability u of dying in the event 
 	    and parents are thrown down uniformly within this disc.'''
-	#print(sim.max_occupancy)
+	
 	
 	sim.run()
-	#print("max occupancy = "+str(sim.max_occupancy))
+	
 	
 	pi, tau = sim.get_history()
 	al = sim.get_population()[0][0]
@@ -123,5 +131,9 @@ for index in range(job_index*num_simulations, (job_index+1)*num_simulations):
 		node.annotations.add_bound_attribute("Y")	
 		node.annotations.add_bound_attribute("time")	
 	beastxmlwriter.write_BEAST_xml(tree, index, dimension=2, mcmc=10000, log_every=10, beast_input_string="output/beast/LV/beast_input/beast", beast_output_string="output/beast/LV/beast_output/beast")
-	phyrexxmlwriter.write_phyrex_input(tree, index, input_string="output/phyrex/LV/phyrex_input/" , output_string="output/phyrex/LV/phyrex_output/", bound=L)
+	discs_phyrexxmlwriter.write_phyrex_input(tree, index, input_string="output/phyrex/LV/phyrex_input/" , output_string="output/phyrex/LV/phyrex_output/", bound=L)
+	
+
+	#line to run BEAST
+	os.system('beast -overwrite -seed 123456795 "output/beast/LV/beast_input/beast'+str(i)+'.xml"')
 		
