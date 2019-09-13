@@ -80,17 +80,4 @@ for i in range(len(east_merged)):
 for i in range(len(east_merged),len(westrandom20fromeast)):
     dna_new[0][2*i] = ">" + westrandom20fromeast['traits'][i]
     dna_new[0][2*i + 1] = len(westrandom20fromeast['DNA'][0])*'N'     
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+      
