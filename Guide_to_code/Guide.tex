@@ -348,22 +348,76 @@ Scripts \textbf{beastxmlwriter.py} and \textbf{phyrexxmlwriter.py} are used for 
 
 If $\lambda$ is the rate of events is $\Lambda V$ model, $\mu$ is the death probability, $L$ is the diameter of torus and $r$ is the radius of sampling circle, then the rate at which sampling event occurs at given point is
 $$\frac{\lambda \pi r^2}{L^2}$$
-Given that a point is hit, the probability that it is displaced is $\mu$. Also the mean square distance of one displacement is the mean square distance between two points chosen uniformly at random in the disc and it is $r^2$.
+Given that a point is hit, the probability that it is displaced is $\mu$. Also the mean square distance of one displacement is the mean square distance between two points chosen uniformly at random in the disc and it is $r^2$ (can be computed by integrating $$\int_D \left(\int_D(x_1-x_2)^2+(y_1-y_2)^2\frac{1}{\pi r^2}dx_1dy_1\right)\frac{1}{\pi r^2}dx_2dy_2$$
+
+$$=\int_D \left(\int_D (x_1^2+x_2^2-2x_1x_2+y_1^2-2y_1y_2+y_2^2)\frac{1}{\pi r^2}dx_1dy_1\right)\frac{1}{\pi r^2}dx_2dy_2$$
+
+$$=\int_D \left(\int_D (x_1^2+x_2^2+y_1^2+y_2^2)\frac{1}{\pi r^2}dx_1dy_1\right)\frac{1}{\pi r^2}dx_2dy_2$$
+
+$$=\int_0^{2\pi} \int_0^{r} \int_0^{2\pi} \int_0^r  (\rho_1^2+\rho_2^2)\frac{1}{\pi^2 r^4} \rho_1\rho_2d\theta_1 d\rho_1 d\theta_2 d\rho_2$$
+
+$$= \frac{4}{r^4}\int_0^{r}  \int_0^r  (\rho_1^2+\rho_2^2) \rho_1\rho_2 d\rho_1  d\rho_2= \frac{4}{r^4}\int_0^{r}  \int_0^r  (\rho_1^2+\rho_2^2) \rho_1\rho_2 d\rho_1  d\rho_2$$
+
+$$= \frac{4}{r^4}\int_0^{r}\left(  \frac{r^4}{4}\rho_2+\rho_2^3\frac{r^2}{2}  \right)d\rho_2= \frac{4}{r^4}\left(  \frac{r^6}{8}+\frac{r^6}{8}  \right)=r^2$$
+
+
+
+
+ where $D$ is a disc of radius $r$ centred at 0 and observing that terms such as $2x_1x_2$ integrate to 0).
 
 So over a unit time, mean square displacement of an individual is
-$$\frac{\lambda \mu \pi r^4}{L^2}$$
+$$\frac{\lambda \mu \pi r^2}{L^2}r^2=\frac{\lambda \mu \pi r^4}{L^2}$$
 
-For Lemey model with diffusion matrix identity, mean square displacement over a unit time is 2. 
+For Lemey model with diffusion matrix being identity, mean square displacement over a unit time is 2. 
 
 So having set $\lambda$, $\mu$, $r$, in order to get $\Lambda V$ process to be similar to Brownian motion as with diffusion rate being identity matrix we need to set
 
 $$\lambda=\frac{2L^2}{\mu \pi r^4}$$
 
+I have added the code to check this in Jupyter notebook "Phylogeography Output Analysis".
 
 
 
+\subsection*{discs.py}
+
+This script runs a discsim simulation, generates BEAST and PHYREX files for that and runs BEAST.
+Currently it is set up in such a way that simulations indexed 0-99 are sampled from a square having opposite corners at $(25,\ 25)$ and $(75,\ 75)$, and simulations indexed 100-199 are sampled from a square having opposite corner at $(45,\ 45)$ and $(55,\ 55)$. It outputs the obtained root in folder \textbf{output/root\_data/}.
 
 
+
+Shell script \textbf{run\_discs.sh} runs the 200 simulations:
+
+\begin{verbatim}
+bgadd -L 200 /discs
+for i in $(seq 0 200)
+do bsub -g /discs -o console_output/out_"$i".txt -e\
+console_output/err_"$i".txt python discs.py -jobi "$i" -N 1
+done
+\end{verbatim}
+
+Shell script \textbf{run\_phyrex.sh} runs PHYREX on all the simulations:
+
+\begin{verbatim}
+bgadd -L 200 /LV_phyrex
+for i in $(seq 0 199)
+do bsub -g /LV_phyrex -o console_output/phyrex_out_"$i".txt\
+-e console_output/phyrex_err_"$i".txt\
+./phyrex --xml=output/phyrex/LV/phyrex_input/phyrex"$i".xml
+done  
+\end{verbatim}
+
+
+
+\subsection*{Other scripts}
+
+Script \textbf{newick.py} for converting directed trees outputted by discsim to newick trees.
+I edited this script after taking it from here:
+
+\url{https://github.com/tyjo/newick.py/blob/master/newick.py}
+
+Scripts \textbf{treegenerator.py} and \textbf{beastxmlwriter.py} in the folder are just copies of these scripts from Phylogeography folder.
+
+Script \textbf{disc\_phyrexxmlwriter.py} is edited script \textbf{phyrexxmlwriter.py} to write  PHYREX xml scripts in this case.
 
 
 \section*{Output Folders}
