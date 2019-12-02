@@ -8,6 +8,7 @@ Created on Mon Aug  5 15:46:53 2019
 
 
 
+
 def write_phyrex_input(tree, i, input_string="output/phyrex_input/" , output_string="output/phyrex_output/", bound = 100):
     write_xml(tree, i, input_string, output_string)
     write_phyrex_tree(tree, i, input_string, output_string)
@@ -19,8 +20,8 @@ def write_phyrex_input(tree, i, input_string="output/phyrex_input/" , output_str
 def write_xml(tree, i, input_string, output_string):
     file = open(input_string+"phyrex"+str(i)+".xml", "w")
     print(input_string+"phyrex"+str(i)+".xml")
-    file.write("""<phyrex run.id=""" +str(i)+""" output.file="""+'"'+output_string+"out" +'"'+""" mcmc.chain.len="2E+7" mcmc.sample.every="1000"
-        mcmc.print.every="1000" mcmc.burnin="10000" mutmap="no" ignore.sequences="yes">
+    file.write("""<phyrex run.id=""" +str(i)+""" output.file="""+'"'+output_string+"out" +'"'+""" mcmc.chain.len="2E+8" mcmc.sample.every="100"
+        mcmc.print.every="1000" mcmc.burnin="1000" mutmap="no" ignore.sequences="yes">
 
   <!-- Tree topology -->
   <topology>
