@@ -1399,7 +1399,7 @@
 	<!-- that is used to generate an initial tree for the chain.                 -->
 	<constantSize id="initialDemo" units="years">
 		<populationSize>
-			<parameter id="initialDemo.popSize" value="100.0"/>
+			<parameter id="initialDemo.popSize" value="0.1"/>
 		</populationSize>
 	</constantSize>
 	
@@ -1451,7 +1451,7 @@
 			<parameter id="skygrid.numGridPoints" value="35.0"/>
 		</numGridPoints>
 		<cutOff>
-			<parameter id="skygrid.cutOff" value="0.6948424"/>
+			<parameter id="skygrid.cutOff" value="1.0"/>
 		</cutOff>
 		<populationTree>
 			<treeModel idref="treeModel"/>
@@ -1464,7 +1464,7 @@
 		<distribution>
 			<logNormalDistributionModel meanInRealSpace="true">
 				<mean>
-					<parameter id="ucld.mean" value="1.0" lower="0.0"/>
+					<parameter id="ucld.mean" value="0.0005" lower="0.0"/>
 				</mean>
 				<stdev>
 					<parameter id="ucld.stdev" value="0.3333333333333333" lower="0.0"/>
@@ -1616,13 +1616,13 @@
 
 	<!-- Define operators                                                        -->
 	<operators id="operators" optimizationSchedule="log">
-		<scaleOperator scaleFactor="0.75" weight="1">
+		<scaleOperator scaleFactor="0.75" weight="0.1">
 			<parameter idref="kappa"/>
 		</scaleOperator>
-		<deltaExchange delta="0.01" weight="1">
+		<deltaExchange delta="0.01" weight="0.1">
 			<parameter idref="frequencies"/>
 		</deltaExchange>
-		<scaleOperator scaleFactor="0.75" weight="1">
+		<scaleOperator scaleFactor="0.75" weight="0.1">
 			<parameter idref="alpha"/>
 		</scaleOperator>
 		<scaleOperator scaleFactor="0.75" weight="3">
@@ -1685,7 +1685,7 @@
 	
 
 	<!-- Define MCMC                                                             -->
-	<mcmc id="mcmc" chainLength="1000000000" autoOptimize="true">
+	<mcmc id="mcmc" chainLength="500000000" autoOptimize="true">
 		<joint id="joint">
 			<prior id="prior">
 				<logNormalPrior mu="1.0" sigma="1.25" offset="0.0">
@@ -1706,6 +1706,11 @@
 				<exponentialPrior mean="0.3333333333333333" offset="0.0">
 					<parameter idref="ucld.stdev"/>
 				</exponentialPrior>
+				<truncated lower="0.3013698630136332">
+					<normalPrior mean="0.7" stdev="0.25">
+						<parameter idref="treeModel.rootHeight"/>
+					</normalPrior>
+				</truncated>
 				<gammaPrior shape="0.001" scale="1000.0" offset="0.0">
 					<parameter idref="skygrid.precision"/>
 				</gammaPrior>
@@ -1753,7 +1758,7 @@
 		</log>
 
 		<!-- write log to file                                                       -->
-		<log id="fileLog" logEvery="50000" fileName="YFV_south+N.log" overwrite="false">
+		<log id="fileLog" logEvery="10000" fileName="YFV_south+N.log" overwrite="false">
 			<joint idref="joint"/>
 			<prior idref="prior"/>
 			<likelihood idref="likelihood"/>

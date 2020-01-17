@@ -12,11 +12,14 @@ import numpy
 
 N=100
 
+phyrexRootLocationIndex=21 #position of root location in phyrex output file - before was 19 and before even less
+thinPhyrex=5 #subsample from phyrex output to reduce file sizes
+
 #Check the new version of the phyrex output and create files accordingly
 
 rootFiles=True
-sigmaFiles=True
-BEAST=True
+sigmaFiles=False
+BEAST=False
 ChangePhyrex=False
 
 analyses=["No Bias BMP, beast","Central Sampling BMP, beast", "Diagonal Sampling BMP, beast", "One sided sampling BMP, beast", "No Bias BMP, beast with extra samples","Central Sampling BMP, beast with extra samples", "Diagonal Sampling BMP, beast with extra samples", "One sided sampling BMP, beast with extra samples", "Broad sampling LFV, beast", "Narrow sampling LFV, beast", "No Bias BMP, phyrex","Central Sampling BMP, phyrex", "Diagonal Sampling BMP, phyrex", "One sided sampling BMP, phyrex", "Broad sampling LFV, phyrex", "Narrow sampling LFV, phyrex", "No Bias BMP, beast without extra samples","Central Sampling BMP, beast without extra samples", "Diagonal Sampling BMP, beast without extra samples", "One sided sampling BMP, beast without extra samples"]
@@ -28,8 +31,8 @@ if rootFiles:
 	for i in range(len(analyses)):
 		print("\n")
 		print(analyses[i])
-		fileX=open("plots/"+analyses[i].replace(" ","_")+"_rootX.txt","w")
-		fileY=open("plots/"+analyses[i].replace(" ","_")+"_rootY.txt","w")
+		fileX=open("plots/"+analyses[i].replace(" ","_")+"_rootX_new2.txt","w")
+		fileY=open("plots/"+analyses[i].replace(" ","_")+"_rootY_new2.txt","w")
 		print("plots/"+analyses[i].replace(" ","_")+"_rootX.txt")
 		for j in range(N):
 			#print(j)
@@ -88,7 +91,7 @@ if rootFiles:
 				fileY.write("\n")
 				file.close()
 			if i>9 and i<=15:
-				file=open(foldersBEAST[i]+"phyrex_output/out_phyrex_stats_"+str(j+toSkip[i])+".txt")
+				file=open(foldersBEAST[i]+"phyrex_output/out_new2_phyrex_stats_"+str(j+toSkip[i])+".txt")
 				#print(foldersBEAST[i]+"phyrex_output/out_phyrex_stats_"+str(j+toSkip[i])+".txt")
 				line=file.readline()
 				linelist=line.split()
@@ -99,15 +102,18 @@ if rootFiles:
 						break
 				line=file.readline()
 				linelist=line.split()
+				count=0
 				while line!="" and line!="\n":
-					estimatedXRoot=float(linelist[19].replace("f",""))-trueRoots[0]
-					estimatedYRoot=float(linelist[20])-trueRoots[1]
-					estimatedXRoots.append(estimatedXRoot)
-					estimatedYRoots.append(estimatedYRoot)
-					fileX.write(str(estimatedXRoot))
-					fileY.write(str(estimatedYRoot))
-					fileX.write("\t")
-					fileY.write("\t")
+					count+=1
+					if count%thinPhyrex==0:
+						estimatedXRoot=float(linelist[phyrexRootLocationIndex].replace("f",""))-trueRoots[0]
+						estimatedYRoot=float(linelist[phyrexRootLocationIndex+1])-trueRoots[1]
+						estimatedXRoots.append(estimatedXRoot)
+						estimatedYRoots.append(estimatedYRoot)
+						fileX.write(str(estimatedXRoot))
+						fileY.write(str(estimatedYRoot))
+						fileX.write("\t")
+						fileY.write("\t")
 					line=file.readline()
 					linelist=line.split()
 				fileX.write("\n")
@@ -226,16 +232,18 @@ if sigmaFiles:
 	for i in range(len(analyses)):
 		print("\n")
 		print(analyses[i])
-		fileSigma=open("plots/"+analyses[i].replace(" ","_")+"_SigmaFormula.txt","w")
-		fileSigma2=open("plots/"+analyses[i].replace(" ","_")+"_SigmaObservedRoot.txt","w")
-		fileSigma3=open("plots/"+analyses[i].replace(" ","_")+"_SigmaObservedTips.txt","w")
+		fileSigma=open("plots/"+analyses[i].replace(" ","_")+"_SigmaFormula_new2.txt","w")
+		fileSigma2=open("plots/"+analyses[i].replace(" ","_")+"_SigmaObservedRoot_new2.txt","w")
+		fileSigma3=open("plots/"+analyses[i].replace(" ","_")+"_SigmaObservedTips_new2.txt","w")
+		fileSigma4=open("plots/"+analyses[i].replace(" ","_")+"_SigmaObservedTips1_new2.txt","w")
 		for j in range(N):
 			skip=False
 			#print(j)
 			sigmas=[]
 			sigmas2=[]
 			sigmas3=[]
-			file=open(foldersBEAST[i]+"phyrex_output/out_phyrex_stats_"+str(j)+".txt")
+			sigmas4=[]
+			file=open(foldersBEAST[i]+"phyrex_output/out_new2_phyrex_stats_"+str(j)+".txt")
 			line=file.readline()
 			linelist=line.split()
 			while len(linelist)<3 or linelist[0]!="sample":
@@ -246,28 +254,37 @@ if sigmaFiles:
 					break
 			if skip:
 				continue
-			sigsqi=linelist.index("sigsq")
+			sigsqi=linelist.index("sigSq")
 			sigsqobsi=linelist.index("realsigsqroot")
+			#sigsqobs2i=linelist.index("realsigsqtips")
 			sigsqobs2i=linelist.index("realsigsqtipsbis")
+			sigsqobs3i=linelist.index("realsigsqtipster")
 			line=file.readline()
 			while line!="" and line!="\n":
 				linelist=line.split()
-				sigsq=float(linelist[sigsqi])
-				sigsqobs=float(linelist[sigsqobsi])
-				sigsqobs3=float(linelist[sigsqobs2i])
-				sigmas.append(sigsq)
-				sigmas2.append(sigsqobs)
-				sigmas3.append(sigsqobs3)
-				fileSigma.write(str(sigsq))
-				fileSigma2.write(str(sigsqobs))
-				fileSigma3.write(str(sigsqobs3))
-				fileSigma.write("\t")
-				fileSigma2.write("\t")
-				fileSigma3.write("\t")
+				count+=1
+				if count%thinPhyrex==0:
+					sigsq=float(linelist[sigsqi])
+					sigsqobs=float(linelist[sigsqobsi])
+					sigsqobs3=float(linelist[sigsqobs2i])
+					sigsqobs4=float(linelist[sigsqobs3i])
+					sigmas.append(sigsq)
+					sigmas2.append(sigsqobs)
+					sigmas3.append(sigsqobs3)
+					sigmas4.append(sigsqobs4)
+					fileSigma.write(str(sigsq))
+					fileSigma2.write(str(sigsqobs))
+					fileSigma3.write(str(sigsqobs3))
+					fileSigma4.write(str(sigsqobs4))
+					fileSigma.write("\t")
+					fileSigma2.write("\t")
+					fileSigma3.write("\t")
+					fileSigma4.write("\t")
 				line=file.readline()
 			fileSigma.write("\n")
 			fileSigma2.write("\n")
 			fileSigma3.write("\n")
+			fileSigma4.write("\n")
 			file.close()
 
 			#print(len(sigmas))
@@ -281,6 +298,8 @@ if sigmaFiles:
 		fileSigma.close()
 		fileSigma2.close()
 		fileSigma3.close()
+		fileSigma4.close()
+		
 		
 if ChangePhyrex:
 	analyses=["Broad sampling LFV, phyrex", "Narrow sampling LFV, phyrex"]

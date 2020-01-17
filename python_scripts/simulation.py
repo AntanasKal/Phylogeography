@@ -7,7 +7,13 @@ Created on Fri Jul 12 15:37:34 2019
 
 import argparse
 import dendropy
+#from dendropy import treecalc
 import os
+from Bio import Phylo
+from cStringIO import StringIO
+import itertools
+import math
+import numpy as np
 
 import sampling
 import beastxmlwriter
@@ -35,6 +41,7 @@ parser.add_argument('-sample_ratio', dest='sample_ratio', action="store", type=f
 parser.add_argument('-seq_len', action="store", type=int, dest="seq_len", default=10000, help='alignment length for corrected beast (default 10000)')
 parser.add_argument('--c_beast', dest='c_beast', action='store_const', const=True, default=False, help='should the files be generated for corrected BEAST? (default: False)')
 parser.add_argument('--re_run', dest='re_run', action='store_const', const=True, default=False, help='is this a re-run, so we should not generate new trees but only run beast again on the previous simulations that did not complete? (default: False)')
+parser.add_argument('--corr', dest='corr', action='store_const', const=True, default=False, help='just calculate genetic-geographic distance correlations.')
 
 parser.add_argument('-br', action="store", type=float, dest="br", default=1, help='birth rate for birth-death or Yule trees (default 1)')
 parser.add_argument('-dr', action="store", type=float, dest="dr", default=1, help='death rate for birth-death trees (default 0.1)')
@@ -89,6 +96,9 @@ num_sampling = 4
 
 #Should I only run beast again for the cases that did not run before?
 reRun_beast_only=args.re_run
+
+#Should I just calculate correlations?
+correlations_only=args.corr
 
 #boolean variable for whether to generate files for sampled scenarios
 generate_sample_files=True
@@ -162,11 +172,11 @@ for output_index in range(1, num_sampling+1):
     if not os.path.exists("output/phyrex/sampled"+str(output_index)+"/phyrex_input"):
         os.makedirs("output/phyrex/sampled"+str(output_index)+"/phyrex_input")
 
-
+corrs=[[],[],[],[]]
 #loop is useful if we want to split a number of simulations into several jobs
 #the program runs num_trees of simulations
 for i in range(num_trees*(job_index), num_trees*(job_index+1)):
- 
+    print("new tree")
     
     #generating a tree according to the parameteres given from the command line
     if args.tree_type == "nuc":
@@ -186,11 +196,7 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
     #simulating brownian motion along entire tree
     t= treegenerator.simulate_brownian(t, sigma, dimension) 
     
-
-    
-    
     #calculating max coordinate to give the bounds of habitat for phyrex
-    
     max_coordinate = 0    
     for node in t.preorder_node_iter():
         max_coordinate = max(max_coordinate, abs(node.X))
@@ -214,6 +220,30 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
                 sampled_t=sampling.sample_biased_diagonal(t, dimension, sample_ratio=sample_ratio)            
             elif output_index==4:
                 sampled_t=sampling.sample_biased_extreme(t, dimension, sample_ratio=sample_ratio)
+            
+            if correlations_only:
+            	gen_dists=[]
+            	geo_dists=[]
+            	newickT=sampled_t.as_string(schema="newick",suppress_rooting=True)
+            	tree = Phylo.read(StringIO(newickT), "newick")
+            	d = {}
+            	for x, y in itertools.combinations(tree.get_terminals(), 2):
+            		v = tree.distance(x, y)
+            		d[x.name] = d.get(x.name, {})
+            		d[x.name][y.name] = v
+            		d[y.name] = d.get(y.name, {})
+            		d[y.name][x.name] = v
+            	for x in tree.get_terminals():
+            		d[x.name][x.name] = 0
+            	for leaf in sampled_t.leaf_node_iter():
+            		for leaf2 in sampled_t.leaf_node_iter():
+            			if leaf.taxon.label>leaf2.taxon.label:
+            				gen_dists.append(d[leaf.taxon.label][leaf2.taxon.label])
+            				geo_dists.append(math.sqrt(((leaf.X-leaf2.X)**2) + ((leaf.Y-leaf2.Y)**2)))
+            	print(np.corrcoef(gen_dists,geo_dists)[0][1])
+            	corrs[output_index-1].append(np.corrcoef(gen_dists,geo_dists)[0][1])
+            	continue
+            
             beastxmlwriter.write_BEAST_xml(sampled_t, i, dimension, mcmc, log_every, "output/beast/sampled"+str(output_index)+"/beast_input/beast", beast_output_string="output/beast/sampled"+str(output_index)+"/beast_output/beast")
             for node in sampled_t.preorder_node_iter():
                 node.annotations.add_bound_attribute("time")
@@ -258,6 +288,9 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
                 for leaf in sampled_t.leaf_node_iter():
                     file.write(leaf.taxon.label+'\n')
                 file.close()
+        
+        if correlations_only:
+        	continue
                 
         #code for writing the full tree in nexus format (this is not necessary now, but might be useful)
         for node in t.preorder_node_iter():
@@ -317,4 +350,7 @@ for i in range(num_trees*(job_index), num_trees*(job_index+1)):
         if run_tree_annotator:
             os.system('treeannotator -burnin '+str(burnin)+' "output/beast/no_sampling/beast_output/beast'+str(i)+'.trees.txt" "output/beast/no_sampling/annotated_trees/beast'+str(i)+'.tree.txt"')
         
-    
+if correlations_only:
+	for output_index in range(num_sampling):
+		print("correlation: "+str(np.average(corrs[output_index])))
+exit()
