@@ -3,6 +3,8 @@
 Created on Mon Jul 29 10:05:24 2019
 
 @author: Antanas
+
+Modified by Nicola De Maio
 """
 
 import numpy as np
@@ -57,6 +59,53 @@ def sample_biased_extreme(tree, dimension=2, sample_ratio=0.1):
         if leaf.X >= cutoff:
             leaf.leave = True
         index = index+1    
+        
+    return delete_tips(tree, dimension)
+    
+#NICOLA: this is the new function to sample partly extreme tips and partly random tips.
+def sample_biased_side(tree, dimension=2, sample_ratio=0.1, ratioExtreme=0.5):
+    #function returns a subtree with partly randomly sampled leaves and partly leaves that have the largest x coordinate
+    for node in tree.preorder_node_iter():
+        node.leave = False       
+    
+    num_tips = 0
+    for leaf in tree.leaf_node_iter():
+        num_tips = num_tips +1
+    
+    sample_size_extreme = int(num_tips*sample_ratio*ratioExtreme)
+    X_positions = np.zeros(num_tips)
+    index = 0
+    for leaf in tree.leaf_node_iter():
+        X_positions[index]=leaf.X
+        index=index+1        
+        
+    X_positions=X_positions[X_positions.argsort()]
+    cutoff=X_positions[-sample_size_extreme]  
+    if sample_size_extreme==0:
+    	cutoff=float("inf")
+
+    #index = 0
+    leaves=[]
+    for leaf in tree.leaf_node_iter():
+        if leaf.X >= cutoff:
+            leaf.leave = True
+        else:
+        	leaves.append(leaf)
+        #index = index+1  
+        
+    sample_size =   int(num_tips*sample_ratio*(1.0-ratioExtreme)) 
+    
+    sample_set = random.sample(range(num_tips-sample_size_extreme), sample_size)
+    print("values")
+    print(len(leaves))
+    print(num_tips)
+    print(sample_size_extreme)
+    print(sample_size)
+    print(sample_set)
+    print(len(sample_set))
+    for i in range(len(sample_set)):
+    	#print(sample_set[i])
+    	leaves[sample_set[i]].leave = True 
         
     return delete_tips(tree, dimension)
 
